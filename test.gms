@@ -6,8 +6,14 @@ Parameters
     demande(t)  demand at (t)
     / t1 17, t2 25, t3 30, t4 40, t5 29 /
 
-    Pmax(X)     puissance max centrales (X)
-    / X1 24, X2 17.5, X3 10 /
+    Nmax(X)     Nombre de centrales (X)
+    / X1 12, X2 10, X3 5 /
+
+    Pmax(X)     Puissance max centrale (X)
+    / X1 2, X2 1.75, X3 2 /
+
+    Pmin(X)     Puissance min centrale (X)
+    / X1 0.8, X2 1, X3 1.1 /
 
     Cost(X)     Coût MWh centrales (X)
     / X1 1.5, X2 1.38, X3 2.8 /
@@ -16,23 +22,32 @@ Parameters
     / t1 5, t2 3, t3 4, t4 4, t5 8 /;
 
 Variables
-    P(X,t)  "Puissance (X) à l'instant (t)"
-    z       "Coût total";
+    P(X,t)      "Puissance (X) à l'instant (t)"
+    N(X,t)      "Nombre de centrale (X) allumées à l'instant (t)"
+    Nstart(X,t) "Nombre de centrale (X) démarrant à (t)"
+    z           "Coût total";
 
 Positive variable P;
+Integer variable N;
 
 Equations
-    obj        Objectif
-    Psup(X,t)   Borne sup de puissance
-    equ(t)      Equilibre offre-demande;
+    obj             Objectif
+    Nsup(X,t)       Nombre max de centrale (X) à (t)
+    Psup(X,t)       Borne sup de puissance
+    Pinf(X,t)       Borne inf de puissance
+    equ(t)          Equilibre offre-demande
+    demarrage(X,t1)  Contrainte démarrage (X) à (t);
 
-obj ..         z               =e= sum((X,t), P(X,t) * Cost(X) * Duree(t));
-Psup(X,t) ..    P(X,t)          =l= Pmax(X);
-equ(t) ..       sum(X, P(X,t))  =e= demande(t);
+obj ..                  z                           =e= sum((X,t), P(X,t) * Cost(X) * Duree(t));
+Psup(X,t) ..            P(X,t)                      =l= Pmax(X) * N(X,t);
+Pinf(X,t) ..            P(X,t)                      =g= Pmin(X) * N(X,t);
+equ(t) ..               sum(X, P(X,t))              =e= demande(t);
+Nsup(X,t) ..            N(X,t)                      =l= Nmax(X);
+demarrage(X,t1)         Nstart(X,t1)                =l= N(X,t1);
+demarrage(X,t2*t9)      Nstart(X,t2*t9)+N(X,t1*t8)  =l= N(X,t2*t9);
+model Optim_production / all /;
 
-model Optim_production / obj, Psup, equ /;
+solve Optim_production using mip minimizing z;
 
-solve Optim_production using lp minimizing z;
-
-display P.l, z.l;
+display P.l, z.l, N.l, "Nombre max centrale (X)" Nmax;
 
