@@ -36,7 +36,7 @@ Sets
 Scalar
      height0      reference height at the source (m)      / 0 /
      tariffnight  electricity hourly tariff at night (euro.kWh^-1)  / 0.02916 /
-     tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /
+     tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /;
 
 Parameter tariff(t)   electricity tariff;
     tariff(t)        = tariffday;
@@ -72,7 +72,7 @@ Table demand(r,t) demand in water at each reservoir each hour (m^3)
 r1   9.83   5.0   3.67  6.5    5.67   7.5   3.0     3.0     2.0
 r2   44.83  18.0  0.0   0.0    0.0    0.0   0.0     45.0    51.67
 r3   14.0   13.33 25.5  11.0   10.0   10.0  11.0    10.33   30.17
-r4   1.0    1.0   8.5   9.5    4.0    2.33  0.0     1.0     0.83
+r4   1.0    1.0   8.5   9.5    4.0    2.33  0.0     1.0     0.83;
 
 Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^-1) for each pipe
                 2               1
@@ -82,4 +82,27 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
      j1.r4      0.00044768      0.00170218  
      j2.r2      0.00223839      0.00851091
      j2.r3      0.00134303      0.00510655;
+
+Variables
+     Qpompe(k,t)    Débit de la pompe (k) à (t)
+     Qreserve(r,t)  Débit entrant au réservoir (r) à (t)
+     v(r,t)         Volume au réservoir (r) en (t)
+     Nstart(k,t)    La pompe (k) démarre à (t);
+
+Positive variables Qpompe, Qreserve, v;
+Binary variable Nstart;
+
+Equations
+     obj                           Objectif
+     Noeud(t)                      Contrainte débit noeud à (t)
+     Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
+     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
+     Elec_pompe(k,t)               Consommation électrique de la pompe (k) à (t)
+
+Noeud(t) ..                   sum(k, Qpompe(k,t)) =e= sum(k, Qreserve(k,t))
+Satisfaction(r,t) ..          v(r,t)         
+
+
+
 
