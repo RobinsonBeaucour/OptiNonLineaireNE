@@ -84,28 +84,28 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
      j2.r3      0.00134303      0.00510655;
 
 Variables
-     Qpompe(c,d,t)       DÃ©bit de la pompe (k) Ã  (t)
-     Qreserve(n,t)       DÃ©bit entrant au rÃ©servoir (r) Ã  (t)
-     Ppompe(c,d,t)       Puissance consommÃ©e (kW) par la pompe (k) Ã  (t)
-     v(n,t)              Volume au rÃ©servoir (r) en (t)
-     Nstart(c,d,t)       La pompe (k) dÃ©marre Ã  (t);
+     Qpompe(c,d,t)       Débit de la pompe (k) à (t)
+     Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
+     Ppompe(c,d,t)       Puissance consommée (kW) par la pompe (k) à (t)
+     v(n,t)              Volume au réservoir (r) en (t)
+     Nstart(c,d,t)       La pompe (k) démarre à (t);
 
 Positive variables Qpompe, Qreserve, v;
 Binary variable Nstart;
 
 Equations
      obj                           Objectif
-     Noeud(t)                      Contrainte dÃ©bit noeud Ã  (t)
-     Satisfaction_demande(r,t)     Satisfaction de la demande en (r) Ã  (t)
-     Sup_Volume(r,t)               Borne sup volume en (r) Ã  (t)
-     Inf_Volume(r,t)               Borne inf volume en (r) Ã  (t)
-     Elec_pompe(k,t)             Consommation Ã©lectrique de la pompe (k) Ã  (t);    
+     Noeud(t)                      Contrainte débit noeud à (t)
+     Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
+     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
+     Elec_pompe(c,d,t)             Consommation électrique de la pompe (c),(d) à (t);    
 
 Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(k, Qreserve(k,t));
 Satisfaction(r,t) ..          v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
 Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r); 
 Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
-Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  sum(degree, psi(k,degree) * Qpompe(k,t)**2);       
+Elec_pompe(c,d,t)$k(c,d) ..   Ppompe(k(c,d),t)         =e=  sum(degree, psi(c,degree) * Qpompe(k(c,d),t)**2);       
 
 
 
