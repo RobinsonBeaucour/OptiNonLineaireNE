@@ -31,20 +31,19 @@ Positive variable P;
 Integer variable N;
 
 Equations
-    obj             Objectif
-    Nsup(X,t)       Nombre max de centrale (X) à (t)
-    Psup(X,t)       Borne sup de puissance
-    Pinf(X,t)       Borne inf de puissance
-    equ(t)          Equilibre offre-demande
-    demarrage(X,t1)  Contrainte démarrage (X) à (t);
+    obj                     Objectif
+    Nsup(X,t)               Nombre max de centrale (X) à (t)
+    Psup(X,t)               Borne sup de puissance
+    Pinf(X,t)               Borne inf de puissance
+    equ(t)                  Equilibre offre-demande
+    demarrage(X,t)          Contrainte démarrage (X) à (t);
 
-obj ..                  z                           =e= sum((X,t), P(X,t) * Cost(X) * Duree(t));
-Psup(X,t) ..            P(X,t)                      =l= Pmax(X) * N(X,t);
-Pinf(X,t) ..            P(X,t)                      =g= Pmin(X) * N(X,t);
-equ(t) ..               sum(X, P(X,t))              =e= demande(t);
-Nsup(X,t) ..            N(X,t)                      =l= Nmax(X);
-demarrage(X,t1)         Nstart(X,t1)                =l= N(X,t1);
-demarrage(X,t2*t9)      Nstart(X,t2*t9)+N(X,t1*t8)  =l= N(X,t2*t9);
+obj ..                          z                           =e= sum((X,t), P(X,t) * Cost(X) * Duree(t));
+Psup(X,t) ..                    P(X,t)                      =l= Pmax(X) * N(X,t);
+Pinf(X,t) ..                    P(X,t)                      =g= Pmin(X) * N(X,t);
+equ(t) ..                       sum(X, P(X,t))              =e= demande(t);
+Nsup(X,t) ..                    N(X,t)                      =l= Nmax(X);
+demarrage(X,t) ..               N(X,t)                      =l= Nstart(X,t)+N(X,t-1);
 model Optim_production / all /;
 
 solve Optim_production using mip minimizing z;

@@ -1,0 +1,93 @@
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/24/22 11:42:39 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      t       temps           / t1*t5 /
+   3      X       centrale type   / X1*X3 /;
+   4   
+   5  Parameters
+   6      demande(t)  demand at (t)
+   7      / t1 17, t2 25, t3 30, t4 40, t5 29 /
+   8   
+   9      Nmax(X)     Nombre de centrales (X)
+  10      / X1 12, X2 10, X3 5 /
+  11   
+  12      Pmax(X)     Puissance max centrale (X)
+  13      / X1 2, X2 1.75, X3 2 /
+  14   
+  15      Pmin(X)     Puissance min centrale (X)
+  16      / X1 0.8, X2 1, X3 1.1 /
+  17   
+  18      Cost(X)     Coût MWh centrales (X)
+  19      / X1 1.5, X2 1.38, X3 2.8 /
+  20   
+  21      Duree(t)    Durée de la période (t)
+  22      / t1 5, t2 3, t3 4, t4 4, t5 8 /;
+  23   
+  24  Variables
+  25      P(X,t)      "Puissance (X) à l'instant (t)"
+  26      N(X,t)      "Nombre de centrale (X) allumées à l'instant (t)"
+  27      Nstart(X,t) "Nombre de centrale (X) démarrant à (t)"
+  28      z           "Coût total";
+  29   
+  30  Positive variable P;
+  31  Integer variable N;
+  32   
+  33  Equations
+  34      obj                     Objectif
+  35      Nsup(X,t)               Nombre max de centrale (X) à (t)
+  36      Psup(X,t)               Borne sup de puissance
+  37      Pinf(X,t)               Borne inf de puissance
+  38      equ(t)                  Equilibre offre-demande
+  39      demarrage(X,t)          Contrainte démarrage (X) à (t)
+  40      demarrage_initial(X)    Contrainte inititale démarrage(X);
+  41   
+  42  obj ..                          z                           =e= sum((X,t), P(X,t) * Cost(X) * Duree(t));
+  43  Psup(X,t) ..                    P(X,t)                      =l= Pmax(X) * N(X,t);
+  44  Pinf(X,t) ..                    P(X,t)                      =g= Pmin(X) * N(X,t);
+  45  equ(t) ..                       sum(X, P(X,t))              =e= demande(t);
+  46  Nsup(X,t) ..                    N(X,t)                      =l= Nmax(X);
+  47  demarrage(X,t)$(ord(t)>1) ..    N(X,t)                      =l= Nstart(X,t)+N(X,t-1);
+  48  demarrage_initial(X) ..         N(X,t(1))                     =l= Nstart(X,t(1));
+****                                       $149,8,37,409
+****   8  ')' expected
+****  37  '=l=' or '=e=' or '=g=' operator expected
+**** 149  Uncontrolled set entered as constant
+**** 409  Unrecognizable item - skip to find a new statement
+****        looking for a ';' or a key word to get started again
+  49  model Optim_production / all /;
+  50   
+  51  solve Optim_production using mip minimizing z;
+****                                               $257
+**** 257  Solve statement not checked because of previous errors
+  52   
+  53  display P.l, z.l, N.l, "Nombre max centrale (X)" Nmax;
+****            $141 $141 $141                            $409
+**** 141  Symbol declared but no values have been assigned. Check for missing
+****         data definition, assignment, data loading or implicit assignment
+****         via a solve statement.
+****         A wild shot: You may have spurious commas in the explanatory
+****         text of a declaration. Check symbol reference list.
+**** 409  Unrecognizable item - skip to find a new statement
+****        looking for a ';' or a key word to get started again
+  54   
+
+**** 9 ERROR(S)   0 WARNING(S)
+
+
+COMPILATION TIME     =        0.016 SECONDS      3 MB  25.1.2 r67455 WEX-WEI
+
+
+USER: Large MUD - 20 User License                    W181015:1136AO-GEN
+      Ecole des Mines de Paris, CMA                              DC4036
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\test.gms
+Output     C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\test.lst
+
+**** USER ERROR(S) ENCOUNTERED
