@@ -88,7 +88,8 @@ Variables
      Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
      Ppompe(c,d,t)       Puissance consommée (kW) par la pompe (k) à (t)
      v(n,t)              Volume au réservoir (r) en (t)
-     Nstart(c,d,t)       La pompe (k) démarre à (t);
+     Non(c,d,t)          La pompe (k) fonctionne à (t)
+     z                   Coût exploitation final;
 
 Positive variables Qpompe, Qreserve, v;
 Binary variable Nstart;
@@ -99,13 +100,25 @@ Equations
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
      Sup_Volume(r,t)               Borne sup volume en (r) à (t)
      Inf_Volume(r,t)               Borne inf volume en (r) à (t)
-     Elec_pompe(k,t)             Consommation électrique de la pompe (k) à (t);    
+     Elec_pompe(c,d,t)               Consommation électrique de la pompe (k) à (t);    
 
-Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(k, Qreserve(k,t));
-Satisfaction(r,t) ..          v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
+Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
+Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
 Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r); 
 Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
-Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  sum(degree, psi(k,degree) * Qpompe(k,t)**2);       
+Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
+obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+
+model Optim_production / all /;
+
+solve Optim_production using minlp minimizing z;
+
+display Ppompe.l, v.l;
+
+
+
+
+
 
 
 
