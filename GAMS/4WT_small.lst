@@ -1,4 +1,4 @@
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 1
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 1
 Pump scheduling smallest
 C o m p i l a t i o n
 
@@ -93,44 +93,71 @@ C o m p i l a t i o n
   91       Non(c,d,t)          La pompe (k) fonctionne à (t)
   92       z                   Coût exploitation final;
   93   
-  94  Positive variables Qpompe, Qreserve, v;
-  95  Binary variable Nstart;
-  96   
-  97  Equations
-  98       obj                           Objectif
-  99       Noeud(t)                      Contrainte débit noeud à (t)
- 100       Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
- 101       Sup_Volume(r,t)               Borne sup volume en (r) à (t)
- 102       Inf_Volume(r,t)               Borne inf volume en (r) à (t)
- 103       Elec_pompe(c,d,t)               Consommation électrique de la pompe (k) à (t);
- 104   
- 105  Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
- 106  Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
- 107  Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r);
- 108  Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
- 109  Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
- 110  obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
- 111   
- 112  model Optim_production / all /;
- 113   
- 114  solve Optim_production using minlp minimizing z;
- 115   
- 116  display Ppompe.l, v.l;
- 117   
+  94  v.up(r,t) =    vmax(r);
+  95  v.lo(r,t)=    vmin(r);
+  96  display v.lo,v.up;
+  97  Positive variables Qpompe, Qreserve;
+  98  Binary variable Nstart;
+  99   
+ 100  Equations
+ 101       obj                           Objectif
+ 102       Noeud(t)                      Contrainte débit noeud à (t)
+ 103       Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+ 104  *     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
+ 105  *     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
+ 106       Elec_pompe(c,d,t)               Consommation électrique de la pompe (k) à (t);
+ 107   
+ 108  Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
+ 109  Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
+ 110  * Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r);
+ 111  * Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
+ 112  Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
+ 113  obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+ 114   
+ 115  model Optim_production / all /;
+ 116   
+ 117  solve Optim_production using minlp minimizing z;
  118   
- 119   
+ 119  display Ppompe.l, v.l;
  120   
  121   
  122   
  123   
  124   
  125   
+ 126   
+ 127   
+ 128   
 
 
-COMPILATION TIME     =        0.000 SECONDS      3 MB  25.1.2 r67455 WEX-WEI
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 2
+COMPILATION TIME     =        0.015 SECONDS      3 MB  25.1.2 r67455 WEX-WEI
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 2
 Pump scheduling smallest
-Equation Listing    SOLVE Optim_production Using MINLP From line 114
+E x e c u t i o n
+
+
+----     96 VARIABLE v.Lo (-INF) Volume au réservoir (r) en (t)
+
+            t1          t2          t3          t4          t5          t6          t7          t8          t9
+
+r1     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000
+r2     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000
+r3     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000
+r4     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000     100.000
+
+
+----     96 VARIABLE v.Up (+INF) Volume au réservoir (r) en (t)
+
+            t1          t2          t3          t4          t5          t6          t7          t8          t9
+
+r1     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000
+r2     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000
+r3     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000
+r4     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000     300.000
+
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 3
+Pump scheduling smallest
+Equation Listing    SOLVE Optim_production Using MINLP From line 117
 
 
 ---- obj  =E=  Objectif
@@ -166,28 +193,6 @@ Satisfaction_demande(r1,t3)..  - Qreserve(r1,t3) - v(r1,t3) + v(r1,t4) =E= -3.67
 REMAINING 33 ENTRIES SKIPPED
 
 
----- Sup_Volume  =L=  Borne sup volume en (r) à (t)
-
-Sup_Volume(r1,t1)..  v(r1,t1) =L= 300 ; (LHS = 0)
-     
-Sup_Volume(r1,t2)..  v(r1,t2) =L= 300 ; (LHS = 0)
-     
-Sup_Volume(r1,t3)..  v(r1,t3) =L= 300 ; (LHS = 0)
-     
-REMAINING 33 ENTRIES SKIPPED
-
-
----- Inf_Volume  =G=  Borne inf volume en (r) à (t)
-
-Inf_Volume(r1,t1)..  v(r1,t1) =G= 100 ; (LHS = 0, INFES = 100 ****)
-     
-Inf_Volume(r1,t2)..  v(r1,t2) =G= 100 ; (LHS = 0, INFES = 100 ****)
-     
-Inf_Volume(r1,t3)..  v(r1,t3) =G= 100 ; (LHS = 0, INFES = 100 ****)
-     
-REMAINING 33 ENTRIES SKIPPED
-
-
 ---- Elec_pompe  =E=  Consommation électrique de la pompe (k) à (t)
 
 Elec_pompe(small,p1,t1)..  (0)*Qpompe(small,p1,t1) + Ppompe(small,p1,t1) - 63.0796*Non(small,p1,t1) =E= 0 ; (LHS = 0)
@@ -198,9 +203,9 @@ Elec_pompe(small,p1,t3)..  (0)*Qpompe(small,p1,t3) + Ppompe(small,p1,t3) - 63.07
      
 REMAINING 24 ENTRIES SKIPPED
 
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 3
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 4
 Pump scheduling smallest
-Column Listing      SOLVE Optim_production Using MINLP From line 114
+Column Listing      SOLVE Optim_production Using MINLP From line 117
 
 
 ---- Qpompe  Débit de la pompe (k) à (t)
@@ -263,24 +268,21 @@ REMAINING 24 ENTRIES SKIPPED
 ---- v  Volume au réservoir (r) en (t)
 
 v(r1,t1)
-                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 100, 100, 300, 0)
        -1       Satisfaction_demande(r1,t1)
-        1       Sup_Volume(r1,t1)
-        1       Inf_Volume(r1,t1)
+        0       (OLD LEVEL ****)
 
 v(r1,t2)
-                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 100, 100, 300, 0)
         1       Satisfaction_demande(r1,t1)
        -1       Satisfaction_demande(r1,t2)
-        1       Sup_Volume(r1,t2)
-        1       Inf_Volume(r1,t2)
+        0       (OLD LEVEL ****)
 
 v(r1,t3)
-                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 100, 100, 300, 0)
         1       Satisfaction_demande(r1,t2)
        -1       Satisfaction_demande(r1,t3)
-        1       Sup_Volume(r1,t3)
-        1       Inf_Volume(r1,t3)
+        0       (OLD LEVEL ****)
 
 REMAINING 33 ENTRIES SKIPPED
 
@@ -306,34 +308,34 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       obj
 
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 4
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 5
 Pump scheduling smallest
-Model Statistics    SOLVE Optim_production Using MINLP From line 114
+Model Statistics    SOLVE Optim_production Using MINLP From line 117
 
 
 MODEL STATISTICS
 
-BLOCKS OF EQUATIONS           6     SINGLE EQUATIONS          145
-BLOCKS OF VARIABLES           6     SINGLE VARIABLES          154
-NON ZERO ELEMENTS           348     NON LINEAR N-Z             27
+BLOCKS OF EQUATIONS           4     SINGLE EQUATIONS           73
+BLOCKS OF VARIABLES           6     SINGLE VARIABLES          154  36 projected
+NON ZERO ELEMENTS           276     NON LINEAR N-Z             27
 DERIVATIVE POOL              20     CONSTANT POOL              17
 CODE LENGTH                 190
 
 
-GENERATION TIME      =        0.031 SECONDS      4 MB  25.1.2 r67455 WEX-WEI
+GENERATION TIME      =        0.032 SECONDS      4 MB  25.1.2 r67455 WEX-WEI
 
 
-EXECUTION TIME       =        0.031 SECONDS      4 MB  25.1.2 r67455 WEX-WEI
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 5
+EXECUTION TIME       =        0.032 SECONDS      4 MB  25.1.2 r67455 WEX-WEI
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 6
 Pump scheduling smallest
-Solution Report     SOLVE Optim_production Using MINLP From line 114
+Solution Report     SOLVE Optim_production Using MINLP From line 117
 
 
                S O L V E      S U M M A R Y
 
      MODEL   Optim_production    OBJECTIVE  z
      TYPE    MINLP               DIRECTION  MINIMIZE
-     SOLVER  DICOPT              FROM LINE  114
+     SOLVER  DICOPT              FROM LINE  117
 
 **** SOLVER STATUS     1 Normal Completion         
 **** MODEL STATUS      4 Infeasible                
@@ -359,20 +361,19 @@ CONOPT 3         25.1.2 r67455 Released Aug  1, 2018 WEI x86 64bit/MS Windows
                     DK-2880 Bagsvaerd, Denmark
  
  
-    The model has 154 variables and 145 constraints
-    with 348 Jacobian elements, 27 of which are nonlinear.
+    The model has 154 variables and 73 constraints
+    with 276 Jacobian elements, 27 of which are nonlinear.
     The Hessian of the Lagrangian has 27 elements on the diagonal,
     0 elements below the diagonal, and 27 nonlinear variables.
  
                    Pre-triangular equations:   0
                    Post-triangular equations:  28
-                   Definitional equations:     6
  
  
  ** Infeasible solution. Reduced gradient less than tolerance.
  
  
- CONOPT time Total                            0.002 seconds
+ CONOPT time Total                            0.001 seconds
    of which: Function evaluations             0.000 =  0.0%
              1st Derivative evaluations       0.000 =  0.0%
  
@@ -444,88 +445,6 @@ r4.t6        -2.3300        -2.3300        -2.3300         EPS
 r4.t7          .              .              .             EPS         
 r4.t8        -1.0000        -1.0000        -1.0000         EPS         
 r4.t9        -0.8300      -100.0000        -0.8300         0.0156 INFES
-
----- EQU Sup_Volume  Borne sup volume en (r) à (t)
-
-             LOWER          LEVEL          UPPER         MARGINAL
-
-r1.t1        -INF          144.1700       300.0000          .          
-r1.t2        -INF          134.3400       300.0000          .          
-r1.t3        -INF          129.3400       300.0000          .          
-r1.t4        -INF          125.6700       300.0000          .          
-r1.t5        -INF          119.1700       300.0000          .          
-r1.t6        -INF          113.5000       300.0000          .          
-r1.t7        -INF          106.0000       300.0000          .          
-r1.t8        -INF          103.0000       300.0000          .          
-r1.t9        -INF          100.0000       300.0000          .          
-r2.t1        -INF          207.8300       300.0000          .          
-r2.t2        -INF          163.0000       300.0000          .          
-r2.t3        -INF          145.0000       300.0000          .          
-r2.t4        -INF          145.0000       300.0000          .          
-r2.t5        -INF          145.0000       300.0000          .          
-r2.t6        -INF          145.0000       300.0000          .          
-r2.t7        -INF          145.0000       300.0000          .          
-r2.t8        -INF          145.0000       300.0000          .          
-r2.t9        -INF          100.0000       300.0000          .          
-r3.t1        -INF          205.1600       300.0000          .          
-r3.t2        -INF          191.1600       300.0000          .          
-r3.t3        -INF          177.8300       300.0000          .          
-r3.t4        -INF          152.3300       300.0000          .          
-r3.t5        -INF          141.3300       300.0000          .          
-r3.t6        -INF          131.3300       300.0000          .          
-r3.t7        -INF          121.3300       300.0000          .          
-r3.t8        -INF          110.3300       300.0000          .          
-r3.t9        -INF          100.0000       300.0000          .          
-r4.t1        -INF          127.3300       300.0000          .          
-r4.t2        -INF          126.3300       300.0000          .          
-r4.t3        -INF          125.3300       300.0000          .          
-r4.t4        -INF          116.8300       300.0000          .          
-r4.t5        -INF          107.3300       300.0000          .          
-r4.t6        -INF          103.3300       300.0000          .          
-r4.t7        -INF          101.0000       300.0000          .          
-r4.t8        -INF          101.0000       300.0000          .          
-r4.t9        -INF          100.0000       300.0000          .          
-
----- EQU Inf_Volume  Borne inf volume en (r) à (t)
-
-             LOWER          LEVEL          UPPER         MARGINAL
-
-r1.t1       100.0000       144.1700        +INF             .          
-r1.t2       100.0000       134.3400        +INF             .          
-r1.t3       100.0000       129.3400        +INF             .          
-r1.t4       100.0000       125.6700        +INF             .          
-r1.t5       100.0000       119.1700        +INF             .          
-r1.t6       100.0000       113.5000        +INF             .          
-r1.t7       100.0000       106.0000        +INF             .          
-r1.t8       100.0000       103.0000        +INF             .          
-r1.t9       100.0000       100.0000        +INF            0.0156      
-r2.t1       100.0000       207.8300        +INF             .          
-r2.t2       100.0000       163.0000        +INF             .          
-r2.t3       100.0000       145.0000        +INF             .          
-r2.t4       100.0000       145.0000        +INF             .          
-r2.t5       100.0000       145.0000        +INF             .          
-r2.t6       100.0000       145.0000        +INF             .          
-r2.t7       100.0000       145.0000        +INF             .          
-r2.t8       100.0000       145.0000        +INF             .          
-r2.t9       100.0000       100.0000        +INF            0.0156      
-r3.t1       100.0000       205.1600        +INF             .          
-r3.t2       100.0000       191.1600        +INF             .          
-r3.t3       100.0000       177.8300        +INF             .          
-r3.t4       100.0000       152.3300        +INF             .          
-r3.t5       100.0000       141.3300        +INF             .          
-r3.t6       100.0000       131.3300        +INF             .          
-r3.t7       100.0000       121.3300        +INF             .          
-r3.t8       100.0000       110.3300        +INF             .          
-r3.t9       100.0000       100.0000        +INF            0.0156      
-r4.t1       100.0000       127.3300        +INF             .          
-r4.t2       100.0000       126.3300        +INF             .          
-r4.t3       100.0000       125.3300        +INF             .          
-r4.t4       100.0000       116.8300        +INF             .          
-r4.t5       100.0000       107.3300        +INF             .          
-r4.t6       100.0000       103.3300        +INF             .          
-r4.t7       100.0000       101.0000        +INF             .          
-r4.t8       100.0000       101.0000        +INF             .          
-r4.t9       100.0000       100.0000        +INF            0.0156      
 
 ---- EQU Elec_pompe  Consommation électrique de la pompe (k) à (t)
 
@@ -619,7 +538,7 @@ r3.t3          .              .            +INF            EPS
 r3.t4          .              .            +INF            EPS         
 r3.t5          .              .            +INF            EPS         
 r3.t6          .              .            +INF            EPS         
-r3.t7          .              .            +INF             .          
+r3.t7          .              .            +INF            EPS         
 r3.t8          .              .            +INF            EPS         
 r3.t9          .              .            +INF            EPS         
 r4.t1          .              .            +INF             .          
@@ -628,7 +547,7 @@ r4.t3          .              .            +INF             .
 r4.t4          .              .            +INF             .          
 r4.t5          .              .            +INF             .          
 r4.t6          .              .            +INF             .          
-r4.t7          .              .            +INF            EPS         
+r4.t7          .              .            +INF             .          
 r4.t8          .              .            +INF             .          
 r4.t9          .              .            +INF             .          
 
@@ -668,42 +587,42 @@ small.p3.t9        -INF             .            +INF            EPS
 
              LOWER          LEVEL          UPPER         MARGINAL
 
-r1.t1          .           144.1700        +INF             .          
-r1.t2          .           134.3400        +INF             .          
-r1.t3          .           129.3400        +INF             .          
-r1.t4          .           125.6700        +INF             .          
-r1.t5          .           119.1700        +INF             .          
-r1.t6          .           113.5000        +INF             .          
-r1.t7          .           106.0000        +INF             .          
-r1.t8          .           103.0000        +INF             .          
-r1.t9          .           100.0000        +INF             .          
-r2.t1          .           207.8300        +INF             .          
-r2.t2          .           163.0000        +INF             .          
-r2.t3          .           145.0000        +INF             .          
-r2.t4          .           145.0000        +INF             .          
-r2.t5          .           145.0000        +INF             .          
-r2.t6          .           145.0000        +INF             .          
-r2.t7          .           145.0000        +INF             .          
-r2.t8          .           145.0000        +INF             .          
-r2.t9          .           100.0000        +INF             .          
-r3.t1          .           205.1600        +INF             .          
-r3.t2          .           191.1600        +INF             .          
-r3.t3          .           177.8300        +INF             .          
-r3.t4          .           152.3300        +INF             .          
-r3.t5          .           141.3300        +INF             .          
-r3.t6          .           131.3300        +INF             .          
-r3.t7          .           121.3300        +INF             .          
-r3.t8          .           110.3300        +INF             .          
-r3.t9          .           100.0000        +INF             .          
-r4.t1          .           127.3300        +INF             .          
-r4.t2          .           126.3300        +INF             .          
-r4.t3          .           125.3300        +INF             .          
-r4.t4          .           116.8300        +INF             .          
-r4.t5          .           107.3300        +INF             .          
-r4.t6          .           103.3300        +INF             .          
-r4.t7          .           101.0000        +INF             .          
-r4.t8          .           101.0000        +INF             .          
-r4.t9          .           100.0000        +INF             .          
+r1.t1       100.0000       144.1700       300.0000          .          
+r1.t2       100.0000       134.3400       300.0000          .          
+r1.t3       100.0000       129.3400       300.0000          .          
+r1.t4       100.0000       125.6700       300.0000          .          
+r1.t5       100.0000       119.1700       300.0000          .          
+r1.t6       100.0000       113.5000       300.0000          .          
+r1.t7       100.0000       106.0000       300.0000          .          
+r1.t8       100.0000       103.0000       300.0000          .          
+r1.t9       100.0000       100.0000       300.0000         0.0156      
+r2.t1       100.0000       207.8300       300.0000          .          
+r2.t2       100.0000       163.0000       300.0000          .          
+r2.t3       100.0000       145.0000       300.0000          .          
+r2.t4       100.0000       145.0000       300.0000          .          
+r2.t5       100.0000       145.0000       300.0000          .          
+r2.t6       100.0000       145.0000       300.0000          .          
+r2.t7       100.0000       145.0000       300.0000          .          
+r2.t8       100.0000       145.0000       300.0000          .          
+r2.t9       100.0000       100.0000       300.0000         0.0156      
+r3.t1       100.0000       205.1600       300.0000          .          
+r3.t2       100.0000       191.1600       300.0000          .          
+r3.t3       100.0000       177.8300       300.0000          .          
+r3.t4       100.0000       152.3300       300.0000          .          
+r3.t5       100.0000       141.3300       300.0000          .          
+r3.t6       100.0000       131.3300       300.0000          .          
+r3.t7       100.0000       121.3300       300.0000          .          
+r3.t8       100.0000       110.3300       300.0000          .          
+r3.t9       100.0000       100.0000       300.0000         0.0156      
+r4.t1       100.0000       127.3300       300.0000          .          
+r4.t2       100.0000       126.3300       300.0000          .          
+r4.t3       100.0000       125.3300       300.0000          .          
+r4.t4       100.0000       116.8300       300.0000          .          
+r4.t5       100.0000       107.3300       300.0000          .          
+r4.t6       100.0000       103.3300       300.0000          .          
+r4.t7       100.0000       101.0000       300.0000          .          
+r4.t8       100.0000       101.0000       300.0000          .          
+r4.t9       100.0000       100.0000       300.0000         0.0156      
 
 ---- VAR Non  La pompe (k) fonctionne à (t)
 
@@ -751,17 +670,17 @@ small.p3.t9        -INF             .            +INF             .
                     MEAN        78.8325
                              0  UNBOUNDED
                              0     ERRORS
-GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/28/22 17:59:50 Page 6
+GAMS 25.1.2  r67455 Released Aug  1, 2018 WEX-WEI x86 64bit/MS Windows - 11/29/22 12:15:18 Page 7
 Pump scheduling smallest
 E x e c u t i o n
 
 
-----    116 VARIABLE Ppompe.L  Puissance consommée (kW) par la pompe (k) à (t)
+----    119 VARIABLE Ppompe.L  Puissance consommée (kW) par la pompe (k) à (t)
 
                       ( ALL       0.000 )
 
 
-----    116 VARIABLE v.L  Volume au réservoir (r) en (t)
+----    119 VARIABLE v.L  Volume au réservoir (r) en (t)
 
             t1          t2          t3          t4          t5          t6          t7          t8          t9
 
@@ -772,7 +691,7 @@ r4     127.330     126.330     125.330     116.830     107.330     103.330     1
 
 
 
-EXECUTION TIME       =        0.015 SECONDS      3 MB  25.1.2 r67455 WEX-WEI
+EXECUTION TIME       =        0.000 SECONDS      3 MB  25.1.2 r67455 WEX-WEI
 
 
 USER: Large MUD - 20 User License                    W181015:1136AO-GEN
@@ -782,5 +701,5 @@ USER: Large MUD - 20 User License                    W181015:1136AO-GEN
 
 **** FILE SUMMARY
 
-Input      C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\data\4WT_small.gms
-Output     C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\data\4WT_small.lst
+Input      C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\GAMS\4WT_small.gms
+Output     C:\Users\robinson.beaucour\PythonProjects\OptiNonLineaireNE\GAMS\4WT_small.lst

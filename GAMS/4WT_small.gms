@@ -91,21 +91,24 @@ Variables
      Non(c,d,t)          La pompe (k) fonctionne à (t)
      z                   Coût exploitation final;
 
-Positive variables Qpompe, Qreserve, v;
+v.up(r,t) =    vmax(r);
+v.lo(r,t)=    vmin(r);
+display v.lo,v.up;
+Positive variables Qpompe, Qreserve;
 Binary variable Nstart;
 
 Equations
      obj                           Objectif
      Noeud(t)                      Contrainte débit noeud à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
-     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
-     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
+*     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
+*     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
      Elec_pompe(c,d,t)               Consommation électrique de la pompe (k) à (t);    
 
 Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
 Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
-Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r); 
-Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
+* Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r); 
+* Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
 Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
 obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
 
