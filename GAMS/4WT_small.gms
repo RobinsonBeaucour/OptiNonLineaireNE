@@ -88,7 +88,8 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
 Variables
      Qpompe(c,d,t)       Débit de la pompe (k) à (t)
      Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
-     Ppompe(c,d,t)       Puissance consommée (kW) par la pompe (k) à (t)
+     Gpompe(c,d,t)       Gain de charge de la pompe (k) à (t) en (m)
+     Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
      v(n,t)              Volume au réservoir (r) en (t)
      Non(c,d,t)          La pompe (k) fonctionne à (t)
      z                   Coût exploitation final;
@@ -104,13 +105,14 @@ Equations
      obj                           Objectif
      Noeud(t)                      Contrainte débit noeud à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+*     Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
      Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
      Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t);    
 
 Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
 Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1)   =e=  1 * (Qreserve(r,t)-demand(r,t));
-Elec_pompe(k,t) ..            Ppompe(k,t)         =g=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
+Elec_pompe(k,t) ..            Ppompe(k,t)         =g=  gamma("small","0") * Non(k,t) +gamma("small","1")*Qpompe(k,t);
 Qpompe_inf(k,t) ..            Qpompe(k,t)         =g=  Non(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)         =l=  Non(k,t)*Qmax;
 obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
@@ -119,7 +121,7 @@ model Optim_production / all /;
 
 solve Optim_production using minlp minimizing z;
 
-display Ppompe.l, v.l;
+display Ppompe.l, v.l, z.l;
 
 File volumes / volume.txt /;
 volumes.pc = 5;
@@ -129,12 +131,22 @@ loop((n,t),
   put n.tl, t.tl, v.l(n,t) /
 );
 putclose;
+
 File Conso / Conso.txt /;
 Conso.pc = 5;
 put Conso;
 put "Consommation électrique des pompes" /;
 loop((c,d,t),
   put c.tl, d.tl, t.tl, Ppompe.l(c,d,t) /
+);
+putclose;
+
+File Dpompe / Dpompe.txt /;
+Dpompe.pc = 5;
+put Dpompe;
+put "Débit des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Qpompe.l(c,d,t), Ppompe.l(c,d,t), Non.l(c,d,t) /
 );
 putclose;
 

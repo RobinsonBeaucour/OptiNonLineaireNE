@@ -1,8 +1,8 @@
 "Consommation électrique des pompes"
-"small","p1","t1",0.00
-"small","p1","t2",0.00
-"small","p1","t3",0.00
-"small","p1","t4",0.00
+"small","p1","t1",32.69
+"small","p1","t2",7.40
+"small","p1","t3",19.41
+"small","p1","t4",13.45
 "small","p1","t5",0.00
 "small","p1","t6",0.00
 "small","p1","t7",0.00
@@ -17,7 +17,7 @@
 "small","p2","t7",0.00
 "small","p2","t8",0.00
 "small","p2","t9",0.00
-"small","p3","t1",0.00
+"small","p3","t1",20.14
 "small","p3","t2",0.00
 "small","p3","t3",0.00
 "small","p3","t4",0.00
