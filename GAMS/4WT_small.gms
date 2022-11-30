@@ -36,7 +36,9 @@ Sets
 Scalar
      height0      reference height at the source (m)      / 0 /
      tariffnight  electricity hourly tariff at night (euro.kWh^-1)  / 0.02916 /
-     tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /;
+     tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /
+     Qmin         minimal debit for pumps    / 1 /
+     Qmax         maximal debit for pumps    / 300 /;
 
 Parameter tariff(t)   electricity tariff;
     tariff(t)        = tariffday;
@@ -91,25 +93,26 @@ Variables
      Non(c,d,t)          La pompe (k) fonctionne à (t)
      z                   Coût exploitation final;
 
-v.up(r,t) =    vmax(r);
-v.lo(r,t)=    vmin(r);
-display v.lo,v.up;
-Positive variables Qpompe, Qreserve;
-Binary variable Nstart;
+v.up(r,t)      =    vmax(r);
+v.lo(r,t)      =    vmin(r);
+v.fx(r,'t1')   =    vinit(r);
+
+Positive variables Qpompe, Qreserve, Ppompe;
+Binary variable Non;
 
 Equations
      obj                           Objectif
      Noeud(t)                      Contrainte débit noeud à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
-*     Sup_Volume(r,t)               Borne sup volume en (r) à (t)
-*     Inf_Volume(r,t)               Borne inf volume en (r) à (t)
-     Elec_pompe(c,d,t)               Consommation électrique de la pompe (k) à (t);    
+     Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
+     Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
+     Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t);    
 
 Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
-Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
-* Sup_Volume(r,t) ..            v(r,t)              =l=  vmax(r); 
-* Inf_Volume(r,t) ..            v(r,t)              =g=  vmin(r);
-Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
+Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1)   =e=  1 * (Qreserve(r,t)-demand(r,t));
+Elec_pompe(k,t) ..            Ppompe(k,t)         =g=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
+Qpompe_inf(k,t) ..            Qpompe(k,t)         =g=  Non(k,t)*Qmin;
+Qpompe_sup(k,t) ..            Qpompe(k,t)         =l=  Non(k,t)*Qmax;
 obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
 
 model Optim_production / all /;
@@ -118,6 +121,22 @@ solve Optim_production using minlp minimizing z;
 
 display Ppompe.l, v.l;
 
+File volumes / volume.txt /;
+volumes.pc = 5;
+put volumes;
+put "Volume" /;
+loop((n,t),
+  put n.tl, t.tl, v.l(n,t) /
+);
+putclose;
+File Conso / Conso.txt /;
+Conso.pc = 5;
+put Conso;
+put "Consommation électrique des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Ppompe.l(c,d,t) /
+);
+putclose;
 
 
 
