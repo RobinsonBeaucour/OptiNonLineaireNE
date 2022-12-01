@@ -87,6 +87,7 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
 
 Variables
      Charge(n,t)         Niveau de charge au noeud (n) à (t)
+     Qpipe(n,n,t)          Débit dans le tuyau (l) à (t)
      Qpompe(c,d,t)       Débit de la pompe (k) à (t)
      Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
      Gpompe(c,d,t)       Gain de charge de la pompe (k) à (t) en (m)
@@ -99,7 +100,7 @@ v.up(r,t)      =    vmax(r);
 v.lo(r,t)      =    vmin(r);
 v.fx(r,'t1')   =    vinit(r);
 
-Positive variables Qpompe, Qreserve, Ppompe, Charge;
+Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
 Binary variable Son;
 
 Equations
@@ -107,24 +108,27 @@ Equations
      Charge_s(n,t)                 Niveau de charge à la source à (t)
      Charge_j(n,t)                 Niveau de charge aux jonctions (j) à (t)
      Charge_r(n,t)                 Niveau de charge au réservoir (r) à (t)
-     Noeud(t)                      Contrainte débit noeud à (t)
+     Noeud(n,t)                    Contrainte débit noeud (n) à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
      Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
      Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
      Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
-     Perte_charge(n,n,t)           Perte charge (n,n) à (t);    
+     Perte_charge(n,n,t)           Perte charge (n n) à (t)
+     Debit_s(t)                    Equilibre des débits à la source à (t);    
 
-Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
-Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1)   =e=  1 * (Qreserve(r,t)-demand(r,t));
-Elec_pompe(k,t) ..            Ppompe(k,t)         =g=  gamma("small","0") * Son(k,t) + gamma("small","1")*Qpompe(k,t);
-Gain_charge_pompe(k,t) ..     Gpompe(k,t)         =l=  psi("small","0") * Son(k,t) + psi("small","2")*Qpompe(k,t)**2;
-Qpompe_inf(k,t) ..            Qpompe(k,t)         =g=  Son(k,t)*Qmin;
-Qpompe_sup(k,t) ..            Qpompe(k,t)         =l=  Son(k,t)*Qmax;
-obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
-Charge_s("s",t) ..            Charge("s",t)       =e=  sum(k, Gpompe(k,t));
-Charge_j(j,t) ..              Charge(j,t)         =g=  height(j);
-Charge_(r,t) ..               Charge(r,t)         =g=  height(r) + v(r)/surface(r);
+Noeud(j,t) ..                 sum(n, Qpipe(j,n,t))     =e=  sum(n, Qpipe(n,j,t));
+Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1)        =e=  1 * (sum(n,Qpipe(n,r,t))-demand(r,t));
+Elec_pompe(k(c,d),t) ..       Ppompe(k,t)              =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
+Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)              =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
+Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t) =e=  sum(degree, phi(l,degree)*Qpipe(l,t));
+Qpompe_inf(k,t) ..            Qpompe(k,t)              =g=  Son(k,t)*Qmin;
+Qpompe_sup(k,t) ..            Qpompe(k,t)              =l=  Son(k,t)*Qmax;
+obj ..                        z                        =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+Charge_s("s",t) ..            Charge("s",t)            =e=  sum(k, Gpompe(k,t));
+Charge_j(j,t) ..              Charge(j,t)              =g=  height(j);
+Charge_r(r,t) ..              Charge(r,t)              =g=  height(r) + v(r,t)/surface(r);
+Debit_s(t) ..                 sum(n, Qpipe("s",n,t))   =e=  sum(k, Qpompe(k,t));
 
 
 model Optim_production / all /;
