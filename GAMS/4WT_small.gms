@@ -38,7 +38,7 @@ Scalar
      tariffnight  electricity hourly tariff at night (euro.kWh^-1)  / 0.02916 /
      tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /
      Qmin         minimal debit for pumps    / 1 /
-     Qmax         maximal debit for pumps    / 300 /;
+     Qmax         maximal debit for pumps    / 100 /;
 
 Parameter tariff(t)   electricity tariff;
     tariff(t)        = tariffday;
@@ -155,13 +155,11 @@ loop((c,d,t),
 );
 putclose;
 
-File Dpompe / Dpompe.txt /;
-Dpompe.pc = 5;
-put Dpompe;
-put "Débit des pompes" /;
-loop((c,d,t),
-  put c.tl, d.tl, t.tl, Qpompe.l(c,d,t), Ppompe.l(c,d,t), Son.l(c,d,t) /
-);
+File ZZ / ZZ.txt /;
+ZZ.pc = 5;
+put ZZ;
+put "Coût operation" /;
+put z.l;
 putclose;
 
 
