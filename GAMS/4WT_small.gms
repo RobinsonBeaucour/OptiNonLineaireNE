@@ -85,7 +85,7 @@ v.up(r,t)      =    vmax(r);
 v.lo(r,t)      =    vmin(r);
 * v.fx(r,'t1')   =    vinit(r);
 
-Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
+Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe, Gpompe;
 Binary variable Son;
 
 Son.l(k,t)$night(t)     =    1;
@@ -114,7 +114,7 @@ Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t)
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
-Charge_s("s",t) ..            Charge("s",t)                      =e=  sum(k, Gpompe(k,t));
+Charge_s("s",t) ..            0                                  =l=  (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
 Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
 Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
@@ -160,6 +160,15 @@ put ChargePompe;
 put "Gain de charge des pompes" /;
 loop((c,d,t),
   put c.tl, d.tl, t.tl, Gpompe.l(c,d,t) /
+);
+putclose;
+
+File ChargeReseau / ChargeReseau.txt /;
+ChargeReseau.pc = 5;
+put ChargeReseau;
+put "Charge dans le réseau" /;
+loop((n,t),
+  put n.tl, t.tl, Charge.l(n,t) /
 );
 putclose;
 
