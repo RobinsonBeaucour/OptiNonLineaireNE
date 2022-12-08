@@ -88,7 +88,8 @@ v.lo(r,t)      =    vmin(r);
 Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
 Binary variable Son;
 
-Son.l(k,t)$night(t)     =    1;   
+Son.l(k,t)$night(t)      =    1;  
+Son.l('small','p1',t)    =    1;     
 
 Equations
      obj                           Objectif
