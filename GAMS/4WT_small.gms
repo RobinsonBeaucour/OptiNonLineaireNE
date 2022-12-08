@@ -88,7 +88,7 @@ v.lo(r,t)      =    vmin(r);
 Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
 Binary variable Son;
 
-Son.fx(k,t)$night(t)     =    1;
+Son.l(k,t)$night(t)     =    1;
 
 Equations
      obj                           Objectif
@@ -99,6 +99,7 @@ Equations
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
      Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
      Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
+     Ordre_pompe(c,d,t)            Les pompes s allument dans l ordre
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
      Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
      Perte_charge(n,n,t)           Perte charge (n n) à (t)
@@ -109,6 +110,7 @@ Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n
 Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
 Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)                        =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
 Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  sum(degree, phi(l,degree)*Qpipe(l,t));
+Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);    
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));

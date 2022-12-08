@@ -88,6 +88,8 @@ v.lo(r,t)      =    vmin(r);
 Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
 Binary variable Son;
 
+Son.l(k,t)$night(t)     =    1;   
+
 Equations
      obj                           Objectif
      Charge_s(n,t)                 Niveau de charge à la source à (t)
@@ -96,6 +98,7 @@ Equations
      Noeud(n,t)                    Contrainte débit noeud (n) à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
      Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
+     Ordre_pompe(c,d,t)            Les pompes s allument dans l ordre
      Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
      Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
@@ -107,6 +110,7 @@ Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n
 Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
 Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)                        =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
 Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  sum(degree, phi(l,degree)*Qpipe(l,t));
+Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
@@ -116,13 +120,11 @@ Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) 
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
 
 
-* model Optim_production / all /;
-model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
+model Optim_production / all /;
+* model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
 
-* solve Optim_production using minlp minimizing z;
-solve Optim_production using mip minimizing z;
-
-display Ppompe.l, v.l, z.l;
+solve Optim_production using minlp minimizing z;
+* solve Optim_production using mip minimizing z;
 
 File volumes / volume.txt /;
 volumes.pc = 5;
@@ -151,6 +153,15 @@ loop((c,d,t),
 );
 putclose;
 
+File ChargePompe / ChargePompe.txt /;
+ChargePompe.pc = 5;
+put ChargePompe;
+put "Gain de charge des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Gpompe.l(c,d,t) /
+);
+putclose;
+
 File DebitPipe / DebitPipe.txt /;
 DebitPipe.pc = 5;
 put DebitPipe;
@@ -165,4 +176,13 @@ ZZ.pc = 5;
 put ZZ;
 put "Coût operation" /;
 put z.l;
+putclose;
+
+File States / States.txt /;
+States.pc = 5;
+put States;
+put "Etat pompe" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Son.l(c,d,t) /
+);
 putclose;
