@@ -5,4 +5,5 @@ Documentation
 *.lst
 *.lxi
 *.txt
+!requirements.txt
 ONLNE
