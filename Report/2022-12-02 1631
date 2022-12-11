@@ -1,0 +1,3222 @@
+Executed on prod-exec-7.neos-server.org
+GAMS 40.1.0  93c2a77b Aug 1, 2022           LEX-LEG x86 64bit/Linux - 12/02/22 08:26:35 Page 1
+Pump Scheduling 4WT
+C o m p i l a t i o n
+
+
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  40.1.0 93c2a77b LEX-LEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           LEX-LEG x86 64bit/Linux - 12/02/22 08:26:35 Page 2
+Pump Scheduling 4WT
+Range Statistics    SOLVE Optim_production Using MINLP From line 126
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 6.700E-01, 1.038E+02] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 3.000E+02] - Zero values observed as well
+Matrix    [min, max] : [ 4.362E-04, 1.000E+02] - Zero values observed as well
+
+GAMS 40.1.0  93c2a77b Aug 1, 2022           LEX-LEG x86 64bit/Linux - 12/02/22 08:26:35 Page 3
+Pump Scheduling 4WT
+Model Statistics    SOLVE Optim_production Using MINLP From line 126
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS          12     SINGLE EQUATIONS          769
+BLOCKS OF VARIABLES           8     SINGLE VARIABLES          697  96 projected
+NON ZERO ELEMENTS         2,109     NON LINEAR N-Z             72
+CODE LENGTH                 504     CONSTANT POOL              17     
+DISCRETE VARIABLES         72
+
+
+GENERATION TIME      =        0.002 SECONDS      4 MB  40.1.0 93c2a77b LEX-LEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           LEX-LEG x86 64bit/Linux - 12/02/22 08:26:35 Page 4
+Pump Scheduling 4WT
+Solution Report     SOLVE Optim_production Using MINLP From line 126
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   Optim_production    OBJECTIVE  z
+     TYPE    MINLP               DIRECTION  MINIMIZE
+     SOLVER  DICOPT              FROM LINE  126
+
+**** SOLVER STATUS     4 Terminated By Solver
+**** MODEL STATUS      9 Intermediate Non-Integer
+**** OBJECTIVE VALUE                8.5939
+
+ RESOURCE USAGE, LIMIT       2748.873 10000000000.000
+ ITERATION COUNT, LIMIT  63411524    2147483647
+ EVALUATION ERRORS              0             0
+-------------------------------------------------------------------------------
+Dicopt 2         40.1.0 93c2a77b Aug 1, 2022           LEG x86 64bit/Linux    
+-------------------------------------------------------------------------------
+by Aldo Vecchietti, Director del Instituto INGAR,
+   CONICET, UTN, Santa Fe, Argentina
+by Ignacio E. Grossmann, Chemical Engineering Faculty,
+   Carnegie Mellon University, Pittsburgh, PA, USA
+-------------------------------------------------------------------------------
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+    The pre-triangular part of the model has 48 constraints and 0 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 72 penalty and minimax constraints with 72 variables.
+    There are 191 definitional constraints and defined variables.
+ 
+    Preprocessed model has 529 constraints and 505 variables
+    with 1673 Jacobian elements, 49 of which are nonlinear.
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.210 seconds
+   of which: Function evaluations             0.020 =  9.5%
+             1st Derivative evaluations       0.002 =  1.0%
+             2nd Derivative evaluations       0.000 =  0.0%
+             Directional 2nd Deriv(Hess)      0.001 =  0.5%
+             Interval derivative evals        0.000 =  0.0%
+ 
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.10 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 120.36sec (det. 114111.31 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.35 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (2.87117e+06 iterations, 597092 nodes)
+Final Solve:             8.978202    (157 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 155.30sec (det. 146863.24 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.21 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.83447e+06 iterations, 673904 nodes)
+Final Solve:             8.978202    (143 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718517
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718517
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 113.25sec (det. 110179.89 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.42 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.03651e+06 iterations, 589089 nodes)
+Final Solve:             8.978205    (160 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.001 = 50.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 140.25sec (det. 137128.95 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.26 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.36671e+06 iterations, 676817 nodes)
+Final Solve:             8.978202    (144 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 155.85sec (det. 147171.79 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.27 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.57724e+06 iterations, 681237 nodes)
+Final Solve:             8.978202    (148 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 155.26sec (det. 148407.66 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.32 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.8336e+06 iterations, 682698 nodes)
+Final Solve:             8.978202    (148 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 125.09sec (det. 123121.84 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.28 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.03342e+06 iterations, 601398 nodes)
+Final Solve:             8.978202    (148 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 152.74sec (det. 145553.08 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.33 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.37837e+06 iterations, 652576 nodes)
+Final Solve:             8.978202    (144 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 146.46sec (det. 138847.92 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.30 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.08088e+06 iterations, 651931 nodes)
+Final Solve:             8.978202    (144 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 143.39sec (det. 138200.55 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.41 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.25258e+06 iterations, 653719 nodes)
+Final Solve:             8.978202    (159 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 146.70sec (det. 139685.12 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.33 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.31152e+06 iterations, 636117 nodes)
+Final Solve:             8.978202    (142 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 161.27sec (det. 156799.19 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.32 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.9514e+06 iterations, 656043 nodes)
+Final Solve:             8.978202    (142 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.11 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 152.36sec (det. 146959.54 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.37 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.55495e+06 iterations, 681124 nodes)
+Final Solve:             8.978202    (145 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 166.11sec (det. 153362.73 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.36 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.52414e+06 iterations, 675644 nodes)
+Final Solve:             8.978202    (143 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 133.99sec (det. 127080.71 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.33 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (2.92312e+06 iterations, 600808 nodes)
+Final Solve:             8.978202    (148 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 131.70sec (det. 127567.08 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.43 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.24147e+06 iterations, 611067 nodes)
+Final Solve:             8.978205    (154 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 142.76sec (det. 134070.32 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.35 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.39496e+06 iterations, 639686 nodes)
+Final Solve:             8.978202    (151 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 157.36sec (det. 145752.37 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.31 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.20424e+06 iterations, 622190 nodes)
+Final Solve:             8.978202    (137 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- GAMS/Cplex Link licensed for continuous and discrete problems.
+--- GMO setup time: 0.00s
+--- Space for names approximately 0.04 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 0.68 Mb (peak 0.68 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.02 Mb (peak 0.12 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 148.31sec (det. 141967.42 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 2.29 ticks)
+
+
+Proven optimal solution
+MIP Solution:            8.978202    (3.04072e+06 iterations, 616919 nodes)
+Final Solve:             8.978202    (141 iterations)
+
+Best possible:           8.978202
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- DICOPT: Setting up next NLP
+ 
+ 
+    C O N O P T   version 4.28
+    Copyright (C) ARKI Consulting and Development A/S
+                  Bagsvaerdvej 246 A
+                  DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The user model has 769 constraints and 697 variables
+    with 2109 Jacobian elements, 72 of which are nonlinear.
+    The Hessian of the Lagrangian has 72 elements on the diagonal,
+    0 elements below the diagonal, and 72 nonlinear variables.
+ 
+ ** An equation in the pre-triangular part of the model cannot
+    be solved because the infeasibility is positive after all
+    variables in the constraint have been moved to best bound.
+    Some bounds may have been derived from other constraints.
+ 
+    Residual=                  19.718516
+    Tolerance (Tol_Feas_Tria)= 1.00000000E-08
+ 
+
+    Variable v(r1,t1) is forced to its lower bound = 100
+
+    Variable Charge(r1,t1) is forced to its current value = 31.9096
+
+    Equation Charge_r(r1,t1) is still infeasible after the above variables
+    have been forced to their best bounds.
+    Residual after last transformation = 19.718516
+
+ 
+    The pre-triangular part of the model has 285 constraints and 120 variables.
+    The post-triangular part of the model has 1 constraints and variables.
+    There are 26 penalty and minimax constraints with 26 variables.
+ 
+ ** Infeasible solution. The Preprocessor has determined that the model
+    is infeasible.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Interval derivative evals        0.000 =  0.0%
+ 
+
+--- NOTICE : Too many infeasible NLP subproblems consider the use of infeasder 
+                                                                         option
+
+--- DICOPT: Maximum number of major iterations (20) exceeded
+--- DICOPT: Stopped on MAXCYCLES
+
+      The search was stopped because the major iteration limit
+      was reached. This limit can be reset with the DICOPT
+      option MAXCYCLES.
+
+--- DICOPT: No integer solution
+
+      No integer solution was found. The relaxed NLP solution
+      will be reported.
+
+
+**** ERRORS/WARNINGS IN EQUATION Charge_r(r1,t1)
+     19 error(s): Constraint infeasible due to bounds.
+
+                       LOWER     LEVEL     UPPER    MARGINAL
+
+---- EQU obj             .         .         .        1.000      
+
+  obj  Objectif
+
+---- EQU Charge_s  Niveau de charge à la source à (t)
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+s.t1       .         .         .       -0.002      
+s.t2       .         .         .       -0.002      
+s.t3       .         .         .       -0.002      
+s.t4       .         .         .       -0.002      
+s.t5       .         .         .       -0.002      
+s.t6       .         .         .       -0.002      
+s.t7       .         .         .       -0.002      
+s.t8       .         .         .       -0.002      
+s.t9       .         .         .       -0.003      
+s.t10      .         .         .       -0.003      
+s.t11      .         .         .       -0.003      
+s.t12      .         .         .       -0.003      
+s.t13      .         .         .       -0.003      
+s.t14      .         .         .       -0.003      
+s.t15      .         .         .       -0.003      
+s.t16      .         .         .       -0.003      
+s.t17      .         .         .       -0.003      
+s.t18      .         .         .       -0.003      
+s.t19      .         .         .       -0.003      
+s.t20      .         .         .       -0.003      
+s.t21      .         .         .       -0.003      
+s.t22      .         .         .       -0.003      
+s.t23      .         .         .       -0.003      
+s.t24      .         .         .       -0.003      
+
+---- EQU Charge_j  Niveau de charge aux jonctions (j) à (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+j1.t1     30.000    51.880     +INF       .         
+j1.t2     30.000    51.525     +INF       .         
+j1.t3     30.000    51.450     +INF       .         
+j1.t4     30.000    51.659     +INF       .         
+j1.t5     30.000    52.512     +INF       .         
+j1.t6     30.000    53.139     +INF       .         
+j1.t7     30.000    53.793     +INF       .         
+j1.t8     30.000    54.933     +INF       .         
+j1.t9     30.000    53.673     +INF       .         
+j1.t10    30.000    53.504     +INF       .         
+j1.t11    30.000    53.329     +INF       .         
+j1.t12    30.000    53.301     +INF       .         
+j1.t13    30.000    53.111     +INF       .         
+j1.t14    30.000    52.879     +INF       .         
+j1.t15    30.000    52.729     +INF       .         
+j1.t16    30.000    52.569     +INF       .         
+j1.t17    30.000    52.373     +INF       .         
+j1.t18    30.000    52.208     +INF       .         
+j1.t19    30.000    52.058     +INF       .         
+j1.t20    30.000    51.933     +INF       .         
+j1.t21    30.000    51.796     +INF       .         
+j1.t22    30.000    51.621     +INF       .         
+j1.t23    30.000    51.541     +INF       .         
+j1.t24    30.000    51.690     +INF       .         
+j2.t1     30.000    51.732     +INF       .         
+j2.t2     30.000    51.443     +INF       .         
+j2.t3     30.000    51.250     +INF       .         
+j2.t4     30.000    51.489     +INF       .         
+j2.t5     30.000    52.415     +INF       .         
+j2.t6     30.000    53.037     +INF       .         
+j2.t7     30.000    53.685     +INF       .         
+j2.t8     30.000    54.750     +INF       .         
+j2.t9     30.000    53.621     +INF       .         
+j2.t10    30.000    53.452     +INF       .         
+j2.t11    30.000    53.267     +INF       .         
+j2.t12    30.000    53.239     +INF       .         
+j2.t13    30.000    53.049     +INF       .         
+j2.t14    30.000    52.817     +INF       .         
+j2.t15    30.000    52.667     +INF       .         
+j2.t16    30.000    52.506     +INF       .         
+j2.t17    30.000    52.311     +INF       .         
+j2.t18    30.000    52.146     +INF       .         
+j2.t19    30.000    51.996     +INF       .         
+j2.t20    30.000    51.871     +INF       .         
+j2.t21    30.000    51.733     +INF       .         
+j2.t22    30.000    51.558     +INF       .         
+j2.t23    30.000    51.479     +INF       .         
+j2.t24    30.000    51.628     +INF       .         
+
+---- EQU Charge_r  Niveau de charge au réservoir (r) à (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+r1.t1     50.000    50.288     +INF       .         
+r1.t2     50.000    50.000     +INF  1.3504E-7      
+r1.t3     50.000    50.000     +INF  4.1671E-4      
+r1.t4     50.000    50.000     +INF      0.001      
+r1.t5     50.000    50.000     +INF      0.001      
+r1.t6     50.000    50.000     +INF      0.001      
+r1.t7     50.000    50.000     +INF      0.001      
+r1.t8     50.000    51.172     +INF       .         
+r1.t9     50.000    50.000     +INF      0.003      
+r1.t10    50.000    50.000     +INF      0.003      
+r1.t11    50.000    50.000     +INF      0.003      
+r1.t12    50.000    50.121     +INF       .         
+r1.t13    50.000    50.082     +INF       .         
+r1.t14    50.000    50.000     +INF      0.003      
+r1.t15    50.000    50.000     +INF      0.003      
+r1.t16    50.000    50.000     +INF      0.003      
+r1.t17    50.000    50.000     +INF      0.003      
+r1.t18    50.000    50.000     +INF      0.003      
+r1.t19    50.000    50.000     +INF      0.003      
+r1.t20    50.000    50.000     +INF      0.003      
+r1.t21    50.000    50.000     +INF      0.003      
+r1.t22    50.000    50.000     +INF      0.003      
+r1.t23    50.000    50.164     +INF       .         
+r1.t24    50.000    50.440     +INF       .         
+r2.t1     50.000    50.000     +INF      0.002      
+r2.t2     50.000    50.000     +INF      0.002      
+r2.t3     50.000    50.000     +INF      0.001      
+r2.t4     50.000    50.000     +INF      0.001      
+r2.t5     50.000    50.000     +INF      0.001      
+r2.t6     50.000    50.000     +INF      0.001      
+r2.t7     50.000    50.000     +INF      0.001      
+r2.t8     50.000    50.000     +INF      0.002      
+r2.t9     50.000    50.266     +INF       .         
+r2.t10    50.000    50.213     +INF       .         
+r2.t11    50.000    50.028     +INF       .         
+r2.t12    50.000    50.000     +INF      0.003      
+r2.t13    50.000    50.000     +INF      0.003      
+r2.t14    50.000    50.248     +INF       .         
+r2.t15    50.000    50.094     +INF       .         
+r2.t16    50.000    50.042     +INF       .         
+r2.t17    50.000    50.392     +INF       .         
+r2.t18    50.000    50.289     +INF       .         
+r2.t19    50.000    50.368     +INF       .         
+r2.t20    50.000    50.152     +INF       .         
+r2.t21    50.000    50.235     +INF       .         
+r2.t22    50.000    50.060     +INF       .         
+r2.t23    50.000    50.000     +INF      0.003      
+r2.t24    50.000    50.000     +INF      0.003      
+r3.t1     45.000    49.927     +INF       .         
+r3.t2     45.000    49.527     +INF       .         
+r3.t3     45.000    47.700     +INF       .         
+r3.t4     45.000    47.191     +INF       .         
+r3.t5     45.000    48.601     +INF       .         
+r3.t6     45.000    49.223     +INF       .         
+r3.t7     45.000    49.864     +INF       .         
+r3.t8     45.000    50.933     +INF       .         
+r3.t9     45.000    49.897     +INF       .         
+r3.t10    45.000    49.513     +INF       .         
+r3.t11    45.000    49.305     +INF       .         
+r3.t12    45.000    49.320     +INF       .         
+r3.t13    45.000    49.134     +INF       .         
+r3.t14    45.000    49.565     +INF       .         
+r3.t15    45.000    49.656     +INF       .         
+r3.t16    45.000    49.894     +INF       .         
+r3.t17    45.000    49.747     +INF       .         
+r3.t18    45.000    49.876     +INF       .         
+r3.t19    45.000    50.076     +INF       .         
+r3.t20    45.000    50.092     +INF       .         
+r3.t21    45.000    49.870     +INF       .         
+r3.t22    45.000    49.737     +INF       .         
+r3.t23    45.000    49.634     +INF       .         
+r3.t24    45.000    50.378     +INF       .         
+r4.t1     35.000    50.622     +INF       .         
+r4.t2     35.000    49.407     +INF       .         
+r4.t3     35.000    49.567     +INF       .         
+r4.t4     35.000    49.894     +INF       .         
+r4.t5     35.000    50.798     +INF       .         
+r4.t6     35.000    51.454     +INF       .         
+r4.t7     35.000    52.108     +INF       .         
+r4.t8     35.000    53.260     +INF       .         
+r4.t9     35.000    52.011     +INF       .         
+r4.t10    35.000    51.867     +INF       .         
+r4.t11    35.000    51.717     +INF       .         
+r4.t12    35.000    51.713     +INF       .         
+r4.t13    35.000    51.549     +INF       .         
+r4.t14    35.000    51.342     +INF       .         
+r4.t15    35.000    51.217     +INF       .         
+r4.t16    35.000    51.094     +INF       .         
+r4.t17    35.000    50.923     +INF       .         
+r4.t18    35.000    50.771     +INF       .         
+r4.t19    35.000    50.646     +INF       .         
+r4.t20    35.000    50.558     +INF       .         
+r4.t21    35.000    50.446     +INF       .         
+r4.t22    35.000    50.308     +INF       .         
+r4.t23    35.000    50.266     +INF       .         
+r4.t24    35.000    50.440     +INF       .         
+
+---- EQU Noeud  Contrainte débit noeud (n) à (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+j1.t1       .         .         .       -0.004      
+j1.t2       .         .         .       -0.004      
+j1.t3       .         .         .       -0.004      
+j1.t4       .         .         .       -0.004      
+j1.t5       .         .         .       -0.004      
+j1.t6       .         .         .       -0.004      
+j1.t7       .         .         .       -0.004      
+j1.t8       .         .         .       -0.004      
+j1.t9       .         .         .       -0.005      
+j1.t10      .         .         .       -0.005      
+j1.t11      .         .         .       -0.005      
+j1.t12      .         .         .       -0.005      
+j1.t13      .         .         .       -0.005      
+j1.t14      .         .         .       -0.005      
+j1.t15      .         .         .       -0.005      
+j1.t16      .         .         .       -0.005      
+j1.t17      .         .         .       -0.005      
+j1.t18      .         .         .       -0.005      
+j1.t19      .         .         .       -0.005      
+j1.t20      .         .         .       -0.005      
+j1.t21      .         .         .       -0.005      
+j1.t22      .         .         .       -0.005      
+j1.t23      .         .         .       -0.005      
+j1.t24      .         .         .       -0.005      
+j2.t1       .         .         .       -0.004      
+j2.t2       .         .         .       -0.004      
+j2.t3       .         .         .       -0.004      
+j2.t4       .         .         .       -0.004      
+j2.t5       .         .         .       -0.004      
+j2.t6       .         .         .       -0.004      
+j2.t7       .         .         .       -0.004      
+j2.t8       .         .         .       -0.004      
+j2.t9       .         .         .       -0.005      
+j2.t10      .         .         .       -0.005      
+j2.t11      .         .         .       -0.005      
+j2.t12      .         .         .       -0.005      
+j2.t13      .         .         .       -0.005      
+j2.t14      .         .         .       -0.005      
+j2.t15      .         .         .       -0.005      
+j2.t16      .         .         .       -0.005      
+j2.t17      .         .         .       -0.005      
+j2.t18      .         .         .       -0.005      
+j2.t19      .         .         .       -0.005      
+j2.t20      .         .         .       -0.005      
+j2.t21      .         .         .       -0.005      
+j2.t22      .         .         .       -0.005      
+j2.t23      .         .         .       -0.005      
+j2.t24      .         .         .       -0.005      
+
+---- EQU Satisfaction_demande  Satisfaction de la demande en (r) à (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+r1.t1     90.170    90.170    90.170    -0.004      
+r1.t2     -5.000    -5.000    -5.000    -0.004      
+r1.t3     -3.670    -3.670    -3.670    -0.004      
+r1.t4     -6.500    -6.500    -6.500    -0.004      
+r1.t5     -5.670    -5.670    -5.670    -0.004      
+r1.t6     -7.500    -7.500    -7.500    -0.004      
+r1.t7     -3.000    -3.000    -3.000    -0.004      
+r1.t8     -3.000    -3.000    -3.000    -0.004      
+r1.t9     -2.000    -2.000    -2.000    -0.004      
+r1.t10   -13.500   -13.500   -13.500    -0.004      
+r1.t11   -14.000   -14.000   -14.000    -0.004      
+r1.t12   -12.000   -12.000   -12.000    -0.004      
+r1.t13   -12.000   -12.000   -12.000    -0.004      
+r1.t14   -12.000   -12.000   -12.000    -0.004      
+r1.t15   -12.000   -12.000   -12.000    -0.004      
+r1.t16   -12.830   -12.830   -12.830    -0.004      
+r1.t17   -15.670   -15.670   -15.670    -0.004      
+r1.t18   -13.170   -13.170   -13.170    -0.004      
+r1.t19   -12.000   -12.000   -12.000    -0.004      
+r1.t20   -10.000   -10.000   -10.000    -0.004      
+r1.t21   -11.000   -11.000   -11.000    -0.004      
+r1.t22   -14.000   -14.000   -14.000    -0.004      
+r1.t23   -19.500   -19.500   -19.500    -0.004      
+r1.t24   -10.170   -10.170   -10.170    -0.004      
+r2.t1     55.170    55.170    55.170    -0.004      
+r2.t2    -18.000   -18.000   -18.000    -0.004      
+r2.t3       .         .         .       -0.004      
+r2.t4       .         .         .       -0.004      
+r2.t5       .         .         .       -0.004      
+r2.t6       .         .         .       -0.004      
+r2.t7       .         .         .       -0.004      
+r2.t8    -45.000   -45.000   -45.000    -0.004      
+r2.t9    -51.670   -51.670   -51.670    -0.005      
+r2.t10      .         .         .       -0.005      
+r2.t11      .         .         .       -0.005      
+r2.t12      .         .         .       -0.005      
+r2.t13   -15.170   -15.170   -15.170    -0.005      
+r2.t14  -103.830  -103.830  -103.830    -0.005      
+r2.t15   -34.830   -34.830   -34.830    -0.005      
+r2.t16   -43.830   -43.830   -43.830    -0.005      
+r2.t17   -54.830   -54.830   -54.830    -0.005      
+r2.t18   -51.170   -51.170   -51.170    -0.005      
+r2.t19   -53.500   -53.500   -53.500    -0.005      
+r2.t20    -0.670    -0.670    -0.670    -0.005      
+r2.t21      .         .         .       -0.005      
+r2.t22      .         .         .       -0.005      
+r2.t23    -1.500    -1.500    -1.500    -0.005      
+r2.t24   -53.500   -53.500   -53.500    -0.005      
+r3.t1     86.000    86.000    86.000    -0.004      
+r3.t2    -13.330   -13.330   -13.330    -0.004      
+r3.t3    -25.500   -25.500   -25.500    -0.004      
+r3.t4    -11.000   -11.000   -11.000    -0.004      
+r3.t5    -10.000   -10.000   -10.000    -0.004      
+r3.t6    -10.000   -10.000   -10.000    -0.004      
+r3.t7    -11.000   -11.000   -11.000    -0.004      
+r3.t8    -10.330   -10.330   -10.330    -0.004      
+r3.t9    -30.170   -30.170   -30.170    -0.005      
+r3.t10   -17.670   -17.670   -17.670    -0.005      
+r3.t11   -36.330   -36.330   -36.330    -0.005      
+r3.t12   -38.000   -38.000   -38.000    -0.005      
+r3.t13   -35.000   -35.000   -35.000    -0.005      
+r3.t14   -35.170   -35.170   -35.170    -0.005      
+r3.t15   -19.330   -19.330   -19.330    -0.005      
+r3.t16   -31.830   -31.830   -31.830    -0.005      
+r3.t17   -23.500   -23.500   -23.500    -0.005      
+r3.t18   -16.830   -16.830   -16.830    -0.005      
+r3.t19   -28.000   -28.000   -28.000    -0.005      
+r3.t20   -33.500   -33.500   -33.500    -0.005      
+r3.t21   -39.000   -39.000   -39.000    -0.005      
+r3.t22   -38.500   -38.500   -38.500    -0.005      
+r3.t23   -32.670   -32.670   -32.670    -0.005      
+r3.t24   -29.670   -29.670   -29.670    -0.005      
+r4.t1     99.000    99.000    99.000    -0.004      
+r4.t2     -1.000    -1.000    -1.000    -0.004      
+r4.t3     -8.500    -8.500    -8.500    -0.004      
+r4.t4     -9.500    -9.500    -9.500    -0.004      
+r4.t5     -4.000    -4.000    -4.000    -0.004      
+r4.t6     -2.330    -2.330    -2.330    -0.004      
+r4.t7       .         .         .       -0.004      
+r4.t8     -1.000    -1.000    -1.000    -0.004      
+r4.t9     -0.830    -0.830    -0.830    -0.004      
+r4.t10    -2.000    -2.000    -2.000    -0.004      
+r4.t11    -2.000    -2.000    -2.000    -0.004      
+r4.t12    -2.000    -2.000    -2.000    -0.004      
+r4.t13    -2.000    -2.000    -2.000    -0.004      
+r4.t14    -2.000    -2.000    -2.000    -0.004      
+r4.t15    -2.000    -2.000    -2.000    -0.004      
+r4.t16    -3.000    -3.000    -3.000    -0.004      
+r4.t17    -2.000    -2.000    -2.000    -0.004      
+r4.t18    -1.000    -1.000    -1.000    -0.004      
+r4.t19    -2.000    -2.000    -2.000    -0.004      
+r4.t20    -3.000    -3.000    -3.000    -0.004      
+r4.t21    -2.000    -2.000    -2.000    -0.004      
+r4.t22    -3.000    -3.000    -3.000    -0.004      
+r4.t23    -3.000    -3.000    -3.000    -0.004      
+r4.t24    -2.000    -2.000    -2.000    -0.004      
+
+---- EQU Gain_charge_pompe  Gain de charge de la pompe (k) à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1      -INF       .         .       -0.002      
+small.p1.t2      -INF       .         .       -0.002      
+small.p1.t3      -INF       .         .       -0.002      
+small.p1.t4      -INF       .         .       -0.002      
+small.p1.t5      -INF       .         .       -0.002      
+small.p1.t6      -INF       .         .       -0.002      
+small.p1.t7      -INF       .         .       -0.002      
+small.p1.t8      -INF       .         .       -0.002      
+small.p1.t9      -INF       .         .       -0.003      
+small.p1.t10     -INF       .         .       -0.003      
+small.p1.t11     -INF       .         .       -0.003      
+small.p1.t12     -INF       .         .       -0.003      
+small.p1.t13     -INF       .         .       -0.003      
+small.p1.t14     -INF       .         .       -0.003      
+small.p1.t15     -INF       .         .       -0.003      
+small.p1.t16     -INF       .         .       -0.003      
+small.p1.t17     -INF       .         .       -0.003      
+small.p1.t18     -INF       .         .       -0.003      
+small.p1.t19     -INF       .         .       -0.003      
+small.p1.t20     -INF       .         .       -0.003      
+small.p1.t21     -INF       .         .       -0.003      
+small.p1.t22     -INF       .         .       -0.003      
+small.p1.t23     -INF       .         .       -0.003      
+small.p1.t24     -INF       .         .       -0.003      
+small.p2.t1      -INF       .         .       -0.002      
+small.p2.t2      -INF       .         .       -0.002      
+small.p2.t3      -INF       .         .       -0.002      
+small.p2.t4      -INF       .         .       -0.002      
+small.p2.t5      -INF       .         .       -0.002      
+small.p2.t6      -INF       .         .       -0.002      
+small.p2.t7      -INF       .         .       -0.002      
+small.p2.t8      -INF       .         .       -0.002      
+small.p2.t9      -INF       .         .       -0.003      
+small.p2.t10     -INF       .         .       -0.003      
+small.p2.t11     -INF       .         .       -0.003      
+small.p2.t12     -INF       .         .       -0.003      
+small.p2.t13     -INF       .         .       -0.003      
+small.p2.t14     -INF       .         .       -0.003      
+small.p2.t15     -INF       .         .       -0.003      
+small.p2.t16     -INF       .         .       -0.003      
+small.p2.t17     -INF       .         .       -0.003      
+small.p2.t18     -INF       .         .       -0.003      
+small.p2.t19     -INF       .         .       -0.003      
+small.p2.t20     -INF       .         .       -0.003      
+small.p2.t21     -INF       .         .       -0.003      
+small.p2.t22     -INF       .         .       -0.003      
+small.p2.t23     -INF       .         .       -0.003      
+small.p2.t24     -INF       .         .       -0.003      
+small.p3.t1      -INF       .         .       -0.002      
+small.p3.t2      -INF       .         .       -0.002      
+small.p3.t3      -INF       .         .       -0.002      
+small.p3.t4      -INF       .         .       -0.002      
+small.p3.t5      -INF       .         .       -0.002      
+small.p3.t6      -INF       .         .       -0.002      
+small.p3.t7      -INF       .         .       -0.002      
+small.p3.t8      -INF       .         .       -0.002      
+small.p3.t9      -INF       .         .       -0.003      
+small.p3.t10     -INF       .         .       -0.003      
+small.p3.t11     -INF       .         .       -0.003      
+small.p3.t12     -INF       .         .       -0.003      
+small.p3.t13     -INF       .         .       -0.003      
+small.p3.t14     -INF       .         .       -0.003      
+small.p3.t15     -INF       .         .       -0.003      
+small.p3.t16     -INF       .         .       -0.003      
+small.p3.t17     -INF       .         .       -0.003      
+small.p3.t18     -INF       .         .       -0.003      
+small.p3.t19     -INF       .         .       -0.003      
+small.p3.t20     -INF       .         .       -0.003      
+small.p3.t21     -INF       .         .       -0.003      
+small.p3.t22     -INF       .         .       -0.003      
+small.p3.t23     -INF       .         .       -0.003      
+small.p3.t24     -INF       .         .       -0.003      
+
+---- EQU Elec_pompe  Consommation électrique de la pompe (k) à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1       .         .        +INF      0.029      
+small.p1.t2       .         .        +INF      0.029      
+small.p1.t3       .         .        +INF      0.029      
+small.p1.t4       .         .        +INF      0.029      
+small.p1.t5       .         .        +INF      0.029      
+small.p1.t6       .         .        +INF      0.029      
+small.p1.t7       .         .        +INF      0.029      
+small.p1.t8       .         .        +INF      0.029      
+small.p1.t9       .         .        +INF      0.046      
+small.p1.t10      .         .        +INF      0.046      
+small.p1.t11      .         .        +INF      0.046      
+small.p1.t12      .         .        +INF      0.046      
+small.p1.t13      .         .        +INF      0.046      
+small.p1.t14      .         .        +INF      0.046      
+small.p1.t15      .         .        +INF      0.046      
+small.p1.t16      .         .        +INF      0.046      
+small.p1.t17      .         .        +INF      0.046      
+small.p1.t18      .         .        +INF      0.046      
+small.p1.t19      .         .        +INF      0.046      
+small.p1.t20      .         .        +INF      0.046      
+small.p1.t21      .         .        +INF      0.046      
+small.p1.t22      .         .        +INF      0.046      
+small.p1.t23      .         .        +INF      0.046      
+small.p1.t24      .         .        +INF      0.046      
+small.p2.t1       .         .        +INF      0.029      
+small.p2.t2       .         .        +INF      0.029      
+small.p2.t3       .         .        +INF      0.029      
+small.p2.t4       .         .        +INF      0.029      
+small.p2.t5       .         .        +INF      0.029      
+small.p2.t6       .         .        +INF      0.029      
+small.p2.t7       .         .        +INF      0.029      
+small.p2.t8       .         .        +INF      0.029      
+small.p2.t9       .         .        +INF      0.046      
+small.p2.t10      .         .        +INF      0.046      
+small.p2.t11      .         .        +INF      0.046      
+small.p2.t12      .         .        +INF      0.046      
+small.p2.t13      .         .        +INF      0.046      
+small.p2.t14      .         .        +INF      0.046      
+small.p2.t15      .         .        +INF      0.046      
+small.p2.t16      .         .        +INF      0.046      
+small.p2.t17      .         .        +INF      0.046      
+small.p2.t18      .         .        +INF      0.046      
+small.p2.t19      .         .        +INF      0.046      
+small.p2.t20      .         .        +INF      0.046      
+small.p2.t21      .         .        +INF      0.046      
+small.p2.t22      .         .        +INF      0.046      
+small.p2.t23      .         .        +INF      0.046      
+small.p2.t24      .         .        +INF      0.046      
+small.p3.t1       .         .        +INF      0.029      
+small.p3.t2       .         .        +INF      0.029      
+small.p3.t3       .         .        +INF      0.029      
+small.p3.t4       .         .        +INF      0.029      
+small.p3.t5       .         .        +INF      0.029      
+small.p3.t6       .         .        +INF      0.029      
+small.p3.t7       .         .        +INF      0.029      
+small.p3.t8       .         .        +INF      0.029      
+small.p3.t9       .         .        +INF      0.046      
+small.p3.t10      .         .        +INF      0.046      
+small.p3.t11      .         .        +INF      0.046      
+small.p3.t12      .         .        +INF      0.046      
+small.p3.t13      .         .        +INF      0.046      
+small.p3.t14      .         .        +INF      0.046      
+small.p3.t15      .         .        +INF      0.046      
+small.p3.t16      .         .        +INF      0.046      
+small.p3.t17      .         .        +INF      0.046      
+small.p3.t18      .         .        +INF      0.046      
+small.p3.t19      .         .        +INF      0.046      
+small.p3.t20      .         .        +INF      0.046      
+small.p3.t21      .         .        +INF      0.046      
+small.p3.t22      .         .        +INF      0.046      
+small.p3.t23      .         .        +INF      0.046      
+small.p3.t24      .         .        +INF      0.046      
+
+---- EQU Qpompe_inf  Borne inférieur pompe (k) à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1       .       37.090     +INF       .         
+small.p1.t2       .       37.090     +INF       .         
+small.p1.t3       .       37.003     +INF       .         
+small.p1.t4       .       37.155     +INF       .         
+small.p1.t5       .       37.500     +INF       .         
+small.p1.t6       .       38.101     +INF       .         
+small.p1.t7       .       38.545     +INF       .         
+small.p1.t8       .       38.770     +INF       .         
+small.p1.t9       .        9.628     +INF       .         
+small.p1.t10      .        9.590     +INF       .         
+small.p1.t11      .       11.604     +INF       .         
+small.p1.t12      .       11.467     +INF       .         
+small.p1.t13      .       11.467     +INF       .         
+small.p1.t14      .       11.604     +INF       .         
+small.p1.t15      .       11.604     +INF       .         
+small.p1.t16      .       11.604     +INF       .         
+small.p1.t17      .       11.604     +INF       .         
+small.p1.t18      .       11.604     +INF       .         
+small.p1.t19      .       11.604     +INF       .         
+small.p1.t20      .       11.604     +INF       .         
+small.p1.t21      .       11.604     +INF       .         
+small.p1.t22      .       11.604     +INF       .         
+small.p1.t23      .       11.467     +INF       .         
+small.p1.t24      .       11.602     +INF       .         
+small.p2.t1       .       36.963     +INF       .         
+small.p2.t2       .       37.090     +INF       .         
+small.p2.t3       .       37.123     +INF       .         
+small.p2.t4       .       37.157     +INF       .         
+small.p2.t5       .       37.633     +INF       .         
+small.p2.t6       .       37.961     +INF       .         
+small.p2.t7       .       38.399     +INF       .         
+small.p2.t8       .       38.933     +INF       .         
+small.p2.t9       .        9.673     +INF       .         
+small.p2.t10      .        9.673     +INF       .         
+small.p2.t11      .       11.604     +INF       .         
+small.p2.t12      .       11.467     +INF       .         
+small.p2.t13      .       11.467     +INF       .         
+small.p2.t14      .       11.604     +INF       .         
+small.p2.t15      .       11.604     +INF       .         
+small.p2.t16      .       11.604     +INF       .         
+small.p2.t17      .       11.604     +INF       .         
+small.p2.t18      .       11.604     +INF       .         
+small.p2.t19      .       11.604     +INF       .         
+small.p2.t20      .       11.604     +INF       .         
+small.p2.t21      .       11.604     +INF       .         
+small.p2.t22      .       11.604     +INF       .         
+small.p2.t23      .       11.467     +INF       .         
+small.p2.t24      .       11.479     +INF       .         
+small.p3.t1       .       37.090     +INF       .         
+small.p3.t2       .       36.969     +INF       .         
+small.p3.t3       .       37.123     +INF       .         
+small.p3.t4       .       37.036     +INF       .         
+small.p3.t5       .       37.633     +INF       .         
+small.p3.t6       .       38.101     +INF       .         
+small.p3.t7       .       38.545     +INF       .         
+small.p3.t8       .       38.933     +INF       .         
+small.p3.t9       .        9.131     +INF       .         
+small.p3.t10      .        9.171     +INF       .         
+small.p3.t11      .       11.068     +INF       .         
+small.p3.t12      .       10.928     +INF       .         
+small.p3.t13      .       10.931     +INF       .         
+small.p3.t14      .       11.075     +INF       .         
+small.p3.t15      .       11.078     +INF       .         
+small.p3.t16      .       11.080     +INF       .         
+small.p3.t17      .       11.083     +INF       .         
+small.p3.t18      .       11.086     +INF       .         
+small.p3.t19      .       11.088     +INF       .         
+small.p3.t20      .       11.090     +INF       .         
+small.p3.t21      .       11.093     +INF       .         
+small.p3.t22      .       11.095     +INF       .         
+small.p3.t23      .       10.956     +INF       .         
+small.p3.t24      .       11.216     +INF       .         
+
+---- EQU Qpompe_sup  Borne supérieur pompe (k) à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1      -INF       .         .         EPS       
+small.p1.t2      -INF       .         .         EPS       
+small.p1.t3      -INF    -12.002      .         .         
+small.p1.t4      -INF     -0.189      .         .         
+small.p1.t5      -INF    -13.323      .         .         
+small.p1.t6      -INF       .         .         EPS       
+small.p1.t7      -INF     -0.052      .         .         
+small.p1.t8      -INF    -16.324      .         .         
+small.p1.t9      -INF     -4.490      .         .         
+small.p1.t10     -INF     -8.264      .         .         
+small.p1.t11     -INF       .         .         EPS       
+small.p1.t12     -INF       .         .         EPS       
+small.p1.t13     -INF       .         .         EPS       
+small.p1.t14     -INF       .         .         EPS       
+small.p1.t15     -INF       .         .         EPS       
+small.p1.t16     -INF       .         .         EPS       
+small.p1.t17     -INF       .         .         EPS       
+small.p1.t18     -INF       .         .         EPS       
+small.p1.t19     -INF       .         .         EPS       
+small.p1.t20     -INF       .         .         EPS       
+small.p1.t21     -INF       .         .         EPS       
+small.p1.t22     -INF       .         .         EPS       
+small.p1.t23     -INF       .         .         EPS       
+small.p1.t24     -INF       .         .         EPS       
+small.p2.t1      -INF    -12.708      .         .         
+small.p2.t2      -INF  -9.640E-5      .         .         
+small.p2.t3      -INF  -1.147E-4      .         .         
+small.p2.t4      -INF       .         .         EPS       
+small.p2.t5      -INF     -0.005      .         .         
+small.p2.t6      -INF    -14.007      .         .         
+small.p2.t7      -INF    -14.652      .         .         
+small.p2.t8      -INF       .         .         EPS       
+small.p2.t9      -INF       .         .         EPS       
+small.p2.t10     -INF       .         .         EPS       
+small.p2.t11     -INF       .         .         EPS       
+small.p2.t12     -INF       .         .         EPS       
+small.p2.t13     -INF       .         .         EPS       
+small.p2.t14     -INF       .         .         EPS       
+small.p2.t15     -INF       .         .         EPS       
+small.p2.t16     -INF       .         .         EPS       
+small.p2.t17     -INF       .         .         EPS       
+small.p2.t18     -INF       .         .         EPS       
+small.p2.t19     -INF       .         .         EPS       
+small.p2.t20     -INF       .         .         EPS       
+small.p2.t21     -INF       .         .         EPS       
+small.p2.t22     -INF       .         .         EPS       
+small.p2.t23     -INF       .         .         EPS       
+small.p2.t24     -INF    -12.366      .         .         
+small.p3.t1      -INF       .         .         EPS       
+small.p3.t2      -INF    -12.145      .         .         
+small.p3.t3      -INF  -1.049E-4      .         EPS       
+small.p3.t4      -INF    -12.120      .         .         
+small.p3.t5      -INF       .         .         EPS       
+small.p3.t6      -INF       .         .         EPS       
+small.p3.t7      -INF     -0.052      .         .         
+small.p3.t8      -INF       .         .         EPS       
+small.p3.t9      -INF    -54.216      .         .         
+small.p3.t10     -INF    -50.174      .         .         
+small.p3.t11     -INF    -53.590      .         .         
+small.p3.t12     -INF    -53.862      .         .         
+small.p3.t13     -INF    -53.561      .         .         
+small.p3.t14     -INF    -52.877      .         .         
+small.p3.t15     -INF    -52.639      .         .         
+small.p3.t16     -INF    -52.385      .         .         
+small.p3.t17     -INF    -52.074      .         .         
+small.p3.t18     -INF    -51.813      .         .         
+small.p3.t19     -INF    -51.576      .         .         
+small.p3.t20     -INF    -51.378      .         .         
+small.p3.t21     -INF    -51.160      .         .         
+small.p3.t22     -INF    -50.882      .         .         
+small.p3.t23     -INF    -51.072      .         .         
+small.p3.t24     -INF    -38.630      .         .         
+
+---- EQU Perte_charge  Perte charge (n n) à (t)
+
+             LOWER     LEVEL     UPPER    MARGINAL
+
+s .j1.t1       .         .         .        0.002      
+s .j1.t2       .         .         .        0.002      
+s .j1.t3       .         .         .        0.002      
+s .j1.t4       .         .         .        0.002      
+s .j1.t5       .         .         .        0.002      
+s .j1.t6       .         .         .        0.002      
+s .j1.t7       .         .         .        0.002      
+s .j1.t8       .         .         .        0.002      
+s .j1.t9       .         .         .        0.003      
+s .j1.t10      .         .         .        0.003      
+s .j1.t11      .         .         .        0.003      
+s .j1.t12      .         .         .        0.003      
+s .j1.t13      .         .         .        0.003      
+s .j1.t14      .         .         .        0.003      
+s .j1.t15      .         .         .        0.003      
+s .j1.t16      .         .         .        0.003      
+s .j1.t17      .         .         .        0.003      
+s .j1.t18      .         .         .        0.003      
+s .j1.t19      .         .         .        0.003      
+s .j1.t20      .         .         .        0.003      
+s .j1.t21      .         .         .        0.003      
+s .j1.t22      .         .         .        0.003      
+s .j1.t23      .         .         .        0.003      
+s .j1.t24      .         .         .        0.003      
+j1.j2.t1       .         .         .        0.002      
+j1.j2.t2       .         .         .        0.002      
+j1.j2.t3       .         .         .        0.001      
+j1.j2.t4       .         .         .        0.001      
+j1.j2.t5       .         .         .        0.001      
+j1.j2.t6       .         .         .        0.001      
+j1.j2.t7       .         .         .        0.001      
+j1.j2.t8       .         .         .        0.002      
+j1.j2.t9       .         .         .         EPS       
+j1.j2.t10      .         .         .         EPS       
+j1.j2.t11      .         .         .         EPS       
+j1.j2.t12      .         .         .        0.003      
+j1.j2.t13      .         .         .        0.003      
+j1.j2.t14      .         .         .         EPS       
+j1.j2.t15      .         .         .         EPS       
+j1.j2.t16      .         .         .         EPS       
+j1.j2.t17      .         .         .         EPS       
+j1.j2.t18      .         .         .         EPS       
+j1.j2.t19      .         .         .         EPS       
+j1.j2.t20      .         .         .         EPS       
+j1.j2.t21      .         .         .         EPS       
+j1.j2.t22      .         .         .         EPS       
+j1.j2.t23      .         .         .        0.003      
+j1.j2.t24      .         .         .        0.003      
+j1.r1.t1       .         .         .         EPS       
+j1.r1.t2       .         .         .    1.3504E-7      
+j1.r1.t3       .         .         .    4.1671E-4      
+j1.r1.t4       .         .         .        0.001      
+j1.r1.t5       .         .         .        0.001      
+j1.r1.t6       .         .         .        0.001      
+j1.r1.t7       .         .         .        0.001      
+j1.r1.t8       .         .         .         EPS       
+j1.r1.t9       .         .         .        0.003      
+j1.r1.t10      .         .         .        0.003      
+j1.r1.t11      .         .         .        0.003      
+j1.r1.t12      .         .         .         EPS       
+j1.r1.t13      .         .         .         EPS       
+j1.r1.t14      .         .         .        0.003      
+j1.r1.t15      .         .         .        0.003      
+j1.r1.t16      .         .         .        0.003      
+j1.r1.t17      .         .         .        0.003      
+j1.r1.t18      .         .         .        0.003      
+j1.r1.t19      .         .         .        0.003      
+j1.r1.t20      .         .         .        0.003      
+j1.r1.t21      .         .         .        0.003      
+j1.r1.t22      .         .         .        0.003      
+j1.r1.t23      .         .         .         EPS       
+j1.r1.t24      .         .         .         EPS       
+j1.r4.t1       .         .         .         EPS       
+j1.r4.t2       .         .         .         EPS       
+j1.r4.t3       .         .         .         EPS       
+j1.r4.t4       .         .         .         EPS       
+j1.r4.t5       .         .         .         EPS       
+j1.r4.t6       .         .         .         EPS       
+j1.r4.t7       .         .         .         EPS       
+j1.r4.t8       .         .         .         EPS       
+j1.r4.t9       .         .         .         EPS       
+j1.r4.t10      .         .         .         EPS       
+j1.r4.t11      .         .         .         EPS       
+j1.r4.t12      .         .         .         EPS       
+j1.r4.t13      .         .         .         EPS       
+j1.r4.t14      .         .         .         EPS       
+j1.r4.t15      .         .         .         EPS       
+j1.r4.t16      .         .         .         EPS       
+j1.r4.t17      .         .         .         EPS       
+j1.r4.t18      .         .         .         EPS       
+j1.r4.t19      .         .         .         EPS       
+j1.r4.t20      .         .         .         EPS       
+j1.r4.t21      .         .         .         EPS       
+j1.r4.t22      .         .         .         EPS       
+j1.r4.t23      .         .         .         EPS       
+j1.r4.t24      .         .         .         EPS       
+j2.r2.t1       .         .         .        0.002      
+j2.r2.t2       .         .         .        0.002      
+j2.r2.t3       .         .         .        0.001      
+j2.r2.t4       .         .         .        0.001      
+j2.r2.t5       .         .         .        0.001      
+j2.r2.t6       .         .         .        0.001      
+j2.r2.t7       .         .         .        0.001      
+j2.r2.t8       .         .         .        0.002      
+j2.r2.t9       .         .         .         EPS       
+j2.r2.t10      .         .         .         EPS       
+j2.r2.t11      .         .         .         EPS       
+j2.r2.t12      .         .         .        0.003      
+j2.r2.t13      .         .         .        0.003      
+j2.r2.t14      .         .         .         EPS       
+j2.r2.t15      .         .         .         EPS       
+j2.r2.t16      .         .         .         EPS       
+j2.r2.t17      .         .         .         EPS       
+j2.r2.t18      .         .         .         EPS       
+j2.r2.t19      .         .         .         EPS       
+j2.r2.t20      .         .         .         EPS       
+j2.r2.t21      .         .         .         EPS       
+j2.r2.t22      .         .         .         EPS       
+j2.r2.t23      .         .         .        0.003      
+j2.r2.t24      .         .         .        0.003      
+j2.r3.t1       .         .         .         EPS       
+j2.r3.t2       .         .         .         EPS       
+j2.r3.t3       .         .         .         EPS       
+j2.r3.t4       .         .         .         EPS       
+j2.r3.t5       .         .         .         EPS       
+j2.r3.t6       .         .         .         EPS       
+j2.r3.t7       .         .         .         EPS       
+j2.r3.t8       .         .         .         EPS       
+j2.r3.t9       .         .         .         EPS       
+j2.r3.t10      .         .         .         EPS       
+j2.r3.t11      .         .         .         EPS       
+j2.r3.t12      .         .         .         EPS       
+j2.r3.t13      .         .         .         EPS       
+j2.r3.t14      .         .         .         EPS       
+j2.r3.t15      .         .         .         EPS       
+j2.r3.t16      .         .         .         EPS       
+j2.r3.t17      .         .         .         EPS       
+j2.r3.t18      .         .         .         EPS       
+j2.r3.t19      .         .         .         EPS       
+j2.r3.t20      .         .         .         EPS       
+j2.r3.t21      .         .         .         EPS       
+j2.r3.t22      .         .         .         EPS       
+j2.r3.t23      .         .         .         EPS       
+j2.r3.t24      .         .         .         EPS       
+
+---- EQU Debit_s  Equilibre des débits à la source à (t)
+
+       LOWER     LEVEL     UPPER    MARGINAL
+
+t1       .         .         .       -0.004      
+t2       .         .         .       -0.004      
+t3       .         .         .       -0.004      
+t4       .         .         .       -0.004      
+t5       .         .         .       -0.004      
+t6       .         .         .       -0.004      
+t7       .         .         .       -0.004      
+t8       .         .         .       -0.004      
+t9       .         .         .       -0.005      
+t10      .         .         .       -0.005      
+t11      .         .         .       -0.005      
+t12      .         .         .       -0.005      
+t13      .         .         .       -0.005      
+t14      .         .         .       -0.005      
+t15      .         .         .       -0.005      
+t16      .         .         .       -0.005      
+t17      .         .         .       -0.005      
+t18      .         .         .       -0.005      
+t19      .         .         .       -0.005      
+t20      .         .         .       -0.005      
+t21      .         .         .       -0.005      
+t22      .         .         .       -0.005      
+t23      .         .         .       -0.005      
+t24      .         .         .       -0.005      
+
+---- VAR Charge  Niveau de charge au noeud (n) à (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+s .t1       .       51.929     +INF       .         
+s .t2       .       51.574     +INF       .         
+s .t3       .       51.499     +INF       .         
+s .t4       .       51.708     +INF       .         
+s .t5       .       52.562     +INF       .         
+s .t6       .       53.189     +INF       .         
+s .t7       .       53.844     +INF       .         
+s .t8       .       54.984     +INF       .         
+s .t9       .       53.686     +INF       .         
+s .t10      .       53.517     +INF       .         
+s .t11      .       53.345     +INF       .         
+s .t12      .       53.316     +INF       .         
+s .t13      .       53.126     +INF       .         
+s .t14      .       52.895     +INF       .         
+s .t15      .       52.745     +INF       .         
+s .t16      .       52.584     +INF       .         
+s .t17      .       52.388     +INF       .         
+s .t18      .       52.224     +INF       .         
+s .t19      .       52.074     +INF       .         
+s .t20      .       51.949     +INF       .         
+s .t21      .       51.811     +INF       .         
+s .t22      .       51.636     +INF       .         
+s .t23      .       51.556     +INF       .         
+s .t24      .       51.706     +INF       .         
+j1.t1       .       51.880     +INF       .         
+j1.t2       .       51.525     +INF       .         
+j1.t3       .       51.450     +INF       .         
+j1.t4       .       51.659     +INF       .         
+j1.t5       .       52.512     +INF       .         
+j1.t6       .       53.139     +INF       .         
+j1.t7       .       53.793     +INF       .         
+j1.t8       .       54.933     +INF       .         
+j1.t9       .       53.673     +INF       .         
+j1.t10      .       53.504     +INF       .         
+j1.t11      .       53.329     +INF       .         
+j1.t12      .       53.301     +INF       .         
+j1.t13      .       53.111     +INF       .         
+j1.t14      .       52.879     +INF       .         
+j1.t15      .       52.729     +INF       .         
+j1.t16      .       52.569     +INF       .         
+j1.t17      .       52.373     +INF       .         
+j1.t18      .       52.208     +INF       .         
+j1.t19      .       52.058     +INF       .         
+j1.t20      .       51.933     +INF       .         
+j1.t21      .       51.796     +INF       .         
+j1.t22      .       51.621     +INF       .         
+j1.t23      .       51.541     +INF       .         
+j1.t24      .       51.690     +INF       .         
+j2.t1       .       51.732     +INF       .         
+j2.t2       .       51.443     +INF       .         
+j2.t3       .       51.250     +INF       .         
+j2.t4       .       51.489     +INF       .         
+j2.t5       .       52.415     +INF       .         
+j2.t6       .       53.037     +INF       .         
+j2.t7       .       53.685     +INF       .         
+j2.t8       .       54.750     +INF       .         
+j2.t9       .       53.621     +INF       .         
+j2.t10      .       53.452     +INF       .         
+j2.t11      .       53.267     +INF       .         
+j2.t12      .       53.239     +INF       .         
+j2.t13      .       53.049     +INF       .         
+j2.t14      .       52.817     +INF       .         
+j2.t15      .       52.667     +INF       .         
+j2.t16      .       52.506     +INF       .         
+j2.t17      .       52.311     +INF       .         
+j2.t18      .       52.146     +INF       .         
+j2.t19      .       51.996     +INF       .         
+j2.t20      .       51.871     +INF       .         
+j2.t21      .       51.733     +INF       .         
+j2.t22      .       51.558     +INF       .         
+j2.t23      .       51.479     +INF       .         
+j2.t24      .       51.628     +INF       .         
+r1.t1       .       51.761     +INF       .         
+r1.t2       .       51.496     +INF       .         
+r1.t3       .       51.450     +INF       .         
+r1.t4       .       51.584     +INF       .         
+r1.t5       .       52.257     +INF       .         
+r1.t6       .       52.889     +INF       .         
+r1.t7       .       53.552     +INF       .         
+r1.t8       .       54.870     +INF       .         
+r1.t9       .       53.673     +INF       .         
+r1.t10      .       53.504     +INF       .         
+r1.t11      .       53.329     +INF       .         
+r1.t12      .       53.301     +INF       .         
+r1.t13      .       53.111     +INF       .         
+r1.t14      .       52.879     +INF       .         
+r1.t15      .       52.729     +INF       .         
+r1.t16      .       52.569     +INF       .         
+r1.t17      .       52.373     +INF       .         
+r1.t18      .       52.208     +INF       .         
+r1.t19      .       52.058     +INF       .         
+r1.t20      .       51.933     +INF       .         
+r1.t21      .       51.796     +INF       .         
+r1.t22      .       51.621     +INF       .         
+r1.t23      .       51.541     +INF       .         
+r1.t24      .       51.690     +INF       .         
+r2.t1       .       51.250     +INF       .         
+r2.t2       .       51.250     +INF       .         
+r2.t3       .       51.250     +INF       .         
+r2.t4       .       51.379     +INF       .         
+r2.t5       .       51.936     +INF       .         
+r2.t6       .       52.528     +INF       .         
+r2.t7       .       53.150     +INF       .         
+r2.t8       .       53.750     +INF       .         
+r2.t9       .       53.505     +INF       .         
+r2.t10      .       53.452     +INF       .         
+r2.t11      .       53.267     +INF       .         
+r2.t12      .       53.239     +INF       .         
+r2.t13      .       53.049     +INF       .         
+r2.t14      .       52.439     +INF       .         
+r2.t15      .       52.289     +INF       .         
+r2.t16      .       52.128     +INF       .         
+r2.t17      .       52.072     +INF       .         
+r2.t18      .       51.768     +INF       .         
+r2.t19      .       51.618     +INF       .         
+r2.t20      .       51.650     +INF       .         
+r2.t21      .       51.733     +INF       .         
+r2.t22      .       51.558     +INF       .         
+r2.t23      .       51.479     +INF       .         
+r2.t24      .       51.250     +INF       .         
+r3.t1       .       51.484     +INF       .         
+r3.t2       .       51.264     +INF       .         
+r3.t3       .       50.524     +INF       .         
+r3.t4       .       50.941     +INF       .         
+r3.t5       .       52.351     +INF       .         
+r3.t6       .       52.973     +INF       .         
+r3.t7       .       53.614     +INF       .         
+r3.t8       .       54.683     +INF       .         
+r3.t9       .       53.501     +INF       .         
+r3.t10      .       53.263     +INF       .         
+r3.t11      .       53.040     +INF       .         
+r3.t12      .       53.015     +INF       .         
+r3.t13      .       52.825     +INF       .         
+r3.t14      .       52.817     +INF       .         
+r3.t15      .       52.667     +INF       .         
+r3.t16      .       52.506     +INF       .         
+r3.t17      .       52.227     +INF       .         
+r3.t18      .       52.146     +INF       .         
+r3.t19      .       51.996     +INF       .         
+r3.t20      .       51.776     +INF       .         
+r3.t21      .       51.507     +INF       .         
+r3.t22      .       51.332     +INF       .         
+r3.t23      .       51.255     +INF       .         
+r3.t24      .       51.628     +INF       .         
+r4.t1       .       51.877     +INF       .         
+r4.t2       .       51.396     +INF       .         
+r4.t3       .       51.450     +INF       .         
+r4.t4       .       51.659     +INF       .         
+r4.t5       .       52.512     +INF       .         
+r4.t6       .       53.139     +INF       .         
+r4.t7       .       53.793     +INF       .         
+r4.t8       .       54.933     +INF       .         
+r4.t9       .       53.673     +INF       .         
+r4.t10      .       53.504     +INF       .         
+r4.t11      .       53.329     +INF       .         
+r4.t12      .       53.301     +INF       .         
+r4.t13      .       53.111     +INF       .         
+r4.t14      .       52.879     +INF       .         
+r4.t15      .       52.729     +INF       .         
+r4.t16      .       52.569     +INF       .         
+r4.t17      .       52.373     +INF       .         
+r4.t18      .       52.208     +INF       .         
+r4.t19      .       52.058     +INF       .         
+r4.t20      .       51.933     +INF       .         
+r4.t21      .       51.796     +INF       .         
+r4.t22      .       51.621     +INF       .         
+r4.t23      .       51.541     +INF       .         
+r4.t24      .       51.690     +INF       .         
+
+---- VAR Qpipe  Débit dans le tuyau (l) à (t)
+
+             LOWER     LEVEL     UPPER    MARGINAL
+
+s .j1.t1       .      112.394     +INF       .         
+s .j1.t2       .      112.394     +INF       .         
+s .j1.t3       .      112.493     +INF       .         
+s .j1.t4       .      112.597     +INF       .         
+s .j1.t5       .      114.041     +INF       .         
+s .j1.t6       .      115.457     +INF       .         
+s .j1.t7       .      116.804     +INF       .         
+s .j1.t8       .      117.980     +INF       .         
+s .j1.t9       .       29.313     +INF       .         
+s .j1.t10      .       29.313     +INF       .         
+s .j1.t11      .       35.164     +INF       .         
+s .j1.t12      .       34.748     +INF       .         
+s .j1.t13      .       34.748     +INF       .         
+s .j1.t14      .       35.164     +INF       .         
+s .j1.t15      .       35.164     +INF       .         
+s .j1.t16      .       35.164     +INF       .         
+s .j1.t17      .       35.164     +INF       .         
+s .j1.t18      .       35.164     +INF       .         
+s .j1.t19      .       35.164     +INF       .         
+s .j1.t20      .       35.164     +INF       .         
+s .j1.t21      .       35.164     +INF       .         
+s .j1.t22      .       35.164     +INF       .         
+s .j1.t23      .       34.748     +INF       .         
+s .j1.t24      .       35.158     +INF       .         
+j1.j2.t1       .       83.340     +INF       .         
+j1.j2.t2       .       45.808     +INF       .         
+j1.j2.t3       .      112.493     +INF       .         
+j1.j2.t4       .       95.320     +INF       .         
+j1.j2.t5       .       54.589     +INF       .         
+j1.j2.t6       .       57.358     +INF       .         
+j1.j2.t7       .       60.769     +INF       .         
+j1.j2.t8       .      103.313     +INF       .         
+j1.j2.t9       .       29.313     +INF       .         
+j1.j2.t10      .       29.313     +INF       .         
+j1.j2.t11      .       35.164     +INF       .         
+j1.j2.t12      .       34.748     +INF       .         
+j1.j2.t13      .       34.748     +INF       .         
+j1.j2.t14      .       35.164     +INF       .         
+j1.j2.t15      .       35.164     +INF       .         
+j1.j2.t16      .       35.164     +INF       .         
+j1.j2.t17      .       35.164     +INF       .         
+j1.j2.t18      .       35.164     +INF       .         
+j1.j2.t19      .       35.164     +INF       .         
+j1.j2.t20      .       35.164     +INF       .         
+j1.j2.t21      .       35.164     +INF       .         
+j1.j2.t22      .       35.164     +INF       .         
+j1.j2.t23      .       34.748     +INF       .         
+j1.j2.t24      .       35.158     +INF       .         
+j1.r1.t1       .       27.689     +INF  -8.20E-10      
+j1.r1.t2       .        6.791     +INF       .         
+j1.r1.t3       .         .        +INF  2.5292E-6      
+j1.r1.t4       .       17.277     +INF       .         
+j1.r1.t5       .       59.452     +INF       .         
+j1.r1.t6       .       58.099     +INF       .         
+j1.r1.t7       .       56.036     +INF       .         
+j1.r1.t8       .       14.667     +INF  1.915E-10      
+j1.r1.t9       .         .        +INF      0.001      
+j1.r1.t10      .         .        +INF      0.001      
+j1.r1.t11      .         .        +INF      0.001      
+j1.r1.t12      .         .        +INF      0.001      
+j1.r1.t13      .         .        +INF      0.001      
+j1.r1.t14      .         .        +INF      0.001      
+j1.r1.t15      .         .        +INF      0.001      
+j1.r1.t16      .         .        +INF      0.001      
+j1.r1.t17      .         .        +INF      0.001      
+j1.r1.t18      .         .        +INF      0.001      
+j1.r1.t19      .         .        +INF      0.001      
+j1.r1.t20      .         .        +INF      0.001      
+j1.r1.t21      .         .        +INF      0.001      
+j1.r1.t22      .         .        +INF      0.001      
+j1.r1.t23      .         .        +INF      0.001      
+j1.r1.t24      .         .        +INF      0.001      
+j1.r4.t1       .        1.365     +INF       EPS       
+j1.r4.t2       .       59.795     +INF       .         
+j1.r4.t3       .         .        +INF  7.3972E-7      
+j1.r4.t4       .         .        +INF  1.5229E-6      
+j1.r4.t5       .         .        +INF  1.2393E-5      
+j1.r4.t6       .         .        +INF  2.3053E-5      
+j1.r4.t7       .         .        +INF  3.3193E-5      
+j1.r4.t8       .         .        +INF  4.2038E-5      
+j1.r4.t9       .         .        +INF      0.001      
+j1.r4.t10      .         .        +INF      0.001      
+j1.r4.t11      .         .        +INF      0.001      
+j1.r4.t12      .         .        +INF      0.001      
+j1.r4.t13      .         .        +INF      0.001      
+j1.r4.t14      .         .        +INF      0.001      
+j1.r4.t15      .         .        +INF      0.001      
+j1.r4.t16      .         .        +INF      0.001      
+j1.r4.t17      .         .        +INF      0.001      
+j1.r4.t18      .         .        +INF      0.001      
+j1.r4.t19      .         .        +INF      0.001      
+j1.r4.t20      .         .        +INF      0.001      
+j1.r4.t21      .         .        +INF      0.001      
+j1.r4.t22      .         .        +INF      0.001      
+j1.r4.t23      .         .        +INF      0.001      
+j1.r4.t24      .         .        +INF      0.001      
+j2.r2.t1       .       44.830     +INF       .         
+j2.r2.t2       .       18.000     +INF       .         
+j2.r2.t3       .         .        +INF  2.1555E-5      
+j2.r2.t4       .       10.301     +INF  6.834E-10      
+j2.r2.t5       .       44.589     +INF       .         
+j2.r2.t6       .       47.358     +INF       .         
+j2.r2.t7       .       49.769     +INF       .         
+j2.r2.t8       .       92.983     +INF       .         
+j2.r2.t9       .       10.785     +INF       .         
+j2.r2.t10      .         .        +INF       EPS       
+j2.r2.t11      .         .        +INF  6.9613E-5      
+j2.r2.t12      .         .        +INF  9.9545E-5      
+j2.r2.t13      .         .        +INF  6.4738E-5      
+j2.r2.t14      .       35.164     +INF       .         
+j2.r2.t15      .       35.164     +INF  -1.113E-9      
+j2.r2.t16      .       35.164     +INF       .         
+j2.r2.t17      .       22.224     +INF  -1.052E-9      
+j2.r2.t18      .       35.164     +INF       .         
+j2.r2.t19      .       35.164     +INF       .         
+j2.r2.t20      .       20.512     +INF  1.1049E-9      
+j2.r2.t21      .         .        +INF       EPS       
+j2.r2.t22      .         .        +INF       EPS       
+j2.r2.t23      .         .        +INF  2.9933E-5      
+j2.r2.t24      .       35.158     +INF       .         
+j2.r3.t1       .       38.510     +INF       .         
+j2.r3.t2       .       27.808     +INF       .         
+j2.r3.t3       .      112.493     +INF       .         
+j2.r3.t4       .       85.019     +INF       .         
+j2.r3.t5       .       10.000     +INF       .         
+j2.r3.t6       .       10.000     +INF       .         
+j2.r3.t7       .       11.000     +INF       .         
+j2.r3.t8       .       10.330     +INF       .         
+j2.r3.t9       .       18.527     +INF       .         
+j2.r3.t10      .       29.313     +INF       .         
+j2.r3.t11      .       35.164     +INF       .         
+j2.r3.t12      .       34.748     +INF       .         
+j2.r3.t13      .       34.748     +INF  -3.93E-11      
+j2.r3.t14      .         .        +INF       EPS       
+j2.r3.t15      .         .        +INF       EPS       
+j2.r3.t16      .         .        +INF       EPS       
+j2.r3.t17      .       12.940     +INF       EPS       
+j2.r3.t18      .         .        +INF       EPS       
+j2.r3.t19      .         .        +INF       EPS       
+j2.r3.t20      .       14.652     +INF       .         
+j2.r3.t21      .       35.164     +INF       .         
+j2.r3.t22      .       35.164     +INF       .         
+j2.r3.t23      .       34.748     +INF       .         
+j2.r3.t24      .         .        +INF  4.8738E-6      
+
+---- VAR Qpompe  Débit de la pompe (k) à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1       .       37.465     +INF       .         
+small.p1.t2       .       37.465     +INF       .         
+small.p1.t3       .       37.498     +INF       .         
+small.p1.t4       .       37.532     +INF       .         
+small.p1.t5       .       38.014     +INF       .         
+small.p1.t6       .       38.486     +INF       .         
+small.p1.t7       .       38.935     +INF       .         
+small.p1.t8       .       39.327     +INF       .         
+small.p1.t9       .        9.771     +INF  -1.098E-9      
+small.p1.t10      .        9.771     +INF  -1.118E-9      
+small.p1.t11      .       11.721     +INF       .         
+small.p1.t12      .       11.583     +INF       .         
+small.p1.t13      .       11.583     +INF       .         
+small.p1.t14      .       11.721     +INF       .         
+small.p1.t15      .       11.721     +INF       EPS       
+small.p1.t16      .       11.721     +INF  -1.205E-9      
+small.p1.t17      .       11.721     +INF       .         
+small.p1.t18      .       11.721     +INF  -1.080E-9      
+small.p1.t19      .       11.721     +INF       .         
+small.p1.t20      .       11.721     +INF       EPS       
+small.p1.t21      .       11.721     +INF       EPS       
+small.p1.t22      .       11.721     +INF       EPS       
+small.p1.t23      .       11.583     +INF       EPS       
+small.p1.t24      .       11.719     +INF  1.0229E-9      
+small.p2.t1       .       37.465     +INF       .         
+small.p2.t2       .       37.465     +INF       .         
+small.p2.t3       .       37.498     +INF       .         
+small.p2.t4       .       37.532     +INF       .         
+small.p2.t5       .       38.014     +INF       .         
+small.p2.t6       .       38.486     +INF       .         
+small.p2.t7       .       38.935     +INF       .         
+small.p2.t8       .       39.327     +INF       .         
+small.p2.t9       .        9.771     +INF       .         
+small.p2.t10      .        9.771     +INF       .         
+small.p2.t11      .       11.721     +INF       .         
+small.p2.t12      .       11.583     +INF       EPS       
+small.p2.t13      .       11.583     +INF       .         
+small.p2.t14      .       11.721     +INF       .         
+small.p2.t15      .       11.721     +INF       EPS       
+small.p2.t16      .       11.721     +INF       .         
+small.p2.t17      .       11.721     +INF       EPS       
+small.p2.t18      .       11.721     +INF  -1.091E-9      
+small.p2.t19      .       11.721     +INF       .         
+small.p2.t20      .       11.721     +INF       EPS       
+small.p2.t21      .       11.721     +INF       EPS       
+small.p2.t22      .       11.721     +INF       EPS       
+small.p2.t23      .       11.583     +INF       EPS       
+small.p2.t24      .       11.719     +INF  1.0722E-9      
+small.p3.t1       .       37.465     +INF       .         
+small.p3.t2       .       37.465     +INF       .         
+small.p3.t3       .       37.498     +INF       .         
+small.p3.t4       .       37.532     +INF       .         
+small.p3.t5       .       38.014     +INF       .         
+small.p3.t6       .       38.486     +INF  2.306E-10      
+small.p3.t7       .       38.935     +INF  1.155E-10      
+small.p3.t8       .       39.327     +INF       .         
+small.p3.t9       .        9.771     +INF  -1.152E-9      
+small.p3.t10      .        9.771     +INF  -1.058E-9      
+small.p3.t11      .       11.721     +INF       EPS       
+small.p3.t12      .       11.583     +INF       EPS       
+small.p3.t13      .       11.583     +INF       EPS       
+small.p3.t14      .       11.721     +INF  -1.113E-9      
+small.p3.t15      .       11.721     +INF       .         
+small.p3.t16      .       11.721     +INF       .         
+small.p3.t17      .       11.721     +INF       EPS       
+small.p3.t18      .       11.721     +INF  -1.135E-9      
+small.p3.t19      .       11.721     +INF  -1.123E-9      
+small.p3.t20      .       11.721     +INF       EPS       
+small.p3.t21      .       11.721     +INF       EPS       
+small.p3.t22      .       11.721     +INF       .         
+small.p3.t23      .       11.583     +INF       EPS       
+small.p3.t24      .       11.719     +INF       .         
+
+---- VAR Gpompe  Gain de charge de la pompe (k) à (t) en (m)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1      -INF     14.638     +INF       .         
+small.p1.t2      -INF     14.638     +INF       .         
+small.p1.t3      -INF     22.214     +INF       EPS       
+small.p1.t4      -INF     14.767     +INF       EPS       
+small.p1.t5      -INF     23.122     +INF       .         
+small.p1.t6      -INF     14.785     +INF       .         
+small.p1.t7      -INF     14.878     +INF       EPS       
+small.p1.t8      -INF     25.193     +INF       .         
+small.p1.t9      -INF      8.384     +INF       EPS       
+small.p1.t10     -INF     10.764     +INF       EPS       
+small.p1.t11     -INF      6.513     +INF       .         
+small.p1.t12     -INF      6.447     +INF       .         
+small.p1.t13     -INF      6.447     +INF       .         
+small.p1.t14     -INF      6.513     +INF       .         
+small.p1.t15     -INF      6.513     +INF       .         
+small.p1.t16     -INF      6.513     +INF       .         
+small.p1.t17     -INF      6.513     +INF       .         
+small.p1.t18     -INF      6.513     +INF       .         
+small.p1.t19     -INF      6.513     +INF       .         
+small.p1.t20     -INF      6.513     +INF       .         
+small.p1.t21     -INF      6.513     +INF       .         
+small.p1.t22     -INF      6.513     +INF       .         
+small.p1.t23     -INF      6.447     +INF       .         
+small.p1.t24     -INF      6.512     +INF       .         
+small.p2.t1      -INF     22.654     +INF       .         
+small.p2.t2      -INF     14.638     +INF  -1.64E-10      
+small.p2.t3      -INF     14.643     +INF       .         
+small.p2.t4      -INF     14.648     +INF       .         
+small.p2.t5      -INF     14.721     +INF  -1.27E-10      
+small.p2.t6      -INF     23.620     +INF       .         
+small.p2.t7      -INF     24.088     +INF  -7.94E-11      
+small.p2.t8      -INF     14.896     +INF       .         
+small.p2.t9      -INF      5.552     +INF       .         
+small.p2.t10     -INF      5.552     +INF       .         
+small.p2.t11     -INF      6.513     +INF       .         
+small.p2.t12     -INF      6.447     +INF       .         
+small.p2.t13     -INF      6.447     +INF       .         
+small.p2.t14     -INF      6.513     +INF       .         
+small.p2.t15     -INF      6.513     +INF       .         
+small.p2.t16     -INF      6.513     +INF       .         
+small.p2.t17     -INF      6.513     +INF       .         
+small.p2.t18     -INF      6.513     +INF       .         
+small.p2.t19     -INF      6.513     +INF       .         
+small.p2.t20     -INF      6.513     +INF       .         
+small.p2.t21     -INF      6.513     +INF       .         
+small.p2.t22     -INF      6.513     +INF       .         
+small.p2.t23     -INF      6.447     +INF       .         
+small.p2.t24     -INF     14.313     +INF       EPS       
+small.p3.t1      -INF     14.638     +INF       .         
+small.p3.t2      -INF     22.299     +INF       .         
+small.p3.t3      -INF     14.643     +INF       .         
+small.p3.t4      -INF     22.293     +INF       .         
+small.p3.t5      -INF     14.718     +INF       .         
+small.p3.t6      -INF     14.785     +INF       .         
+small.p3.t7      -INF     14.878     +INF       .         
+small.p3.t8      -INF     14.896     +INF       .         
+small.p3.t9      -INF     39.751     +INF       .         
+small.p3.t10     -INF     37.201     +INF       .         
+small.p3.t11     -INF     40.318     +INF       .         
+small.p3.t12     -INF     40.423     +INF       .         
+small.p3.t13     -INF     40.233     +INF       .         
+small.p3.t14     -INF     39.868     +INF       .         
+small.p3.t15     -INF     39.718     +INF       .         
+small.p3.t16     -INF     39.558     +INF       .         
+small.p3.t17     -INF     39.362     +INF       .         
+small.p3.t18     -INF     39.197     +INF       .         
+small.p3.t19     -INF     39.047     +INF       .         
+small.p3.t20     -INF     38.922     +INF       .         
+small.p3.t21     -INF     38.785     +INF       .         
+small.p3.t22     -INF     38.610     +INF       .         
+small.p3.t23     -INF     38.663     +INF       .         
+small.p3.t24     -INF     30.880     +INF       .         
+
+---- VAR Ppompe  Puissance électrique de la pompe (k) à (t) en (kW)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1       .        5.035     +INF  -8.82E-10      
+small.p1.t2       .        5.035     +INF  -2.736E-9      
+small.p1.t3       .        5.496     +INF       .         
+small.p1.t4       .        5.051     +INF  -1.284E-9      
+small.p1.t5       .        5.616     +INF  -2.87E-10      
+small.p1.t6       .        5.172     +INF  2.5899E-9      
+small.p1.t7       .        5.234     +INF       .         
+small.p1.t8       .        5.907     +INF  6.027E-10      
+small.p1.t9       .        1.484     +INF       .         
+small.p1.t10      .        1.628     +INF       .         
+small.p1.t11      .        1.575     +INF       EPS       
+small.p1.t12      .        1.557     +INF       EPS       
+small.p1.t13      .        1.557     +INF       .         
+small.p1.t14      .        1.575     +INF  -8.342E-9      
+small.p1.t15      .        1.575     +INF       .         
+small.p1.t16      .        1.575     +INF       .         
+small.p1.t17      .        1.575     +INF       .         
+small.p1.t18      .        1.575     +INF       .         
+small.p1.t19      .        1.575     +INF  -8.480E-9      
+small.p1.t20      .        1.575     +INF       .         
+small.p1.t21      .        1.575     +INF       .         
+small.p1.t22      .        1.575     +INF       .         
+small.p1.t23      .        1.557     +INF       .         
+small.p1.t24      .        1.575     +INF       .         
+small.p2.t1       .        5.519     +INF  3.108E-10      
+small.p2.t2       .        5.035     +INF       .         
+small.p2.t3       .        5.039     +INF  8.213E-10      
+small.p2.t4       .        5.044     +INF  -8.19E-10      
+small.p2.t5       .        5.108     +INF  1.8158E-9      
+small.p2.t6       .        5.706     +INF  1.3223E-9      
+small.p2.t7       .        5.790     +INF  1.3137E-9      
+small.p2.t8       .        5.285     +INF  5.143E-10      
+small.p2.t9       .        1.313     +INF  -8.471E-9      
+small.p2.t10      .        1.313     +INF  -8.603E-9      
+small.p2.t11      .        1.575     +INF       EPS       
+small.p2.t12      .        1.557     +INF       .         
+small.p2.t13      .        1.557     +INF       EPS       
+small.p2.t14      .        1.575     +INF  -7.481E-9      
+small.p2.t15      .        1.575     +INF       .         
+small.p2.t16      .        1.575     +INF  -8.654E-9      
+small.p2.t17      .        1.575     +INF       .         
+small.p2.t18      .        1.575     +INF       .         
+small.p2.t19      .        1.575     +INF  -8.321E-9      
+small.p2.t20      .        1.575     +INF       .         
+small.p2.t21      .        1.575     +INF       .         
+small.p2.t22      .        1.575     +INF       .         
+small.p2.t23      .        1.557     +INF       .         
+small.p2.t24      .        2.046     +INF       .         
+small.p3.t1       .        5.035     +INF  -2.327E-9      
+small.p3.t2       .        5.497     +INF  -2.719E-9      
+small.p3.t3       .        5.039     +INF  1.1260E-9      
+small.p3.t4       .        5.505     +INF  -9.91E-10      
+small.p3.t5       .        5.108     +INF  2.4997E-9      
+small.p3.t6       .        5.172     +INF       .         
+small.p3.t7       .        5.234     +INF       .         
+small.p3.t8       .        5.285     +INF       .         
+small.p3.t9       .        3.379     +INF       .         
+small.p3.t10      .        3.225     +INF       .         
+small.p3.t11      .        3.617     +INF       .         
+small.p3.t12      .        3.609     +INF       .         
+small.p3.t13      .        3.598     +INF       .         
+small.p3.t14      .        3.590     +INF       .         
+small.p3.t15      .        3.581     +INF       .         
+small.p3.t16      .        3.572     +INF       .         
+small.p3.t17      .        3.560     +INF       .         
+small.p3.t18      .        3.550     +INF       .         
+small.p3.t19      .        3.541     +INF       .         
+small.p3.t20      .        3.533     +INF       .         
+small.p3.t21      .        3.525     +INF       .         
+small.p3.t22      .        3.514     +INF       .         
+small.p3.t23      .        3.503     +INF       .         
+small.p3.t24      .        3.047     +INF       .         
+
+---- VAR v  Volume au réservoir (r) en (t)
+
+          LOWER     LEVEL     UPPER    MARGINAL
+
+r1.t1    100.000   117.859   300.000      .         
+r1.t2    100.000   119.650   300.000      .         
+r1.t3    100.000   115.980   300.000      .         
+r1.t4    100.000   126.757   300.000      .         
+r1.t5    100.000   180.539   300.000      .         
+r1.t6    100.000   231.138   300.000      .         
+r1.t7    100.000   284.173   300.000      .         
+r1.t8    100.000   295.840   300.000      .         
+r1.t9    100.000   293.840   300.000      .         
+r1.t10   100.000   280.340   300.000      .         
+r1.t11   100.000   266.340   300.000      .         
+r1.t12   100.000   254.340   300.000      .         
+r1.t13   100.000   242.340   300.000      .         
+r1.t14   100.000   230.340   300.000      .         
+r1.t15   100.000   218.340   300.000      .         
+r1.t16   100.000   205.510   300.000      .         
+r1.t17   100.000   189.840   300.000      .         
+r1.t18   100.000   176.670   300.000      .         
+r1.t19   100.000   164.670   300.000      .         
+r1.t20   100.000   154.670   300.000      .         
+r1.t21   100.000   143.670   300.000      .         
+r1.t22   100.000   129.670   300.000      .         
+r1.t23   100.000   110.170   300.000      .         
+r1.t24   100.000   100.000   300.000     0.004      
+r2.t1    100.000   100.000   300.000 2.2023E-5      
+r2.t2    100.000   100.000   300.000 4.8052E-5      
+r2.t3    100.000   100.000   300.000      .         
+r2.t4    100.000   110.301   300.000      .         
+r2.t5    100.000   154.890   300.000      .         
+r2.t6    100.000   202.248   300.000      .         
+r2.t7    100.000   252.017   300.000      .         
+r2.t8    100.000   300.000   300.000    -0.001      
+r2.t9    100.000   259.115   300.000      .         
+r2.t10   100.000   259.115   300.000      .         
+r2.t11   100.000   259.115   300.000      .         
+r2.t12   100.000   259.115   300.000      .         
+r2.t13   100.000   243.945   300.000      .         
+r2.t14   100.000   175.279   300.000      .         
+r2.t15   100.000   175.613   300.000      .         
+r2.t16   100.000   166.947   300.000      .         
+r2.t17   100.000   134.342   300.000      .         
+r2.t18   100.000   118.336   300.000      .         
+r2.t19   100.000   100.000   300.000 2.1633E-9      
+r2.t20   100.000   119.842   300.000      .         
+r2.t21   100.000   119.842   300.000      .         
+r2.t22   100.000   119.842   300.000      .         
+r2.t23   100.000   118.342   300.000      .         
+r2.t24   100.000   100.000   300.000     0.005      
+r3.t1    100.000   124.510   300.000      .         
+r3.t2    100.000   138.988   300.000      .         
+r3.t3    100.000   225.981   300.000      .         
+r3.t4    100.000   300.000   300.000 -1.093E-5      
+r3.t5    100.000   300.000   300.000 -1.081E-5      
+r3.t6    100.000   300.000   300.000 -1.052E-5      
+r3.t7    100.000   300.000   300.000 -9.780E-6      
+r3.t8    100.000   300.000   300.000    -0.001      
+r3.t9    100.000   288.357   300.000      .         
+r3.t10   100.000   300.000   300.000 -6.961E-5      
+r3.t11   100.000   298.834   300.000      .         
+r3.t12   100.000   295.583   300.000      .         
+r3.t13   100.000   295.331   300.000      .         
+r3.t14   100.000   260.161   300.000      .         
+r3.t15   100.000   240.831   300.000      .         
+r3.t16   100.000   209.001   300.000      .         
+r3.t17   100.000   198.441   300.000      .         
+r3.t18   100.000   181.611   300.000      .         
+r3.t19   100.000   153.611   300.000      .         
+r3.t20   100.000   134.763   300.000      .         
+r3.t21   100.000   130.927   300.000      .         
+r3.t22   100.000   127.592   300.000      .         
+r3.t23   100.000   129.670   300.000      .         
+r3.t24   100.000   100.000   300.000     0.005      
+r4.t1    100.000   100.365   300.000      .         
+r4.t2    100.000   159.160   300.000      .         
+r4.t3    100.000   150.660   300.000      .         
+r4.t4    100.000   141.160   300.000      .         
+r4.t5    100.000   137.160   300.000      .         
+r4.t6    100.000   134.830   300.000      .         
+r4.t7    100.000   134.830   300.000      .         
+r4.t8    100.000   133.830   300.000      .         
+r4.t9    100.000   133.000   300.000      .         
+r4.t10   100.000   131.000   300.000      .         
+r4.t11   100.000   129.000   300.000      .         
+r4.t12   100.000   127.000   300.000      .         
+r4.t13   100.000   125.000   300.000      .         
+r4.t14   100.000   123.000   300.000      .         
+r4.t15   100.000   121.000   300.000      .         
+r4.t16   100.000   118.000   300.000      .         
+r4.t17   100.000   116.000   300.000      .         
+r4.t18   100.000   115.000   300.000      .         
+r4.t19   100.000   113.000   300.000      .         
+r4.t20   100.000   110.000   300.000      .         
+r4.t21   100.000   108.000   300.000      .         
+r4.t22   100.000   105.000   300.000      .         
+r4.t23   100.000   102.000   300.000      .         
+r4.t24   100.000   100.000   300.000     0.004      
+
+---- VAR Son  Statu     t de la pompe (k) fonctionne à (t)
+
+                LOWER     LEVEL     UPPER    MARGINAL
+
+small.p1.t1       .        0.375     1.000      EPS       
+small.p1.t2       .        0.375     1.000      EPS       
+small.p1.t3       .        0.495     1.000      EPS       
+small.p1.t4       .        0.377     1.000      EPS       
+small.p1.t5       .        0.513     1.000      EPS       
+small.p1.t6       .        0.385     1.000      EPS       
+small.p1.t7       .        0.390     1.000      EPS       
+small.p1.t8       .        0.557     1.000      EPS       
+small.p1.t9       .        0.143     1.000      EPS       
+small.p1.t10      .        0.180     1.000      EPS       
+small.p1.t11      .        0.117     1.000      EPS       
+small.p1.t12      .        0.116     1.000      EPS       
+small.p1.t13      .        0.116     1.000      EPS       
+small.p1.t14      .        0.117     1.000      EPS       
+small.p1.t15      .        0.117     1.000      EPS       
+small.p1.t16      .        0.117     1.000      EPS       
+small.p1.t17      .        0.117     1.000      EPS       
+small.p1.t18      .        0.117     1.000      EPS       
+small.p1.t19      .        0.117     1.000      EPS       
+small.p1.t20      .        0.117     1.000      EPS       
+small.p1.t21      .        0.117     1.000      EPS       
+small.p1.t22      .        0.117     1.000      EPS       
+small.p1.t23      .        0.116     1.000      EPS       
+small.p1.t24      .        0.117     1.000      EPS       
+small.p2.t1       .        0.502     1.000      EPS       
+small.p2.t2       .        0.375     1.000      EPS       
+small.p2.t3       .        0.375     1.000      EPS       
+small.p2.t4       .        0.375     1.000      EPS       
+small.p2.t5       .        0.380     1.000      EPS       
+small.p2.t6       .        0.525     1.000      EPS       
+small.p2.t7       .        0.536     1.000      EPS       
+small.p2.t8       .        0.393     1.000      EPS       
+small.p2.t9       .        0.098     1.000      EPS       
+small.p2.t10      .        0.098     1.000      EPS       
+small.p2.t11      .        0.117     1.000      EPS       
+small.p2.t12      .        0.116     1.000      EPS       
+small.p2.t13      .        0.116     1.000      EPS       
+small.p2.t14      .        0.117     1.000      EPS       
+small.p2.t15      .        0.117     1.000      EPS       
+small.p2.t16      .        0.117     1.000      EPS       
+small.p2.t17      .        0.117     1.000      EPS       
+small.p2.t18      .        0.117     1.000      EPS       
+small.p2.t19      .        0.117     1.000      EPS       
+small.p2.t20      .        0.117     1.000      EPS       
+small.p2.t21      .        0.117     1.000      EPS       
+small.p2.t22      .        0.117     1.000      EPS       
+small.p2.t23      .        0.116     1.000      EPS       
+small.p2.t24      .        0.241     1.000      EPS       
+small.p3.t1       .        0.375     1.000      EPS       
+small.p3.t2       .        0.496     1.000      EPS       
+small.p3.t3       .        0.375     1.000      EPS       
+small.p3.t4       .        0.497     1.000      EPS       
+small.p3.t5       .        0.380     1.000      EPS       
+small.p3.t6       .        0.385     1.000      EPS       
+small.p3.t7       .        0.390     1.000      EPS       
+small.p3.t8       .        0.393     1.000      EPS       
+small.p3.t9       .        0.640     1.000      EPS       
+small.p3.t10      .        0.599     1.000      EPS       
+small.p3.t11      .        0.653     1.000      EPS       
+small.p3.t12      .        0.654     1.000      EPS       
+small.p3.t13      .        0.651     1.000      EPS       
+small.p3.t14      .        0.646     1.000      EPS       
+small.p3.t15      .        0.644     1.000      EPS       
+small.p3.t16      .        0.641     1.000      EPS       
+small.p3.t17      .        0.638     1.000      EPS       
+small.p3.t18      .        0.635     1.000      EPS       
+small.p3.t19      .        0.633     1.000      EPS       
+small.p3.t20      .        0.631     1.000      EPS       
+small.p3.t21      .        0.629     1.000      EPS       
+small.p3.t22      .        0.626     1.000      EPS       
+small.p3.t23      .        0.627     1.000      EPS       
+small.p3.t24      .        0.503     1.000      EPS       
+
+                       LOWER     LEVEL     UPPER    MARGINAL
+
+---- VAR z              -INF      8.594     +INF       .         
+
+  z  Coût exploitation final
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             1     ERRORS ( ****)
+GAMS 40.1.0  93c2a77b Aug 1, 2022           LEX-LEG x86 64bit/Linux - 12/02/22 08:26:35 Page 5
+Pump Scheduling 4WT
+E x e c u t i o n
+
+
+----    129 VARIABLE Ppompe.L  Puissance électrique de la pompe (k) à (t) en 
+                               (kW)
+
+                  t1          t2          t3          t4          t5
+
+small.p1       5.035       5.035       5.496       5.051       5.616
+small.p2       5.519       5.035       5.039       5.044       5.108
+small.p3       5.035       5.497       5.039       5.505       5.108
+
+       +          t6          t7          t8          t9         t10
+
+small.p1       5.172       5.234       5.907       1.484       1.628
+small.p2       5.706       5.790       5.285       1.313       1.313
+small.p3       5.172       5.234       5.285       3.379       3.225
+
+       +         t11         t12         t13         t14         t15
+
+small.p1       1.575       1.557       1.557       1.575       1.575
+small.p2       1.575       1.557       1.557       1.575       1.575
+small.p3       3.617       3.609       3.598       3.590       3.581
+
+       +         t16         t17         t18         t19         t20
+
+small.p1       1.575       1.575       1.575       1.575       1.575
+small.p2       1.575       1.575       1.575       1.575       1.575
+small.p3       3.572       3.560       3.550       3.541       3.533
+
+       +         t21         t22         t23         t24
+
+small.p1       1.575       1.575       1.557       1.575
+small.p2       1.575       1.575       1.557       2.046
+small.p3       3.525       3.514       3.503       3.047
+
+
+----    129 VARIABLE v.L  Volume au réservoir (r) en (t)
+
+            t1          t2          t3          t4          t5          t6
+
+r1     117.859     119.650     115.980     126.757     180.539     231.138
+r2     100.000     100.000     100.000     110.301     154.890     202.248
+r3     124.510     138.988     225.981     300.000     300.000     300.000
+r4     100.365     159.160     150.660     141.160     137.160     134.830
+
+ +          t7          t8          t9         t10         t11         t12
+
+r1     284.173     295.840     293.840     280.340     266.340     254.340
+r2     252.017     300.000     259.115     259.115     259.115     259.115
+r3     300.000     300.000     288.357     300.000     298.834     295.583
+r4     134.830     133.830     133.000     131.000     129.000     127.000
+
+ +         t13         t14         t15         t16         t17         t18
+
+r1     242.340     230.340     218.340     205.510     189.840     176.670
+r2     243.945     175.279     175.613     166.947     134.342     118.336
+r3     295.331     260.161     240.831     209.001     198.441     181.611
+r4     125.000     123.000     121.000     118.000     116.000     115.000
+
+ +         t19         t20         t21         t22         t23         t24
+
+r1     164.670     154.670     143.670     129.670     110.170     100.000
+r2     100.000     119.842     119.842     119.842     118.342     100.000
+r3     153.611     134.763     130.927     127.592     129.670     100.000
+r4     113.000     110.000     108.000     105.000     102.000     100.000
+
+
+----    129 VARIABLE z.L                   =        8.594  Coût exploitation f
+                                                           inal
+
+**** REPORT FILE SUMMARY
+
+volumes /var/lib/condor/execute/dir_101355/gamsexec/volume.txt
+Conso /var/lib/condor/execute/dir_101355/gamsexec/Conso.txt
+DebitPompe /var/lib/condor/execute/dir_101355/gamsexec/DebitPompe.txt
+DebitPipe /var/lib/condor/execute/dir_101355/gamsexec/DebitPipe.txt
+ZZ /var/lib/condor/execute/dir_101355/gamsexec/ZZ.txt
+
+
+EXECUTION TIME       =     2748.936 SECONDS      4 MB  40.1.0 93c2a77b LEX-LEG
+
+
+USER: NEOS Server License prod-exec-7.neos-server.orgS220203/0001AB-GEN
+      mac@2c:ea:7f:71:ac:18                                     DCE1890
+      License for teaching and research at degree granting institutions

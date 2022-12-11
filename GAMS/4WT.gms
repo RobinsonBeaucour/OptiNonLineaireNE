@@ -17,9 +17,11 @@ Sets
      alias (d,dp);
 
 Scalar
-     height0      reference height at the source (m)     / 0 /
-     tariffnight  electricity hourly tariff at night (euro.kWh^-1) / 0.02916 /
-     tariffday    electricity hourly tariff at day (euro.kWh^-1)   / 0.04609 /
+     height0      reference height at the source (m)      / 0 /
+     tariffnight  electricity hourly tariff at night (euro.kWh^-1)  / 0.02916 /
+     tariffday    electricity hourly tariff at day (euro.kWh^-1)    / 0.04609 /
+     Qmin         minimal debit for pumps    / 1 /
+     Qmax         maximal debit for pumps    / 90 /;
 
 Parameter tariff(t)   electricity tariff;
     tariff(t)        = tariffday;
@@ -38,8 +40,10 @@ Parameters
     vmax(r)     maximal volume of each reservoir (m^3)
                 / r1 300, r2 300, r3 300, r4 300 /
 
-Parameter vinit(r) initial volume of each reservoir;
-    vinit(r) = vmin(r);
+Parameter vinit(r,t) initial volume of each reservoir;
+vinit(r,t)     =    0;
+vinit(r,"t1")  = vmin(r);
+
 
 * a polynomial is represented as the list of coefficients for each term degree
 Table psi(c,degree) quadratic fit of the service pressure (m) on the flow (m^3.h^-1) for each class of pumps
@@ -65,4 +69,130 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
      j1.r4      0.00044768      0.00170218  
      j2.r2      0.00223839      0.00851091
      j2.r3      0.00134303      0.00510655;
+
+Variables
+Charge(n,t)         Niveau de charge au noeud (n) à (t)
+Qpipe(n,n,t)          Débit dans le tuyau (l) à (t)
+Qpompe(c,d,t)       Débit de la pompe (k) à (t)
+Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
+Gpompe(c,d,t)       Gain de charge de la pompe (k) à (t) en (m)
+Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
+v(n,t)              Volume au réservoir (r) en (t)
+Son(c,d,t)          Statu     t de la pompe (k) fonctionne à (t)
+z                   Coût exploitation final;
       
+v.up(r,t)      =    vmax(r);
+v.lo(r,t)      =    vmin(r);
+* v.fx(r,'t1')   =    vinit(r);
+
+Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe;
+Binary variable Son;
+
+Son.l(k,t)$night(t)      =    1;  
+Son.l('small','p1',t)    =    1;     
+
+Equations
+     obj                           Objectif
+     Charge_s(n,t)                 Niveau de charge à la source à (t)
+     Charge_j(n,t)                 Niveau de charge aux jonctions (j) à (t)
+     Charge_r(n,t)                 Niveau de charge au réservoir (r) à (t)
+     Noeud(n,t)                    Contrainte débit noeud (n) à (t)
+     Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+     Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
+     Ordre_pompe(c,d,t)            Les pompes s allument dans l ordre
+     Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
+     Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
+     Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
+     Perte_charge(n,n,t)           Perte charge (n n) à (t)
+     Debit_s(t)                    Equilibre des débits à la source à (t);    
+
+Noeud(j,t) ..                 sum(n$l(j,n), Qpipe(j,n,t))        =e=  sum(n$l(n,j), Qpipe(n,j,t));
+Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
+Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
+Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)                        =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
+Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  sum(degree, phi(l,degree)*Qpipe(l,t));
+Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);
+Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
+Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
+obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+Charge_s("s",t) ..            0                                  =l=  (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
+Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
+Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
+Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
+
+
+model Optim_production / all /;
+* model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
+
+solve Optim_production using minlp minimizing z;
+* solve Optim_production using mip minimizing z;
+
+File volumes / volume.txt /;
+volumes.pc = 5;
+put volumes;
+put "Volume" /;
+loop((n,t),
+  put n.tl, t.tl, v.l(n,t) /
+);
+putclose;
+
+File Conso / Conso.txt /;
+Conso.pc = 5;
+put Conso;
+put "Consommation électrique des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Ppompe.l(c,d,t) /
+);
+putclose;
+
+File DebitPompe / DebitPompe.txt /;
+DebitPompe.pc = 5;
+put DebitPompe;
+put "Debit des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Qpompe.l(c,d,t) /
+);
+putclose;
+
+File ChargePompe / ChargePompe.txt /;
+ChargePompe.pc = 5;
+put ChargePompe;
+put "Gain de charge des pompes" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Gpompe.l(c,d,t) /
+);
+putclose;
+
+File ChargeReseau / ChargeReseau.txt /;
+ChargeReseau.pc = 5;
+put ChargeReseau;
+put "Charge dans le réseau" /;
+loop((n,t),
+  put n.tl, t.tl, Charge.l(n,t) /
+);
+putclose;
+
+File DebitPipe / DebitPipe.txt /;
+DebitPipe.pc = 5;
+put DebitPipe;
+put "Debit tuyau" /;
+loop((n,np,t)$l(n,np),
+  put n.tl, np.tl, t.tl, Qpipe.l(n,np,t) /
+);
+putclose;
+
+File ZZ / ZZ.txt /;
+ZZ.pc = 5;
+put ZZ;
+put "Coût operation" /;
+put z.l;
+putclose;
+
+File States / States.txt /;
+States.pc = 5;
+put States;
+put "Etat pompe" /;
+loop((c,d,t),
+  put c.tl, d.tl, t.tl, Son.l(c,d,t) /
+);
+putclose;
