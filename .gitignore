@@ -6,6 +6,7 @@ Documentation
 *.lxi
 *.txt
 !requirements.txt
+!requirements_py_venv.txt
 ONLNE
 GAMS/4WT.log
 GAMS/4WT.log~1
