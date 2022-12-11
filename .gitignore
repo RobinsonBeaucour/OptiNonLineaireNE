@@ -7,3 +7,7 @@ Documentation
 *.txt
 !requirements.txt
 ONLNE
+GAMS/4WT.log
+GAMS/4WT.log~1
+GAMS/4WT.log~2
+GAMS/4WT.log~3
