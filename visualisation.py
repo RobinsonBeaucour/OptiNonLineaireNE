@@ -4,6 +4,17 @@ import numpy as np
 import plotly.graph_objects as go
 import os
 
+color_map   =   {
+'p1'    :   'red',
+'p2'    :   'blue',
+'p3'    :   'green'
+}
+color_map_light   =   {
+    'p1'    :   'lightcoral',
+    'p2'    :   'lightblue',
+    'p3'    :   'lightgreen'
+}
+
 def etat_RDE(Volume,Conso,Z,Margin=False):
     fig = go.Figure()
     for n in Volume.index.get_level_values(0).unique():
@@ -23,7 +34,8 @@ def etat_RDE(Volume,Conso,Z,Margin=False):
                     x   =   Conso.loc[c,d].index,
                     y   =   Conso.loc[c,d].iloc[:,0],
                     yaxis="y2",
-                    name=   f"Elec {c},{d}"
+                    name=   f"Elec {c},{d}",
+                    marker_color = color_map[d]
                 )
             )
     fig.update_layout(
@@ -55,16 +67,6 @@ def etat_RDE(Volume,Conso,Z,Margin=False):
     return fig
 
 def Pompe_RDE(States,Gpompe,Qpompe,Z,Margin=False):
-    color_map   =   {
-    'p1'    :   'red',
-    'p2'    :   'blue',
-    'p3'    :   'green'
-    }
-    color_map_light   =   {
-        'p1'    :   'lightcoral',
-        'p2'    :   'lightblue',
-        'p3'    :   'lightgreen'
-    }
     fig = go.Figure()
     for c in States.index.get_level_values(0).unique():
         for d in States.index.get_level_values(1).unique():
@@ -73,7 +75,8 @@ def Pompe_RDE(States,Gpompe,Qpompe,Z,Margin=False):
                     x               =   States.loc[c,d].index,
                     y               =   10*States.loc[c,d].iloc[:,0],
                     marker_color    =   color_map_light[d],
-                    name            =   f"Statut {c},{d}"
+                    name            =   f"Statut {c},{d}",
+                    hoverinfo       =   'skip'
                 )
             )
     fig.update_layout(
