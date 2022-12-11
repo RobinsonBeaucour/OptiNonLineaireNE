@@ -4,7 +4,7 @@ Documentation
 !Documentation/Resultat.pdf
 *.lst
 *.lxi
-*.txt
+./*.txt
 !requirements.txt
 !requirements_py_venv.txt
 ONLNE
