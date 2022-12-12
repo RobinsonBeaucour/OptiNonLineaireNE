@@ -44,11 +44,14 @@
 $$
 \left.
     \begin{array}{lll}
-        Q_{pompe,t}^{(k)}       &   \text{Débit sortant de la pompe $k$ à l'instant $t$} & \mathbb{R}_+\\[0.2cm]
-        Q_{reserv,t}^{(r)}      &   \text{Débit entrant du réservoire $r$ à l'instant $t$}& \mathbb{R}_+\\[0.2cm]
+        Q_{pompe,t}^{(k)}       &   \text{Débit sortant de la pompe $k$ à l'instant $t$}    & \mathbb{R}_+\\[0.2cm]
+        Q_{reserv,t}^{(r)}      &   \text{Débit entrant du réservoire $r$ à l'instant $t$}  & \mathbb{R}_+\\[0.2cm]
+        Q_{jonction}^{(n,n')}   &   \text{Débit dans le tuyau allant du noeud $n$ au $n'$}  &   \mathbb{R}_+\\[0.2cm]
+        C_t^{(n)}               &   \text{Niveau de charge (en m) au noeud $n$}             & \mathbb{R}_+\\[0.2cm]
+        G_{pompe,t}^{(k)}       &   \text{Gain de charge de la pompe $k$ à l'instant $t$}   & \mathbb{R}_+\\[0.2cm]
         P_{pompe,t}^{(k)}       &   \text{Puissance électrique consommée par la pompe $k$ à l'instant $t$}& \mathbb{R}_+\\[0.2cm]
         V_t^{(r)}               &   \text{Volume du réservoire $r$ à l'instant $t$}& [V_{min}^{(r)},V_{max}^{(r)}]\\[0.2cm]
-        N_{on,t}^{(k)}          &   \text{Etat de la pompe $k$ (allumé/éteint) à l'instant $t$}&\{0,1\}\\[0.2cm]
+        S_{on,t}^{(k)}          &   \text{Etat de la pompe $k$ (allumé/éteint) à l'instant $t$}&\{0,1\}\\[0.2cm]
     \end{array}
 \right.
 $$
@@ -58,7 +61,7 @@ $$
     \begin{array}{lcccc}
         \forall t   &   \sum_k Q_{pompe,t}^{(k)}    & = &   \sum_r Q_{reserv,t}^{(r)}  &   \text{Equilbre débit sur le réseau}\\[0.2cm]
         \forall t   &   V_{t+1}^{(r)}-V_t^{(r)}     & = &   Q_{reserv,t}^{(r)} - D_t^{(r)} & \text{Satisfaction de la demande (pas horaire)}\\[0.2cm]
-        \forall k,t &   P_{pompe,t}^{(k)}           & = &   \psi_0^{(k)}N_{on,t}^{(k)}  + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2 &   \text{Fonctionnement pompe}\\[0.2cm]
+        \forall k,t &   P_{pompe,t}^{(k)}           & = &   \psi_0^{(k)}S_{on,t}^{(k)}  + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2 &   \text{Fonctionnement pompe}\\[0.2cm]
     \end{array}
 \right.
 $$

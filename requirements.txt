@@ -1,0 +1,7 @@
+numpy
+pandas
+plotly
+altair
+chart_studio
+matplotlib
+scipy
