@@ -9,6 +9,7 @@
 \usepackage{tikz}
 \usepackage{listings}
 \usepackage{adjustbox}
+\usepackage{amsmath}
 \usetikzlibrary{positioning}
 \geometry{a4paper,left=25mm,right=25mm,top=20mm}
 
@@ -44,9 +45,9 @@
 $$
 \left.
     \begin{array}{lll}
-        Q_{pompe,t}^{(k)}       &   \text{Débit sortant de la pompe $k$ à l'instant $t$}    & \mathbb{R}_+\\[0.2cm]
+        Q_{pompe,t}^{(k)}       &   \text{Débit sortant de la pompe $k$ à l'instant $t$}    & [Q_{min}^{(k)},Q_{max}^{(k)}]\cup\{0\}\\[0.2cm]
         Q_{reserv,t}^{(r)}      &   \text{Débit entrant du réservoire $r$ à l'instant $t$}  & \mathbb{R}_+\\[0.2cm]
-        Q_{jonction}^{(n,n')}   &   \text{Débit dans le tuyau allant du noeud $n$ au $n'$}  &   \mathbb{R}_+\\[0.2cm]
+        Q_{jonction,t}^{(n,n')}   &   \text{Débit dans le tuyau allant du noeud $n$ au $n'$ à l'instant $t$}  &   \mathbb{R}_+\\[0.2cm]
         C_t^{(n)}               &   \text{Niveau de charge (en m) au noeud $n$}             & \mathbb{R}_+\\[0.2cm]
         G_{pompe,t}^{(k)}       &   \text{Gain de charge de la pompe $k$ à l'instant $t$}   & \mathbb{R}_+\\[0.2cm]
         P_{pompe,t}^{(k)}       &   \text{Puissance électrique consommée par la pompe $k$ à l'instant $t$}& \mathbb{R}_+\\[0.2cm]
@@ -56,21 +57,86 @@ $$
 \right.
 $$
 \paragraph{Contraintes}
-$$
-\left.
-    \begin{array}{lcccc}
-        \forall t   &   \sum_k Q_{pompe,t}^{(k)}    & = &   \sum_r Q_{reserv,t}^{(r)}  &   \text{Equilbre débit sur le réseau}\\[0.2cm]
-        \forall t   &   V_{t+1}^{(r)}-V_t^{(r)}     & = &   Q_{reserv,t}^{(r)} - D_t^{(r)} & \text{Satisfaction de la demande (pas horaire)}\\[0.2cm]
-        \forall k,t &   P_{pompe,t}^{(k)}           & = &   \psi_0^{(k)}S_{on,t}^{(k)}  + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2 &   \text{Fonctionnement pompe}\\[0.2cm]
-    \end{array}
-\right.
-$$
+\begin{equation}
+    \tag{Equilibre flux}  
+    \left.
+        \begin{array}{lcccc}
+            \forall t,\forall j   &   \sum_{n} Q_{jonction,t}^{(n,j)}    & = &   \sum_{n} Q_{jonction,t}^{(j,n)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Satisfaction demande}  
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall r   &   V_{t+1}^{(r)}-V_t^{(r)}     & = &   Q_{reserv,t}^{(r)} - D_t^{(r)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+    
+\begin{equation}
+    \tag{Conso. élec pompe}  
+    \left.
+        \begin{array}{lccc}
+            \forall t, \forall k   &   P_{pompe,t}^{(k)}     & \geq &   \Gamma_0^{k}S_{on,t}^{(k)} + \Gamma_1^{(k)}Q_{pompe,t}^{(k)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Gain charge pompe}
+    \left.
+        \begin{array}{lccc}
+            \forall t, \forall k   &   G_{pompe,t}^{(k)}     & \leq &   \psi_0^{k}S_{on,t}^{(k)} + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Perte charge flux}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall n,n'   &   C_t^{(n)}  - C_t^{(n')}    & = &   \phi_1^{(n,n')}Q_{jonction,t}^{(n,n')} + \phi_2^{(n,n')}(Q_{jonction,t}^{(n,n')})^2\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Charge source}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall n,n'   &   0 & \leq & (\sum_k S_{on,t}^{(k)})    (G_{pompe,t}^{(k)}-C_t^{(s)})\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Charge jonction}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall j   &   C_t^{(j)}    & \geq &   H^{(j)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \tag{Charge réservoire}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall r   &   C_t^{(r)}    & \geq &   H^{(j)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+    
+% \underline{GAMS :}\\
 \begin{adjustbox}{max width=\textwidth}
     \begin{lstlisting}
-        Noeud(t) ..                   sum(k, Qpompe(k,t)) =e=  sum(r, Qreserve(r,t));
-        Satisfaction_demande(r,t) ..  v(r,t+1) - v(r,t)   =e=  1 * (Qreserve(r,t)-demand(r,t));
-        Elec_pompe(k,t) ..            Ppompe(k,t)         =e=  psi("small","0") * Non(k,t) +psi("small","2") * Qpompe(k,t)**2;
-        obj ..                        z                   =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+        Noeud(j,t) .. sum(n$l(j,n), Qpipe(j,n,t)) =e=  sum(n$l(n,j), Qpipe(n,j,t));
+        Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t) =e= 1 * (sum=(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
+        Elec_pompe(k(c,d),t) .. Ppompe(k,t) =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
+        Gain_charge_pompe(k(c,d),t) .. Gpompe(k,t) =l= psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
+        Charge_s("s",t) .. 0 =l= (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
     \end{lstlisting}
 \end{adjustbox}
 
