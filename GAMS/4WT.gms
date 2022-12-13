@@ -93,7 +93,7 @@ Son.l('small','p1',t)    =    1;
 
 Equations
      obj                           Objectif
-     Charge_s(n,t)                 Niveau de charge à la source à (t)
+     Charge_s(n,c,d,t)             Niveau de charge à la source à (t)
      Charge_j(n,t)                 Niveau de charge aux jonctions (j) à (t)
      Charge_r(n,t)                 Niveau de charge au réservoir (r) à (t)
      Noeud(n,t)                    Contrainte débit noeud (n) à (t)
@@ -116,7 +116,7 @@ Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t)
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
-Charge_s("s",t) ..            0                                  =l=  (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
+Charge_s("s",k,t) ..          0                                  =l=  (Gpompe(k,t)-Charge("s",t))*Son(k,t);
 Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
 Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
