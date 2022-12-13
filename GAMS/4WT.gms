@@ -104,7 +104,8 @@ Equations
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
      Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
      Perte_charge(n,n,t)           Perte charge (n n) à (t)
-     Debit_s(t)                    Equilibre des débits à la source à (t);    
+     Debit_s(t)                    Equilibre des débits à la source à (t)
+     Reduction                     Réduction des possibilités;    
 
 Noeud(j,t) ..                 sum(n$l(j,n), Qpipe(j,n,t))        =e=  sum(n$l(n,j), Qpipe(n,j,t));
 Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
@@ -119,7 +120,7 @@ Charge_s("s",t) ..            0                                  =l=  (sum(k, Gp
 Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
 Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
-
+Reduction ..                  sum((k,t), Son(k,t))               =g=  sum((r,t),demand(r,t))/Qmax;
 
 model Optim_production / all /;
 * model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
