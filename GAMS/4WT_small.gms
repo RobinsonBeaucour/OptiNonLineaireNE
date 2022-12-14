@@ -110,7 +110,7 @@ Noeud(j,t) ..                 sum(n$l(j,n), Qpipe(j,n,t))        =e=  sum(n$l(n,
 Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
 Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
 Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)                        =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
-Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  sum(degree, phi(l,degree)*Qpipe(l,t));
+Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  phi(l,"1")*Qpipe(l,t)+phi(l,"2")*Qpipe(l,t)**2;
 Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);    
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
