@@ -126,74 +126,75 @@ model Optim_production / all /;
 * model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
 
 solve Optim_production using minlp minimizing z;
+* solve Optim_production using rminlp minimizing z;
 * solve Optim_production using mip minimizing z;
 
-File volumes / volume.txt /;
-volumes.pc = 5;
-put volumes;
-put "Volume" /;
-loop((n,t),
-  put n.tl, t.tl, v.l(n,t) /
-);
-putclose;
+* File volumes / volume.txt /;
+* volumes.pc = 5;
+* put volumes;
+* put "Volume" /;
+* loop((n,t),
+*   put n.tl, t.tl, v.l(n,t) /
+* );
+* putclose;
 
-File Conso / Conso.txt /;
-Conso.pc = 5;
-put Conso;
-put "Consommation électrique des pompes" /;
-loop((c,d,t),
-  put c.tl, d.tl, t.tl, Ppompe.l(c,d,t) /
-);
-putclose;
+* File Conso / Conso.txt /;
+* Conso.pc = 5;
+* put Conso;
+* put "Consommation électrique des pompes" /;
+* loop((c,d,t),
+*   put c.tl, d.tl, t.tl, Ppompe.l(c,d,t) /
+* );
+* putclose;
 
-File DebitPompe / DebitPompe.txt /;
-DebitPompe.pc = 5;
-put DebitPompe;
-put "Debit des pompes" /;
-loop((c,d,t),
-  put c.tl, d.tl, t.tl, Qpompe.l(c,d,t) /
-);
-putclose;
+* File DebitPompe / DebitPompe.txt /;
+* DebitPompe.pc = 5;
+* put DebitPompe;
+* put "Debit des pompes" /;
+* loop((c,d,t),
+*   put c.tl, d.tl, t.tl, Qpompe.l(c,d,t) /
+* );
+* putclose;
 
-File ChargePompe / ChargePompe.txt /;
-ChargePompe.pc = 5;
-put ChargePompe;
-put "Gain de charge des pompes" /;
-loop((c,d,t),
-  put c.tl, d.tl, t.tl, Gpompe.l(c,d,t) /
-);
-putclose;
+* File ChargePompe / ChargePompe.txt /;
+* ChargePompe.pc = 5;
+* put ChargePompe;
+* put "Gain de charge des pompes" /;
+* loop((c,d,t),
+*   put c.tl, d.tl, t.tl, Gpompe.l(c,d,t) /
+* );
+* putclose;
 
-File ChargeReseau / ChargeReseau.txt /;
-ChargeReseau.pc = 5;
-put ChargeReseau;
-put "Charge dans le réseau" /;
-loop((n,t),
-  put n.tl, t.tl, Charge.l(n,t) /
-);
-putclose;
+* File ChargeReseau / ChargeReseau.txt /;
+* ChargeReseau.pc = 5;
+* put ChargeReseau;
+* put "Charge dans le réseau" /;
+* loop((n,t),
+*   put n.tl, t.tl, Charge.l(n,t) /
+* );
+* putclose;
 
-File DebitPipe / DebitPipe.txt /;
-DebitPipe.pc = 5;
-put DebitPipe;
-put "Debit tuyau" /;
-loop((n,np,t)$l(n,np),
-  put n.tl, np.tl, t.tl, Qpipe.l(n,np,t) /
-);
-putclose;
+* File DebitPipe / DebitPipe.txt /;
+* DebitPipe.pc = 5;
+* put DebitPipe;
+* put "Debit tuyau" /;
+* loop((n,np,t)$l(n,np),
+*   put n.tl, np.tl, t.tl, Qpipe.l(n,np,t) /
+* );
+* putclose;
 
-File ZZ / ZZ.txt /;
-ZZ.pc = 5;
-put ZZ;
-put "Coût operation" /;
-put z.l;
-putclose;
+* File ZZ / ZZ.txt /;
+* ZZ.pc = 5;
+* put ZZ;
+* put "Coût operation" /;
+* put z.l;
+* putclose;
 
-File States / States.txt /;
-States.pc = 5;
-put States;
-put "Etat pompe" /;
-loop((c,d,t),
-  put c.tl, d.tl, t.tl, Son.l(c,d,t) /
-);
-putclose;
+* File States / States.txt /;
+* States.pc = 5;
+* put States;
+* put "Etat pompe" /;
+* loop((c,d,t),
+*   put c.tl, d.tl, t.tl, Son.l(c,d,t) /
+* );
+* putclose;
