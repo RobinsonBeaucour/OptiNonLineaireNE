@@ -122,11 +122,11 @@ Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpo
 Reduction ..                  sum((k,t), Son(k,t))               =g=  sum((r,t),demand(r,t))/Qmax;
 
 
-* model Optim_production / all /;
-model Optim_production_lin / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
+model Optim_production / all /;
+* model Optim_production_lin / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
 
-* solve Optim_production using minlp minimizing z;
-solve Optim_production_lin using mip minimizing z;
+solve Optim_production using minlp minimizing z;
+* solve Optim_production_lin using mip minimizing z;
 
 
 * File volumes / volume.txt /;
