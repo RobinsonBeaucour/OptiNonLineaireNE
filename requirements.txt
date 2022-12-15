@@ -1,7 +1,7 @@
 numpy
 pandas
 plotly
-altair
+openpyxl
 chart_studio
 matplotlib
 scipy
