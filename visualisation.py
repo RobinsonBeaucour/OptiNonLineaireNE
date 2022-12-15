@@ -206,11 +206,54 @@ def Etat_reservoir(data_variable,data_set,data_parameter,reservoir):
     )
     return fig
 
+def path_to_n(n,data_set):
+    path = [n]
+    while n !='s':
+        n = data_set['l'][data_set['l']['n.1']==n]['n'].iloc[0]
+        path.append(n)
+    return path
+
+def Chemin_charge(data_parameter,data_variable,data_set,n):
+    fig = go.Figure()
+    path = path_to_n(n,data_set)
+    fig.add_trace(
+        go.Scatter(
+            x = path,
+            y = pd.concat([pd.DataFrame([['s',0,0]],columns=data_parameter['height'].columns),data_parameter['height'][data_parameter['height']['n'].isin(path)]])['Value'],
+            name = 'hauteur'
+        )
+    )
+    for t in data_set['t']['dim1']:
+        # if t == 't1':
+        fig.add_trace(
+        go.Scatter(
+            x = path,
+            y = data_variable['Charge'][(data_variable['Charge']['n'].isin(path))&(data_variable['Charge']['t']==t)]['Value'],
+            name = t,
+            # visible='legendonly'
+        )
+        )
+        # else:
+        #     fig.add_trace(
+        #     go.Scatter(
+        #         x = path,
+        #         y = data_variable['Charge'][(data_variable['Charge']['n'].isin(path))&(data_variable['Charge']['t']==t)]['Value'],
+        #         name = t,
+        #         visible='legendonly'
+        #     )
+        #     )
+    fig.update_layout(
+        hovermode='x',
+        height = 700,
+        title = n
+    )
+    return fig
 
 st.set_page_config(layout="wide")
 
 comparaison = st.checkbox("Comparaison")
 Z = 2
+Z2 = 2
 if comparaison:
     col_1,col_2 = st.columns(2)
     with col_1:
@@ -262,3 +305,4 @@ else:
     for i,reservoir in enumerate(liste_reservoir):
         with liste_columns[i]:
             st.plotly_chart(Etat_reservoir(data_variable,data_set,data_parameter,reservoir),use_container_width=True)
+            st.plotly_chart(Chemin_charge(data_parameter,data_variable,data_set,reservoir),use_container_width=True)
