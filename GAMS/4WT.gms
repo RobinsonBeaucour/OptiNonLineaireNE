@@ -74,7 +74,6 @@ Variables
 Charge(n,t)         Niveau de charge au noeud (n) à (t)
 Qpipe(n,n,t)        Débit dans le tuyau (l) à (t)
 Qpompe(c,d,t)       Débit de la pompe (k) à (t)
-Gpompe(t)           Gain de charge de la pompe à (t) en (m)
 Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
 v(n,t)              Volume au réservoir (r) en (t)
 Son(c,d,t)          Statu     t de la pompe (k) fonctionne à (t)

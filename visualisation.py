@@ -252,7 +252,10 @@ else:
         column = st.multiselect("Colonne",data_variable[variable].columns)
         value = st.selectbox("Valeur",data_variable[variable].columns)
         # st.dataframe(data_variable[variable])
-        st.dataframe(pd.pivot_table(data_variable[variable], values=value, index=index,columns=column, aggfunc=np.sum))
+        try:
+            st.dataframe(pd.pivot_table(data_variable[variable], values=value, index=index,columns=column, aggfunc=np.sum))
+        except:
+            st.text("Paramètres mal choisis")
 
     liste_reservoir = data_set['r']['n']
     liste_columns = st.columns(len(liste_reservoir))

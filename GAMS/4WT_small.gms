@@ -73,9 +73,7 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
 Variables
      Charge(n,t)         Niveau de charge au noeud (n) à (t)
      Qpipe(n,n,t)        Débit dans le tuyau (l) à (t)
-     Qpompe(c,t)         Débit des pompes (c)
-     Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
-     Gpompe(c,d,t)       Gain de charge de la pompe (k) à (t) en (m)
+     Qpompe(c,d,t)         Débit des pompes (c)
      Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
      v(n,t)              Volume au réservoir (r) en (t)
      Son(c,d,t)          Statut de la pompe (k) fonctionne à (t)
@@ -83,9 +81,8 @@ Variables
 
 v.up(r,t)      =    vmax(r);
 v.lo(r,t)      =    vmin(r);
-* v.fx(r,'t1')   =    vinit(r);
 
-Positive variables Qpompe, Qreserve, Ppompe, Charge, Qpipe, Gpompe;
+Positive variables Qpompe, Ppompe, Charge, Qpipe, Gpompe;
 Binary variable Son;
 
 Son.l(k,t)$night(t)     =    1;
@@ -97,7 +94,6 @@ Equations
      Charge_r(n,t)                 Niveau de charge au réservoir (r) à (t)
      Noeud(n,t)                    Contrainte débit noeud (n) à (t)
      Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
-     Gain_charge_pompe(c,d,t)      Gain de charge de la pompe (k) à (t)
      Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
      Ordre_pompe(c,d,t)            Les pompes s allument dans l ordre
      Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
@@ -109,13 +105,12 @@ Equations
 Noeud(j,t) ..                 sum(n$l(j,n), Qpipe(j,n,t))        =e=  sum(n$l(n,j), Qpipe(n,j,t));
 Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
 Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
-Gain_charge_pompe(k(c,d),t) ..Gpompe(k,t)                        =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
 Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  phi(l,"1")*Qpipe(l,t)+phi(l,"2")*Qpipe(l,t)**2;
 Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);    
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin;
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax;
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
-Charge_s("s",k,t) ..          Charge("s",t)                      =l=  Gpompe(k,t) + 70*(1-Son(k,t));
+Charge_s("s",k(c,d),t) ..     Charge("s",t)                      =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2 + 70*(1-Son(k,t));
 Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
 Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
