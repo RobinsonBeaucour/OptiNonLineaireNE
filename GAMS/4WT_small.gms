@@ -72,8 +72,8 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
 
 Variables
      Charge(n,t)         Niveau de charge au noeud (n) à (t)
-     Qpipe(n,n,t)          Débit dans le tuyau (l) à (t)
-     Qpompe(c,d,t)       Débit de la pompe (k) à (t)
+     Qpipe(n,n,t)        Débit dans le tuyau (l) à (t)
+     Qpompe(c,t)         Débit des pompes (c)
      Qreserve(n,t)       Débit entrant au réservoir (r) à (t)
      Gpompe(c,d,t)       Gain de charge de la pompe (k) à (t) en (m)
      Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
