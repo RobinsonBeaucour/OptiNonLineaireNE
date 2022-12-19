@@ -24,6 +24,14 @@ def recup_set(file):
         data_variable[var] = pd.read_excel(file,sheet_name=var,header=2)
     return data_variable
 
+def comments(file):
+    with st.expander("Commentaires",expanded=False):
+        try:
+            comments =  pd.read_excel(file,sheet_name='comments').iloc[0,0]
+            st.markdown(comments)
+        except:
+            st.markdown("Pas de commentaires")
+
 color_map   =   {
 'p1'    :   'red',
 'p2'    :   'blue',
@@ -36,7 +44,6 @@ color_map_light   =   {
 }
 
 def etat_RDE(data_variable,Z,Margin=False):
-    Z = 2
     fig = go.Figure()
     for r in data_variable['v']['n'].unique():
         fig.add_trace(
@@ -252,14 +259,15 @@ def Chemin_charge(data_parameter,data_variable,data_set,n):
 st.set_page_config(layout="wide")
 
 comparaison = st.checkbox("Comparaison")
-Z = 2
 Z2 = 2
 if comparaison:
     col_1,col_2 = st.columns(2)
     with col_1:
         file    =   "./data_results/" + st.selectbox("Résultat 1",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
+        Z = np.round(pd.read_excel(file,sheet_name='Scalar').iloc[8,2],4)
         data_variable = recup_variable(file)
         data_parameter = recup_parameter(file)
+        comments(file)
         st.plotly_chart(etat_RDE(data_variable,Z,True),use_container_width=True)
 
         st.plotly_chart(Pompe_RDE(data_variable,Z,True),use_container_width=True)
@@ -267,9 +275,10 @@ if comparaison:
         st.plotly_chart(Charge_RDE(data_variable,Z),use_container_width=True)
     with col_2:
         file2    =   "./data_results/" + st.selectbox("Résultat 2",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
+        Z2 = np.round(pd.read_excel(file2,sheet_name='Scalar').iloc[8,2],4)
         data_variable2 = recup_variable(file2)
         data_parameter2 = recup_parameter(file2)
-
+        comments(file2)
         st.plotly_chart(etat_RDE(data_variable2,Z2,True),use_container_width=True)
 
         st.plotly_chart(Pompe_RDE(data_variable2,Z2,True),use_container_width=True)
@@ -278,10 +287,11 @@ if comparaison:
 
 else:
     file    =   "./data_results/" + st.selectbox("Résultat",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
+    Z = np.round(pd.read_excel(file,sheet_name='Scalar').iloc[8,2],4)
     data_variable = recup_variable(file)
     data_parameter = recup_parameter(file)
     data_set = recup_set(file)
-
+    comments(file)
     st.plotly_chart(etat_RDE(data_variable,Z),use_container_width=True)
 
     st.plotly_chart(Pompe_RDE(data_variable,Z),use_container_width=True)
