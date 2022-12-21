@@ -23,7 +23,6 @@ def get_variable(file):
         data_variable[var] = pd.read_excel(file, sheet_name=var, header=2)
     return data_variable
 
-
 def get_parameter(file):
     """
     This function reads an Excel file and extracts the data for parameters that have a count greater than 1.
@@ -41,7 +40,6 @@ def get_parameter(file):
         # Read the data for each parameter from the Excel file
         data_parameter[var] = pd.read_excel(file, sheet_name=var, header=2)
     return data_parameter
-
 
 def get_set(file):
     """
@@ -61,7 +59,6 @@ def get_set(file):
         data_set[var] = pd.read_excel(file, sheet_name=var, header=2)
     return data_set
 
-
 def comments(file):
     """
     This function reads the 'comments' sheet in an Excel file and displays the comments in a markdown format.
@@ -78,7 +75,6 @@ def comments(file):
         except:
             # If there are no comments, display a message
             st.markdown("Pas de commentaires")
-
 
 color_map   =   {
 'p1'    :   'red',
@@ -355,7 +351,6 @@ def Chemin_charge(data_parameter,data_variable,data_set,n):
 st.set_page_config(layout="wide")
 
 comparaison = st.checkbox("Comparaison")
-Z2 = 2
 if comparaison:
     col_1,col_2 = st.columns(2)
     with col_1:
