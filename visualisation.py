@@ -5,32 +5,80 @@ import plotly.graph_objects as go
 import os
 
 @st.cache
-def recup_variable(file):
+def get_variable(file):
+    """
+    This function reads an Excel file and extracts the data for variables that have a count greater than 1.
+
+    Args:
+        file (str): The path to the Excel file.
+
+    Returns:
+        dict: A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+    """
     a = pd.read_excel(file)
     data_variable = {}
+    # Extract the names of the variables that have a count greater than 1
     for var in a[(a["Type"]=='variable')&(a["Count"]>1)]['Name']:
-        data_variable[var] = pd.read_excel(file,sheet_name=var,header=2)
-    return data_variable
-def recup_parameter(file):
-    a = pd.read_excel(file)
-    data_variable = {}
-    for var in a[(a["Type"]=='parameter')&(a["Count"]>1)]['Name']:
-        data_variable[var] = pd.read_excel(file,sheet_name=var,header=2)
-    return data_variable
-def recup_set(file):
-    a = pd.read_excel(file)
-    data_variable = {}
-    for var in a[(a["Type"]=='set')&(a["Count"]>1)]['Name']:
-        data_variable[var] = pd.read_excel(file,sheet_name=var,header=2)
+        # Read the data for each variable from the Excel file
+        data_variable[var] = pd.read_excel(file, sheet_name=var, header=2)
     return data_variable
 
+
+def get_parameter(file):
+    """
+    This function reads an Excel file and extracts the data for parameters that have a count greater than 1.
+
+    Args:
+        file (str): The path to the Excel file.
+
+    Returns:
+        dict: A dictionary containing the data for each parameter. The keys are the parameter names, and the values are pandas DataFrames containing the data for each parameter.
+    """
+    a = pd.read_excel(file)
+    data_parameter = {}
+    # Extract the names of the parameters that have a count greater than 1
+    for var in a[(a["Type"]=='parameter')&(a["Count"]>1)]['Name']:
+        # Read the data for each parameter from the Excel file
+        data_parameter[var] = pd.read_excel(file, sheet_name=var, header=2)
+    return data_parameter
+
+
+def get_set(file):
+    """
+    This function reads an Excel file and extracts the data for sets that have a count greater than 1.
+
+    Args:
+        file (str): The path to the Excel file.
+
+    Returns:
+        dict: A dictionary containing the data for each set. The keys are the set names, and the values are pandas DataFrames containing the data for each set.
+    """
+    a = pd.read_excel(file)
+    data_set = {}
+    # Extract the names of the sets that have a count greater than 1
+    for var in a[(a["Type"]=='set')&(a["Count"]>1)]['Name']:
+        # Read the data for each set from the Excel file
+        data_set[var] = pd.read_excel(file, sheet_name=var, header=2)
+    return data_set
+
+
 def comments(file):
+    """
+    This function reads the 'comments' sheet in an Excel file and displays the comments in a markdown format.
+
+    Args:
+        file (str): The path to the Excel file.
+    """
     with st.expander("Commentaires",expanded=False):
         try:
+            # Read the comments from the 'comments' sheet in the Excel file
             comments =  pd.read_excel(file,sheet_name='comments').iloc[0,0]
+            # Display the comments in a markdown format
             st.markdown(comments)
         except:
+            # If there are no comments, display a message
             st.markdown("Pas de commentaires")
+
 
 color_map   =   {
 'p1'    :   'red',
@@ -44,7 +92,18 @@ color_map_light   =   {
 }
 
 def etat_RDE(data_variable,Z,Margin=False):
+    """
+    This function creates a plot showing the state of the water distribution network.
+    Args:
+        data_variable (dict): A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+        Z (float): The cost of the water distribution network.
+        Margin (bool, optional): Whether to add a margin to the top of the plot. Default is False.
+
+    Returns:
+        plotly.graph_objects.Figure: A plot showing the state of the water distribution network.
+    """
     fig = go.Figure()
+    # Add a bar plot for each unique value of 'n' in the 'v' DataFrame
     for r in data_variable['v']['n'].unique():
         fig.add_trace(
             go.Bar(
@@ -53,6 +112,7 @@ def etat_RDE(data_variable,Z,Margin=False):
                 name=   r
             )
         )
+    # Add a scatter plot for each unique pair of values of 'c' and 'd' in the 'Ppompe' DataFrame
     for c in data_variable['Ppompe']['c'].unique():
         for d in data_variable['Ppompe']['d'].unique():
             fig.add_trace(
@@ -63,6 +123,7 @@ def etat_RDE(data_variable,Z,Margin=False):
                     name=   f"({c},{d})"
                 )
             )
+    # Update the layout of the plot
     fig.update_layout(
             legend=dict(
                 orientation="h",
@@ -85,6 +146,7 @@ def etat_RDE(data_variable,Z,Margin=False):
             ),
             title = f"Etat du réseau de distribution d'eau - Coût : {Z} €"
         )
+    # If Margin is True, add a margin to the top of the plot
     if Margin:
         fig.update_layout(
             margin_t = 120
@@ -92,6 +154,17 @@ def etat_RDE(data_variable,Z,Margin=False):
     return fig
 
 def Pompe_RDE(data_variable,Z,Margin=False):
+    """
+    This function creates a plot showing the state of the pumps in the water distribution network.
+
+    Args:
+        data_variable (dict): A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+        Z (float): The cost of the water distribution network.
+        Margin (bool, optional): Whether to add a margin to the top of the plot. Default is False.
+
+    Returns:
+        plotly.graph_objects.Figure: A plot showing the state of the pumps in the water distribution network.
+    """
     color_map   =   {
         'p1'    :   'red',
         'p2'    :   'blue',
@@ -103,19 +176,6 @@ def Pompe_RDE(data_variable,Z,Margin=False):
         'p3'    :   'lightgreen'
     }
     fig = go.Figure()
-    # for c in data_variable['Son']['c'].unique():
-    #     for d in data_variable['Son']['d'].unique():
-    #         fig.add_trace(
-    #             go.Bar(
-    #                 x               =   data_variable['Son'][(data_variable['Son']['c']==c)&(data_variable['Son']['d']==d)]['t'],
-    #                 y               =   10*data_variable['Son'][(data_variable['Son']['c']==c)&(data_variable['Son']['d']==d)]['Value'],
-    #                 marker_color    =   color_map_light[d],
-    #                 name            =   f"Statut {c},{d}"
-    #             )
-    #         )
-    # fig.update_layout(
-    #     barmode="stack"
-    # )
     fig.add_trace(
         go.Scatter(
             x               =   data_variable['Charge'][data_variable['Charge']['n']=='s']['t'],
@@ -147,6 +207,15 @@ def Pompe_RDE(data_variable,Z,Margin=False):
     return fig
 
 def Charge_RDE(data_variable,Z):
+    """
+    This function creates a plot showing the charge in the water distribution network.
+    Args:
+        data_variable (dict): A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+        Z (float): The cost of the water distribution network.
+
+    Returns:
+        plotly.graph_objects.Figure: A plot showing the charge in the water distribution network.
+    """
     fig = go.Figure()
     for n in data_variable['Charge']['n'].unique():
         fig.add_trace(
@@ -171,6 +240,17 @@ def Charge_RDE(data_variable,Z):
     return fig
 
 def Etat_reservoir(data_variable,data_set,data_parameter,reservoir):
+    """
+    This function creates a plot showing the state of a given reservoir in the water distribution network.
+    Args:
+        data_variable (dict): A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+        data_set (dict): A dictionary containing the data for each set. The keys are the set names, and the values are pandas DataFrames containing the data for each set.
+        data_parameter (dict): A dictionary containing the data for each parameter. The keys are the parameter names, and the values are pandas DataFrames containing the data for each parameter.
+        reservoir (str): The name of the reservoir to plot.
+
+    Returns:
+        plotly.graph_objects.Figure: A plot showing the state of the given reservoir in
+    """
     fig = go.Figure()
     demand = pd.merge(data_set['t'][['dim1']].rename(columns={'dim1':'t'}),data_parameter['demand'][data_parameter['demand']['r']==reservoir],on=['t'],how='left')
     demand['Value'] = demand['Value'].fillna(0)
@@ -214,6 +294,16 @@ def Etat_reservoir(data_variable,data_set,data_parameter,reservoir):
     return fig
 
 def path_to_n(n,data_set):
+    """
+    This function returns the path from the given node to the source node in the water distribution network.
+
+    Args:
+        n (str): The name of the node.
+        data_set (dict): A dictionary containing the data for each set. The keys are the set names, and the values are pandas DataFrames containing the data for each set.
+    
+    Returns:
+        list: A list containing the names of the nodes from the given node to the source node.
+    """
     path = [n]
     while n !='s':
         n = data_set['l'][data_set['l']['n.1']==n]['n'].iloc[0]
@@ -221,7 +311,22 @@ def path_to_n(n,data_set):
     return path
 
 def Chemin_charge(data_parameter,data_variable,data_set,n):
+    """
+    This function creates a plot showing the height and charge at each node along a path from the source node to a given node in the water distribution network.
+    
+    Args:
+        data_parameter (dict): A dictionary containing the data for each parameter. The keys are the parameter names, and the values are pandas DataFrames containing the data for each parameter.
+        data_variable (dict): A dictionary containing the data for each variable. The keys are the variable names, and the values are pandas DataFrames containing the data for each variable.
+        data_set (dict): A dictionary containing the data for each set. The keys are the set names, and the values are pandas DataFrames containing the data for each set.
+        n (str): The name of the node to end at.
+    
+    Returns:
+        plotly.graph_objects.Figure: A plot showing the height and charge at each node along the path from the source node to the given node.
+    """
+    # Initialize a Figure object
     fig = go.Figure()
+    
+    # Get the path from the source node to the given node
     path = path_to_n(n,data_set)
     fig.add_trace(
         go.Scatter(
@@ -240,15 +345,6 @@ def Chemin_charge(data_parameter,data_variable,data_set,n):
             # visible='legendonly'
         )
         )
-        # else:
-        #     fig.add_trace(
-        #     go.Scatter(
-        #         x = path,
-        #         y = data_variable['Charge'][(data_variable['Charge']['n'].isin(path))&(data_variable['Charge']['t']==t)]['Value'],
-        #         name = t,
-        #         visible='legendonly'
-        #     )
-        #     )
     fig.update_layout(
         hovermode='x',
         height = 700,
@@ -265,8 +361,8 @@ if comparaison:
     with col_1:
         file    =   "./data_results/" + st.selectbox("Résultat 1",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
         Z = np.round(pd.read_excel(file,sheet_name='Scalar').iloc[8,2],4)
-        data_variable = recup_variable(file)
-        data_parameter = recup_parameter(file)
+        data_variable = get_variable(file)
+        data_parameter = get_parameter(file)
         comments(file)
         st.plotly_chart(etat_RDE(data_variable,Z,True),use_container_width=True)
 
@@ -276,8 +372,8 @@ if comparaison:
     with col_2:
         file2    =   "./data_results/" + st.selectbox("Résultat 2",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
         Z2 = np.round(pd.read_excel(file2,sheet_name='Scalar').iloc[8,2],4)
-        data_variable2 = recup_variable(file2)
-        data_parameter2 = recup_parameter(file2)
+        data_variable2 = get_variable(file2)
+        data_parameter2 = get_parameter(file2)
         comments(file2)
         st.plotly_chart(etat_RDE(data_variable2,Z2,True),use_container_width=True)
 
@@ -288,9 +384,9 @@ if comparaison:
 else:
     file    =   "./data_results/" + st.selectbox("Résultat",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
     Z = np.round(pd.read_excel(file,sheet_name='Scalar').iloc[8,2],4)
-    data_variable = recup_variable(file)
-    data_parameter = recup_parameter(file)
-    data_set = recup_set(file)
+    data_variable = get_variable(file)
+    data_parameter = get_parameter(file)
+    data_set = get_set(file)
     comments(file)
     st.plotly_chart(etat_RDE(data_variable,Z),use_container_width=True)
 
@@ -298,7 +394,6 @@ else:
 
     st.plotly_chart(Charge_RDE(data_variable,Z),use_container_width=True)
 
-   
     with st.expander('Données',expanded=False):
         variable = st.selectbox("Variable",options=data_variable.keys())
         index = st.multiselect("Ligne",data_variable[variable].columns)
