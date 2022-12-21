@@ -38,14 +38,20 @@ Parameters
     vmax(r)  maximal volume of each reservoir (m^3)
                 / r12 177.5, r13 79.07, r132 366.43, r133 383.25, r134 592, r14 105, r15 282, r151 1045.43, r16 146, r161 535.89, r17 326.47, r171 485.48, r18 286.17, r181 1209.23, r19 1386.0, r191 1475.17 /
 
-Parameter vinit(r) initial volume of each reservoir;
-    vinit(r) = vmin(r);
+Parameter vinit(r,t) initial volume of each reservoir;
+vinit(r,t)     =    0;
+vinit(r,"t1")  = vmin(r);
 
 * a polynomial is represented as the list of coefficients for each term degree
 Table psi(c,degree) quadratic fit of the service pressure (m) on the flow (m^3.h^-1) for each class of pumps
                   0            1            2
       small       152.3245     0            -0.0010392
       large       178.3516     0            -0.0003700;
+
+Parameter Qmin(c,d) Débit minimum;
+Qmin(k)             =    1;
+Parameter Qmax(c,d) Débit maximum;
+Qmax(c,d)$k(c,d)    =    sqrt(-psi(c,'0')/psi(c,'2'))
 
 Table gamma(c,degree) linear fit of the electrical power (kW) on the flow (m^3.h^-1) for each class of pumps
                   0                 1
@@ -104,3 +110,64 @@ Table phi(n,n,degree) quadratic fit of the pressure loss (m) on the flow (m^3.h^
      j6.j10     0.0003418       0.0024063
      j10.r18    0.0044362       0.0106558
      j10.r181   0.0003081       0.0016460;
+
+     Variables
+Charge(n,t)         Niveau de charge au noeud (n) à (t)
+Qpipe(n,n,t)        Débit dans le tuyau (l) à (t)
+Qpompe(c,d,t)       Débit de la pompe (k) à (t)
+Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
+v(n,t)              Volume au réservoir (r) en (t)
+Son(c,d,t)          Statu     t de la pompe (k) fonctionne à (t)
+z                   Coût exploitation final;
+      
+v.up(r,t)      =    vmax(r);
+v.lo(r,t)      =    vmin(r);
+* v.fx(r,'t1')   =    vinit(r);
+
+Positive variables Qpompe, Ppompe, Charge, Qpipe, Gpompe;
+Binary variable Son;
+  
+Son.fx('small',d,t)$k('small',d)    =    0;
+Son.fx('large',d,t)$k('large',d)    =    1;     
+
+
+Equations
+     obj                           Objectif
+     Charge_s(n,c,d,t)             Niveau de charge à la source à (t)
+     Charge_j(n,t)                 Niveau de charge aux jonctions (j) à (t)
+     Charge_r(n,t)                 Niveau de charge au réservoir (r) à (t)
+     Noeud(n,t)                    Contrainte débit noeud (n) à (t)
+     Satisfaction_demande(r,t)     Satisfaction de la demande en (r) à (t)
+     Ordre_pompe(c,d,t)            Les pompes s allument dans l ordre
+     Elec_pompe(c,d,t)             Consommation électrique de la pompe (k) à (t)
+     Qpompe_inf(c,d,t)             Borne inférieur pompe (k) à (t)
+     Qpompe_sup(c,d,t)             Borne supérieur pompe (k) à (t)
+     Perte_charge(n,n,t)           Perte charge (n n) à (t)
+     Debit_s(t)                    Equilibre des débits à la source à (t);
+*     Reduction                     Réduction des possibilités;    
+
+Noeud(j,t) ..                 sum(n$l(j,n), Qpipe(j,n,t))        =e=  sum(n$l(n,j), Qpipe(n,j,t));
+Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t)     =e=  1 * (sum(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
+Elec_pompe(k(c,d),t) ..       Ppompe(k,t)                        =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
+Perte_charge(l(n,np),t) ..    Charge(n,t)-Charge(np,t)           =e=  phi(l,"1")*Qpipe(l,t)+phi(l,"2")*Qpipe(l,t)**2;
+Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t);
+Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin(k);
+Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax(k);
+obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
+Charge_s("s",k(c,d),t) ..     Charge("s",t)                      =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2 + 70*(1-Son(k,t));
+Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
+Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
+Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
+* Reduction ..                  sum((k,t), Son(k,t))               =g=  sum((r,t),demand(r,t))/100;
+
+model Optim_production / all /;
+* model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
+
+
+Option optcr = 0.5;
+* Option resLim=600;
+solve Optim_production using minlp minimizing z;
+* Option MINLP = Gurobi;
+
+* solve Optim_production using rminlp minimizing z;
+* solve Optim_production using mip minimizing z;
