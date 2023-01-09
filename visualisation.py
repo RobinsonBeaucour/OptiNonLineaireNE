@@ -164,12 +164,14 @@ def Pompe_RDE(data_variable,Z,Margin=False):
     color_map   =   {
         'p1'    :   'red',
         'p2'    :   'blue',
-        'p3'    :   'green'
+        'p3'    :   'green',
+        'p4'    :   'magenta',
     }
     color_map_light   =   {
         'p1'    :   'lightcoral',
         'p2'    :   'lightblue',
-        'p3'    :   'lightgreen'
+        'p3'    :   'lightgreen',
+        'p4'    :   'plum'    
     }
     fig = go.Figure()
     fig.add_trace(
@@ -324,6 +326,7 @@ def Chemin_charge(data_parameter,data_variable,data_set,n):
     
     # Get the path from the source node to the given node
     path = path_to_n(n,data_set)
+    path = path[::-1]
     fig.add_trace(
         go.Scatter(
             x = path,
@@ -385,9 +388,34 @@ else:
     comments(file)
     st.plotly_chart(etat_RDE(data_variable,Z),use_container_width=True)
 
+    with st.expander(label="Aide",expanded=False):
+        st.markdown(
+            '''
+            Ce graphique permet de visualiser en fonction du temps l'état des réservoirs et des pompes. L'état des réservoir est décrit par le volume dans les réservoirs. L'état des pompe est décrit par la consommation électrique de chaque pompe.
+            ''',
+            unsafe_allow_html=True
+        )
+
     st.plotly_chart(Pompe_RDE(data_variable,Z),use_container_width=True)
 
+    with st.expander(label="Aide", expanded=False):
+        st.markdown(
+            '''
+            Ce graphique détaille l'état des pompes du réseau dans le temps. Il montre le débit cumulé des pompes. Il est à noté que les pompes sont branchées en parallèles, il n'y a donc qu'une seul charge possible au borne de ces pompes.<br>
+            En théorie, le débit des pompes d'un même type est identique. Cependant les relaxations convexes du modèle peuvent conduire à des débits différents pour des pompes du même type.
+            ''',
+            unsafe_allow_html=True
+        )
+
     st.plotly_chart(Charge_RDE(data_variable,Z),use_container_width=True)
+
+    with st.expander(label="Aide", expanded=False):
+        st.markdown(
+            '''
+            Ce graphique détaille la charge dans le temps de tous les noeuds du réseau. Lorsqu'il n'y a pas de débit dans le réseau, la charge dans le rseau est libre (le réseau est à l'arrêt).
+            ''',
+            unsafe_allow_html=True
+        )
 
     with st.expander('Données',expanded=False):
         variable = st.selectbox("Variable",options=data_variable.keys())
@@ -400,9 +428,21 @@ else:
         except:
             st.text("Paramètres mal choisis")
 
+    st.markdown('## Etat dans chaque réservoir')
+    with st.expander(label='Aide',expanded=False):
+        st.markdown(
+            '''
+            Ci-dessous, chaque réservoir a deux graphiques associés. Le premier donnee l'évolution des entrées et des sorties d'eaux du réservoir ainsi que l'évolution du volume d'eau (par rapport au volume minimum). En-dessous du premier graphique, un deuxième graphique montre pour le même réservoir l'évolution de la charge dans le réseau de la source jusqu'au réservoir pour des instants fixés. Ainsi que la hauteur dans chaque noeud de ce chemin (pour comparaison). La charge est nécessairement décroissante dans le chemin de la source au réservoir. Une des contraintes est que la charge doit toujours être supérieure à la hauteur.
+            ''',
+            unsafe_allow_html=True
+        )
     liste_reservoir = data_set['r']['n']
-    liste_columns = st.columns(len(liste_reservoir))
-    for i,reservoir in enumerate(liste_reservoir):
-        with liste_columns[i]:
-            st.plotly_chart(Etat_reservoir(data_variable,data_set,data_parameter,reservoir),use_container_width=True)
-            st.plotly_chart(Chemin_charge(data_parameter,data_variable,data_set,reservoir),use_container_width=True)
+    k = len(liste_reservoir)//4
+    # st.text(f"{liste_reservoir[0:4]}")
+    for s in range(k):
+        print(s)
+        liste_columns = st.columns(4)
+        for i,reservoir in enumerate(liste_reservoir[s*4:(s+1)*4]):
+            with liste_columns[i%4]:
+                st.plotly_chart(Etat_reservoir(data_variable,data_set,data_parameter,reservoir),use_container_width=True)
+                st.plotly_chart(Chemin_charge(data_parameter,data_variable,data_set,reservoir),use_container_width=True)
