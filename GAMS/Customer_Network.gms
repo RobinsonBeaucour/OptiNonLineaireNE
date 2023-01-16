@@ -119,15 +119,15 @@ Ppompe(c,d,t)       Puissance électrique de la pompe (k) à (t) en (kW)
 v(n,t)              Volume au réservoir (r) en (t)
 Son(c,d,t)          Statu     t de la pompe (k) fonctionne à (t)
 z                   Coût exploitation final;
-      
-v.up(r,t)      =    vmax(r);
+
+v.up(r,t)      =    vmax(r)*1.1;
 v.lo(r,t)      =    vmin(r);
 * v.fx(r,'t1')   =    vinit(r);
 
 Positive variables Qpompe, Ppompe, Charge, Qpipe, Gpompe;
 Binary variable Son;
-  
-Son.fx('small',d,t)$k('small',d)    =    0;
+
+* Son.fx('small',d,t)$k('small',d)    =    0;
 Son.fx('large',d,t)$k('large',d)    =    1;     
 
 
@@ -164,7 +164,7 @@ model Optim_production / all /;
 * model Optim_production / Noeud, Satisfaction_demande, Elec_pompe, Qpompe_inf, Qpompe_sup, obj, Debit_s /;
 
 
-Option optcr = 0.5;
+Option optcr = 0.1;
 * Option resLim=600;
 solve Optim_production using minlp minimizing z;
 * Option MINLP = Gurobi;

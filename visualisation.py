@@ -351,6 +351,71 @@ def Chemin_charge(data_parameter,data_variable,data_set,n):
     )
     return fig
 
+def Relaxation_courbe(data_variable,data_parameter):
+    Qmax = int(data_variable['Qpompe']['Value'].max()*1.1)
+    X = np.linspace(0,Qmax,Qmax)
+    Y = data_parameter['psi'][data_parameter['psi']['degree']==2]['Value'].iloc[0]*X**2 + data_parameter['psi'][data_parameter['psi']['degree']==0]['Value'].iloc[0]
+    color_map = {
+        'small' : 'blue',
+        'large' : 'red'
+    }
+    fig = go.Figure()
+    for c in data_variable['Qpompe']['c'].unique():
+        fig.add_trace(
+            go.Scatter(
+                x = X,
+                y = data_parameter['psi'][(data_parameter['psi']['degree']==2)&(data_parameter['psi']['c']==c)]['Value'].iloc[0]*X**2 + data_parameter['psi'][(data_parameter['psi']['degree']==0)&(data_parameter['psi']['c']==c)]['Value'].iloc[0],
+                marker_color = color_map[c],
+                name = f'Courbe de gain de charge théorique {c}'
+            )
+        )
+    for c in data_variable['Qpompe']['c'].unique():
+        for d in data_variable['Qpompe']['d'].unique():
+            fig.add_trace(
+                go.Scatter(
+                    x               =   data_variable['Qpompe'][(data_variable['Qpompe']['c']==c)&(data_variable['Qpompe']['d']==d)]['Value'],
+                    y               =   data_variable['Charge'][data_variable['Charge']['n']=='s']['Value'],
+                    marker_color    =   color_map[c],
+                    name            =   f"Débit {c},{d}",
+                    mode='markers'
+                )
+            )
+    fig.update_layout(
+        height= 800,
+        hovermode='y',
+        yaxis_title = "Charge",
+        xaxis_title = "Débit",
+        title = "Charge en fonction du débit à chaque instant"
+    )
+    return fig
+
+def Relaxation_boxplot(data_variable,data_parameter):
+    color_map   =   {
+        'p1'    :   'red',
+        'p2'    :   'blue',
+        'p3'    :   'green',
+        'p4'    :   'magenta',
+    }
+    débit_pompe = {}
+    for c in data_variable['Qpompe']['c'].unique():
+        for d in data_variable['Qpompe'][data_variable['Qpompe']['c']==c]['d'].unique():
+            débit_pompe[(c,d)] = (data_variable['Charge'][data_variable['Charge']['n']=='s']['Value'].to_numpy()/(data_parameter['psi'].query(f"c=='{c}' & degree==0")['Value'].iloc[0] + data_parameter['psi'].query(f"c=='{c}' & degree==2")['Value'].iloc[0]*data_variable['Qpompe'].query(f"c=='{c}' & d=='{d}'")['Value'].to_numpy()**2) - 1)
+    
+    fig = go.Figure()
+    for pompe in débit_pompe:
+        fig.add_trace(
+            go.Box(
+                y=débit_pompe[pompe][data_variable['Qpompe'].query(f"c=='{pompe[0]}' & d=='{pompe[1]}'")['Value'].to_numpy() > 0], name=f"{pompe}",
+                marker_color=color_map[pompe[1]],
+                boxpoints='all'
+            ))
+    fig.update_layout(title = "Ecart relatif sur la charge des pompes induit par la relaxation convexe")
+
+    return fig
+
+    
+
+
 st.set_page_config(layout="wide")
 
 comparaison = st.checkbox("Comparaison")
@@ -367,6 +432,11 @@ if comparaison:
         st.plotly_chart(Pompe_RDE(data_variable,Z,True),use_container_width=True)
 
         st.plotly_chart(Charge_RDE(data_variable,Z),use_container_width=True)
+
+        st.plotly_chart(Relaxation_courbe(data_variable=data_variable,data_parameter=data_parameter),use_container_width=True)
+
+        st.plotly_chart(Relaxation_boxplot(data_variable=data_variable,data_parameter=data_parameter),use_container_width=True)
+
     with col_2:
         file2    =   "./data_results/" + st.selectbox("Résultat 2",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
         Z2 = np.round(pd.read_excel(file2,sheet_name='Scalar').iloc[8,2],4)
@@ -378,6 +448,10 @@ if comparaison:
         st.plotly_chart(Pompe_RDE(data_variable2,Z2,True),use_container_width=True)
 
         st.plotly_chart(Charge_RDE(data_variable2,Z2),use_container_width=True)
+
+        st.plotly_chart(Relaxation_courbe(data_variable=data_variable2,data_parameter=data_parameter2),use_container_width=True)
+
+        st.plotly_chart(Relaxation_boxplot(data_variable=data_variable2,data_parameter=data_parameter2),use_container_width=True)
 
 else:
     file    =   "./data_results/" + st.selectbox("Résultat",options=[file for file in os.listdir('./data_results') if file.endswith('.xlsx')])
@@ -446,3 +520,7 @@ else:
             with liste_columns[i%4]:
                 st.plotly_chart(Etat_reservoir(data_variable,data_set,data_parameter,reservoir),use_container_width=True)
                 st.plotly_chart(Chemin_charge(data_parameter,data_variable,data_set,reservoir),use_container_width=True)
+    
+    st.plotly_chart(Relaxation_courbe(data_variable=data_variable,data_parameter=data_parameter),use_container_width=True)
+
+    st.plotly_chart(Relaxation_boxplot(data_variable=data_variable,data_parameter=data_parameter),use_container_width=True)
