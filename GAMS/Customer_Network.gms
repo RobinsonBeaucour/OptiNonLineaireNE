@@ -154,7 +154,7 @@ Ordre_pompe(k(c,d),t) ..      Son(c,d+1,t)                       =l=  Son(c,d,t)
 Qpompe_inf(k,t) ..            Qpompe(k,t)                        =g=  Son(k,t)*Qmin(k);
 Qpompe_sup(k,t) ..            Qpompe(k,t)                        =l=  Son(k,t)*Qmax(k);
 obj ..                        z                                  =e=  sum((k,t), Ppompe(k,t)*tariff(t));
-Charge_s("s",k(c,d),t) ..     Charge("s",t)                      =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2 + 70*(1-Son(k,t));
+Charge_s("s",k(c,d),t) ..     Charge("s",t)                      =l=  psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2 + 179*(1-Son(k,t));
 Charge_j(j,t) ..              Charge(j,t)                        =g=  height(j);
 Charge_r(r,t) ..              Charge(r,t)                        =g=  height(r) + v(r,t)/surface(r);
 Debit_s(t) ..                 sum(n$l("s",n), Qpipe("s",n,t))    =e=  sum(k, Qpompe(k,t));
