@@ -5,11 +5,14 @@
 \usepackage{geometry}
 \usepackage{stmaryrd}
 \usepackage[table]{xcolor}
+\usepackage[french]{babel}
 \usepackage{fancybox}
 \usepackage{tikz}
 \usepackage{listings}
 \usepackage{adjustbox}
 \usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{lipsum}
 \usetikzlibrary{positioning}
 \geometry{a4paper,left=25mm,right=25mm,top=20mm}
 
@@ -21,6 +24,19 @@
 
 \maketitle
 
+\vspace{2cm}
+
+\begin{abstract}
+    Ce document fournit les méthodes et les résultats du projet d'optimisation non-linéaire réalisé dans le cadre du Mastère Spécialisé en Optimisation des Systèmes Energétiques de Mines ParisTech.
+    Ce document fournit une decription du problème d'optimisation traité, discute des relaxations réalisées pour rendre le problème plus facilement résoluble. L'algorithme solveur et les solutions qu'il renvoit sont ensuite discuté.
+\end{abstract}
+
+
+\clearpage  
+
+\begin{center}
+    \large \textbf{4WT Problem}
+\end{center}
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}[main/.style = {draw, circle}] 
@@ -41,7 +57,7 @@
     \caption{Réseau de distribution simple}
 \end{figure}
 
-\paragraph{Variables de décision}
+\textbf{Variables de décision}
 $$
 \left.
     \begin{array}{lll}
@@ -56,7 +72,7 @@ $$
     \end{array}
 \right.
 $$
-\paragraph{Contraintes}
+\textbf{Contraintes}
 \begin{equation}
     \tag{Equilibre flux}  
     \left.
@@ -79,7 +95,7 @@ $$
     \tag{Conso. élec pompe}  
     \left.
         \begin{array}{lccc}
-            \forall t, \forall k   &   P_{pompe,t}^{(k)}     & \geq &   \Gamma_0^{k}S_{on,t}^{(k)} + \Gamma_1^{(k)}Q_{pompe,t}^{(k)}\\[0.2cm]
+            \forall t, \forall k   &   P_{pompe,t}^{(k)}     & = &   \Gamma_0^{k}S_{on,t}^{(k)} + \Gamma_1^{(k)}Q_{pompe,t}^{(k)}\\[0.2cm]
         \end{array}
     \right.
 \end{equation}
@@ -88,7 +104,7 @@ $$
     \tag{Gain charge pompe}
     \left.
         \begin{array}{lccc}
-            \forall t, \forall k   &   G_{pompe,t}^{(k)}     & \leq &   \psi_0^{k}S_{on,t}^{(k)} + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2\\[0.2cm]
+            \forall t, \forall k   &   G_{pompe,t}^{(k)}     & = &   \psi_0^{k}S_{on,t}^{(k)} + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2\\[0.2cm]
         \end{array}
     \right.
 \end{equation}
@@ -106,7 +122,7 @@ $$
     \tag{Charge source}
     \left.
         \begin{array}{lcccc}
-            \forall t, \forall n,n'   &   0 & \leq & (\sum_k S_{on,t}^{(k)})    (G_{pompe,t}^{(k)}-C_t^{(s)})\\[0.2cm]
+            \forall t, \forall n,n'   &   0 & = & (\sum_k S_{on,t}^{(k)})    (G_{pompe,t}^{(k)}-C_t^{(s)})\\[0.2cm]
         \end{array}
     \right.
 \end{equation}
@@ -139,9 +155,46 @@ $$
         Charge_s("s",t) .. 0 =l= (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
     \end{lstlisting}
 \end{adjustbox}
-
-\paragraph{Objectif}
+\clearpage
+\textbf{Objectif}
 $$
     \text{Minimiser }   \sum_t \sum_k P_{pompe,t}^{(k)}\cdot C_t
 $$
+
+\textbf{Amélioration de la résolvance du problème}
+\begin{multicols}{2}
+    Le problème est initialement non-linéaire en nombre entier et non convexe. Ce qui rend les solutions difficiles à trouver. Pour améliorer la résolvance du problème, il est possible de limiter le nombre de combinaisons de nombre entier possible par l'équation :
+    \begin{equation}
+        \tag{Symétrie}
+        \forall k, \forall t, S_{on,t}^{(k+1)}\leq S_{on,t}^{(k)}
+    \end{equation}
+    Plusieurs relaxations convexes permettent de rendre le problème convexe, ce qui permet de considérablement réduire le temps pour trouver une solution optimale.
+\end{multicols}
+Relaxation convexe:
+\begin{equation}
+    \tag{Gain charge pompe relax.}
+    \left.
+        \begin{array}{lccc}
+            \forall t, \forall k   &   G_{pompe,t}^{(k)}     & \leq &   \psi_0^{k}S_{on,t}^{(k)} + \psi_2^{(k)}(Q_{pompe,t}^{(k)})^2\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+\begin{equation}
+    \tag{Perte charge flux relax.}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall n,n'   &   C_t^{(n)}  - C_t^{(n')}    & \leq &   \phi_1^{(n,n')}Q_{jonction,t}^{(n,n')} + \phi_2^{(n,n')}(Q_{jonction,t}^{(n,n')})^2\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
+\begin{equation}
+    \tag{Charge source relax.}
+    \left.
+        \begin{array}{lcccc}
+            \forall t, \forall n,n'   &   C_t^{(s)} & = & G_{pompe,t}^{(k)} + M S_{on,t}^{(k)}\\[0.2cm]
+        \end{array}
+    \right.
+\end{equation}
 \end{document}
+
+
