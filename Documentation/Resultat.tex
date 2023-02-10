@@ -54,7 +54,7 @@
         \draw   [line width=0.5mm]  (j_2)   --  (r_2);
         \draw   [line width=0.5mm]  (j_2)   --  (r_3);
     \end{tikzpicture}
-    \caption{Réseau de distribution simple}
+    \caption{Réseau de distribution simple (4WT)}
 \end{figure}
 
 \textbf{Variables de décision}
@@ -149,7 +149,7 @@ $$
 \begin{adjustbox}{max width=\textwidth}
     \begin{lstlisting}
         Noeud(j,t) .. sum(n$l(j,n), Qpipe(j,n,t)) =e=  sum(n$l(n,j), Qpipe(n,j,t));
-        Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t) =e= 1 * (sum=(n$l(n,r),Qpipe(n,r,t))-demand(r,t));
+        Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t) =e= 1 * (sum=(n\$l(n,r),Qpipe(n,r,t))-demand(r,t));
         Elec_pompe(k(c,d),t) .. Ppompe(k,t) =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
         Gain_charge_pompe(k(c,d),t) .. Gpompe(k,t) =l= psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
         Charge_s("s",t) .. 0 =l= (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
@@ -168,7 +168,8 @@ $$
         \tag{Symétrie}
         \forall k, \forall t, S_{on,t}^{(k+1)}\leq S_{on,t}^{(k)}
     \end{equation}
-    Plusieurs relaxations convexes permettent de rendre le problème convexe, ce qui permet de considérablement réduire le temps pour trouver une solution optimale.
+    Plusieurs relaxations convexes permettent de rendre le problème convexe, ce qui permet de considérablement réduire le temps pour trouver une solution optimale.\\
+    Par ailleurs, l'équation définissant la charge au niveau de la source peut être linéarisée par l'introduction d'un majorant $M$ déterminé par le charge maximale que les pompes peuvent fournir.
 \end{multicols}
 Relaxation convexe:
 \begin{equation}
@@ -195,6 +196,9 @@ Relaxation convexe:
         \end{array}
     \right.
 \end{equation}
+\textbf{Méthode de résolution}\\
+\textbf{Résultats}\\
+\textbf{Discussion}\\
 \end{document}
 
 
