@@ -12,6 +12,7 @@
 \usepackage{adjustbox}
 \usepackage{amsmath}
 \usepackage{multicol}
+\usepackage{multicol-floats}
 \usepackage{lipsum}
 \usetikzlibrary{positioning}
 \geometry{a4paper,left=25mm,right=25mm,top=20mm}
@@ -197,7 +198,24 @@ Relaxation convexe:
     \right.
 \end{equation}
 \textbf{Méthode de résolution}\\
+\begin{multicols}{2}
+    Le problème est retranscrit dans un fichier GAMS. La solution au problème est acquise en utilisant le solver BARON sur les serveurs NEOS (https://neos-server.org/neos/solvers/minco:BARON/GAMS.html).\\
+    Le serveur NEOS propose BARON pour la solution des problèmes d'optimisation à contraintes non linéaires d'entiers mixtes et des problèmes d'optimisation globale. Les problèmes pour BARON peuvent être soumis sur NEOS au format AMPL ou GAMS.\\
+    BARON est un système de calcul pour résoudre des problèmes d'optimisation non convexes à l'optimalité globale. Les problèmes non linéaires purement continus, purement entiers et mixtes peuvent être résolus avec le logiciel. Le navigateur d'optimisation de branche et de réduction tire son nom de la combinaison de la propagation des contraintes, de l'analyse d'intervalle et de la dualité dans son arsenal de réduction avec des concepts de branche et de liaison améliorés alors qu'il serpente à travers les collines et les vallées de problèmes d'optimisation complexes à la recherche de solutions globales.\\
+    Le solver renvoie une solution réalisable dont l'écart
+    du coût avec le coût de la solution optimale est majoré. Cette majoration est garantie par la majoration de l'écart entre la solution réalisable et la solution optimale pour le problème relaxé (nombre entier relaxé).
+\end{multicols}
+
 \textbf{Résultats}\\
+
+\begin{multicols}{2}
+\lipsum[1]
+\multicolfloat{1}{2}{\centering
+  \includegraphics{images/4WT_tol05_state.PNG}
+%  \captionof{figure}{A test}
+}
+\end{multicols}
+\lipsum[1]
 \textbf{Discussion}\\
 \end{document}
 
