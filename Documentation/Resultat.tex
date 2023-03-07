@@ -12,12 +12,12 @@
 \usepackage{adjustbox}
 \usepackage{amsmath}
 \usepackage{multicol}
-\usepackage{multicol-floats}
+% \usepackage{multicol-floats}
 \usepackage{lipsum}
 \usetikzlibrary{positioning}
-\geometry{a4paper,left=25mm,right=25mm,top=20mm}
+\geometry{a4paper,left=20mm,right=20mm,top=20mm}
 
-\title{Planification du pompage dans un réseau de distribution d'eau potable ramifié\\-\\Optimisation non-linéaire en nombre entier}
+\title{Planification du pompage dans un réseau de distribution d'eau potable ramifié\\-\\Optimisation non-linéaire en nombres entiers}
 \author{Robinson Beaucour}
 \date{Décembre 2022}
 
@@ -28,7 +28,7 @@
 \vspace{2cm}
 
 \begin{abstract}
-    Ce document fournit les méthodes et les résultats du projet d'optimisation non-linéaire réalisé dans le cadre du Mastère Spécialisé en Optimisation des Systèmes Energétiques de Mines ParisTech.
+    Ce document fournit les méthodes et les résultats du projet d'optimisation non-linéaire en nombres entiers réalisé dans le cadre du Mastère Spécialisé en Optimisation des Systèmes Energétiques de Mines ParisTech.
     Ce document fournit une decription du problème d'optimisation traité, discute des relaxations réalisées pour rendre le problème plus facilement résoluble. L'algorithme solveur et les solutions qu'il renvoit sont ensuite discuté.
 \end{abstract}
 
@@ -36,7 +36,7 @@
 \clearpage  
 
 \begin{center}
-    \large \textbf{4WT Problem}
+    \large \textbf{Daily Water Distribution Problem}
 \end{center}
 \begin{figure}[h]
     \centering
@@ -147,24 +147,25 @@ $$
 \end{equation}
     
 % \underline{GAMS :}\\
-\begin{adjustbox}{max width=\textwidth}
-    \begin{lstlisting}
-        Noeud(j,t) .. sum(n$l(j,n), Qpipe(j,n,t)) =e=  sum(n$l(n,j), Qpipe(n,j,t));
-        Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t) =e= 1 * (sum=(n\$l(n,r),Qpipe(n,r,t))-demand(r,t));
-        Elec_pompe(k(c,d),t) .. Ppompe(k,t) =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
-        Gain_charge_pompe(k(c,d),t) .. Gpompe(k,t) =l= psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
-        Charge_s("s",t) .. 0 =l= (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
-    \end{lstlisting}
-\end{adjustbox}
-\clearpage
+% \begin{adjustbox}{max width=\textwidth}
+%     \begin{lstlisting}
+%         Noeud(j,t) .. sum(n$l(j,n), Qpipe(j,n,t)) =e=  sum(n$l(n,j), Qpipe(n,j,t));
+%         Satisfaction_demande(r,t) ..  v(r,t) - v(r,t-1) - vinit(r,t) =e= 1 * (sum=(n\$l(n,r),Qpipe(n,r,t))-demand(r,t));
+%         Elec_pompe(k(c,d),t) .. Ppompe(k,t) =g=  gamma(c,"0") * Son(k,t) + gamma(c,"1")*Qpompe(k,t);
+%         Gain_charge_pompe(k(c,d),t) .. Gpompe(k,t) =l= psi(c,"0") * Son(k,t) + psi(c,"2")*Qpompe(k,t)**2;
+%         Charge_s("s",t) .. 0 =l= (sum(k, Gpompe(k,t))-Charge("s",t))*sum(k, Son(k,t));
+%     \end{lstlisting}
+% \end{adjustbox}
+% \clearpage
 \textbf{Objectif}
 $$
     \text{Minimiser }   \sum_t \sum_k P_{pompe,t}^{(k)}\cdot C_t
 $$
-
+\clearpage
 \textbf{Amélioration de la résolvance du problème}
 \begin{multicols}{2}
-    Le problème est initialement non-linéaire en nombre entier et non convexe. Ce qui rend les solutions difficiles à trouver. Pour améliorer la résolvance du problème, il est possible de limiter le nombre de combinaisons de nombre entier possible par l'équation :
+
+    Le problème est initialement non-linéaire en nombres entiers et non convexe. Ce qui rend les solutions difficiles à trouver. Pour améliorer la résolvance du problème, il est possible de limiter le nombre de combinaisons de nombres entiers possible par l'équation :
     \begin{equation}
         \tag{Symétrie}
         \forall k, \forall t, S_{on,t}^{(k+1)}\leq S_{on,t}^{(k)}
@@ -172,6 +173,7 @@ $$
     Plusieurs relaxations convexes permettent de rendre le problème convexe, ce qui permet de considérablement réduire le temps pour trouver une solution optimale.\\
     Par ailleurs, l'équation définissant la charge au niveau de la source peut être linéarisée par l'introduction d'un majorant $M$ déterminé par le charge maximale que les pompes peuvent fournir.
 \end{multicols}
+
 Relaxation convexe:
 \begin{equation}
     \tag{Gain charge pompe relax.}
@@ -197,26 +199,64 @@ Relaxation convexe:
         \end{array}
     \right.
 \end{equation}
+\begin{multicols}{2}
+    Pour obtenir de premiers résultats rapidement plusieurs calculs ont des variables binaires fixées. Cette approche permet de réduire les combinaisons binaires à explorer. En contrepartie la solution obtenue peut être éloignée de la solution optimale ou non-faisable. Dans le problème de ce projet il est intéressant de fixer les pompes allumées la nuit.
+\end{multicols}
 \textbf{Méthode de résolution}\\
 \begin{multicols}{2}
     Le problème est retranscrit dans un fichier GAMS. La solution au problème est acquise en utilisant le solver BARON sur les serveurs NEOS (https://neos-server.org/neos/solvers/minco:BARON/GAMS.html).\\
     Le serveur NEOS propose BARON pour la solution des problèmes d'optimisation à contraintes non linéaires d'entiers mixtes et des problèmes d'optimisation globale. Les problèmes pour BARON peuvent être soumis sur NEOS au format AMPL ou GAMS.\\
     BARON est un système de calcul pour résoudre des problèmes d'optimisation non convexes à l'optimalité globale. Les problèmes non linéaires purement continus, purement entiers et mixtes peuvent être résolus avec le logiciel. Le navigateur d'optimisation de branche et de réduction tire son nom de la combinaison de la propagation des contraintes, de l'analyse d'intervalle et de la dualité dans son arsenal de réduction avec des concepts de branche et de liaison améliorés alors qu'il serpente à travers les collines et les vallées de problèmes d'optimisation complexes à la recherche de solutions globales.\\
     Le solver renvoie une solution réalisable dont l'écart
-    du coût avec le coût de la solution optimale est majoré. Cette majoration est garantie par la majoration de l'écart entre la solution réalisable et la solution optimale pour le problème relaxé (nombre entier relaxé).
+    du coût avec le coût de la solution optimale est majoré. Cette majoration est garantie par la majoration de l'écart entre la solution réalisable et la solution optimale pour le problème relaxé (nombre entier relaxé).\\
+    Deux problèmes sont abordés le \textit{4WT} et le \textit{Customer Network}. Le \textit{4WT} est constitué de 3 pompes identiques à la source et de 4 réservoirs. Le \textit{Customer Network} est beaucoup plus complexe avec deux type de pompe et beaucoup plus de réservoirs.
 \end{multicols}
+
 
 \textbf{Résultats}\\
 
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+        \hline
+        Problème    &   Relaxation Convexe    &   Coût    &   Temps   &   Tolérance Relative \\
+        \hline
+        4WT    &   Oui    &   11.00    &   84s   &   0.05 \\
+        \hline
+        4WT    &   Non    &   11.43    &   $\sim$ 20 min   &   0.5 \\
+        \hline
+        Customer Network    & \small  Oui + relaxation sur le volume des réservoirs    &   424    &   6s   &   0.1 \\
+        \hline
+        Customer Network    &   Non    &   X    &   X   &   X \\
+        \hline
+    \end{tabular}
+    \caption{Résumé des résultats obtenus}
+    \label{tab:resume}
+\end{table}
 \begin{multicols}{2}
-\lipsum[1]
-\multicolfloat{1}{2}{\centering
-  \includegraphics{images/4WT_tol05_state.PNG}
-%  \captionof{figure}{A test}
-}
+    La table \ref{tab:resume} affiche les principaux résultats. Elle donne les résultats selon le problème traité et la présence de relaxations convexes. L'annulation des relaxations convexes impliquent un temps de calcul nettement plus important de la solution renvoyée. Une relaxation sur le volume des réservoirs est introduite pour le problème \textit{Customer Network}, le volume des réservoirs est augmentée de 50\%.
 \end{multicols}
-\lipsum[1]
-\textbf{Discussion}\\
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/4WT_tol05_state.PNG}
+    \caption{Etat des pompes pour le problème \textit{4WT}}
+\end{figure}
+
+\clearpage
+
+\textbf{Conclusion}\\
+\begin{multicols}{2}
+En résumé, ce projet vise à résoudre un problème non-linéaire en nombre entier d'optimisation de gestion du réseau de distribution d'eau.\\
+Pour rendre le problème plus facilement solvable des relaxations sont adoptées afin que le problème devienne convexe.\\
+Par ailleurs une tolérance est accepté pour que la solution renvoyée soit réalisable et suffisament proche de l'optimalité.\\
+La relaxation convexe est cruciale pour réduire le temps de calcul d'une solution.
+Le projet peut être poursuivi sur plusieurs points. Il est envisageable d'étudier plusieurs solver pour trouver des solutions.\\
+Le modèle peut étudier des périodes plus longues.
+\columnbreak
+\vfill{~}
+\end{multicols}
 \end{document}
 
 
